@@ -1,0 +1,694 @@
+﻿<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🏫 2 Timer med Rasmus 👹</title>
+    <link rel="icon" href="data:,">
+    <style>
+        * {
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            background: linear-gradient(145deg, #1a0f0c, #0d0705);
+            min-height: 100vh;
+            font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+
+        /* ========== HOVEDMENU ========== */
+        .menu-container {
+            max-width: 650px;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(20, 15, 25, 0.98), rgba(10, 8, 15, 0.98));
+            backdrop-filter: blur(15px);
+            border-radius: 60px;
+            padding: 45px 35px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 0 0 2px rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(255, 180, 70, 0.5);
+            text-align: center;
+        }
+
+
+        .game-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffd700, #ff8c00, #ff4444);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+
+        .game-subtitle {
+            color: #c8a86e;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            padding-bottom: 20px;
+        }
+
+
+        .menu-btn {
+            width: 100%;
+            padding: 20px 30px;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, #1e160e, #140f0a);
+            border: 2px solid #a07818;
+            border-radius: 50px;
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 6px 0 #5a4310, 0 8px 20px rgba(0, 0, 0, 0.4);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+
+        .menu-icon {
+            font-size: 2.5rem;
+            min-width: 50px;
+            text-align: center;
+        }
+
+
+        /* ========== SPIL CONTAINER ========== */
+        .game-container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+
+        .classroom-view {
+            background: linear-gradient(135deg, #2d1b0e, #1a0f07);
+            border-radius: 40px;
+            padding: 30px;
+            border: 3px solid #8B6914;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+
+        .students-row {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+
+        .student {
+            text-align: center;
+            color: #ffd700;
+        }
+
+
+        .student-emoji {
+            font-size: 3rem;
+        }
+
+
+        .clock-display {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            padding: 15px 25px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+
+        .clock-time {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+
+        .laptop-screen {
+            background: #1a1a2e;
+            border-radius: 20px;
+            padding: 30px;
+            border: 4px solid #16213e;
+            margin-top: 30px;
+            min-height: 400px;
+        }
+
+
+        /* ========== VALG-MENUER ========== */
+        .choice-container {
+            max-width: 700px;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(20, 15, 25, 0.98), rgba(10, 8, 15, 0.98));
+            backdrop-filter: blur(15px);
+            border-radius: 60px;
+            padding: 40px 35px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 180, 70, 0.5);
+        }
+
+
+        .choice-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+
+        .option-card {
+            background: rgba(30, 25, 35, 0.9);
+            border: 2px solid #6b4c1a;
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+
+        .option-card.selected {
+            border-color: #ffd700;
+            background: rgba(50, 45, 55, 1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+
+        .option-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+
+        .option-desc {
+            color: #c8a86e;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+
+        .action-btn {
+            flex: 1;
+            padding: 18px;
+            background: linear-gradient(135deg, #1e160e, #140f0a);
+            border: 2px solid #a07818;
+            border-radius: 50px;
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 5px 0 #5a4310;
+            text-align: center;
+        }
+
+
+        .action-btn.confirm {
+            background: linear-gradient(135deg, #4CAF50, #2e7d32);
+            border-color: #8bc34a;
+            color: white;
+        }
+
+
+        .action-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+
+        .hidden {
+            display: none !important;
+        }
+
+
+        /* ========== MINI-SPIL ========== */
+        .pizza-game {
+            text-align: center;
+        }
+
+
+        .customer-bubble {
+            background: white;
+            border-radius: 30px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+
+        .ingredients-panel {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+
+        .ingredient-btn {
+            background: #e48f2b;
+            border: none;
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #784a1a;
+        }
+
+
+        .selected-ingredients {
+            font-size: 2rem;
+            margin: 20px 0;
+            min-height: 50px;
+        }
+
+
+        .progress-bar {
+            background: #1a1208;
+            height: 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8bc34a);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+
+        /* ========== KAMERA ========== */
+        .camera-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+
+        .camera-room {
+            background: #0f3460;
+            border: 2px solid #e94560;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+        }
+
+
+        .camera-room.blind {
+            border-color: #ffd700;
+        }
+
+
+        .camera-view {
+            background: #0f3460;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            min-height: 350px;
+        }
+
+
+        .back-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: #e48f2b;
+            border: none;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+
+        .rasmus-warning {
+            color: #ff4444;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            animation: pulse 1s infinite;
+        }
+
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- HOVEDMENU -->
+<div id="mainMenu" class="menu-container">
+    <div class="game-title">🏫 2 TIMER MED RASMUS</div>
+    <div class="game-subtitle">Overlev vagten · Lav pizzaer · Undgå Rasmus</div>
+
+
+    <button class="menu-btn" id="newGameBtn">
+        <span class="menu-icon">🆕</span>
+        <span>NYT SPIL</span>
+    </button>
+</div>
+
+
+<!-- VÆLG BONUS TYPE -->
+<div id="bonusChoice" class="choice-container hidden">
+    <div class="choice-title">🎁 VÆLG BONUS TYPE</div>
+
+
+    <div class="option-card" data-bonus="faster">
+        <div class="option-title">⏰ HURTIGERE TID</div>
+        <div class="option-desc">Tiden går 1.5% hurtigere mens du spiller mini-spillet.</div>
+    </div>
+
+
+    <div class="option-card" data-bonus="reduce">
+        <div class="option-title">⏳ TRÆK TID FRA TIMMEREN</div>
+        <div class="option-desc">Når du når 100% i mini-spillet, trækkes der 5 minutter fra timeren!</div>
+    </div>
+
+
+    <div class="action-buttons">
+        <button class="action-btn" id="bonusBack">◀ TILBAGE</button>
+        <button class="action-btn disabled" id="bonusConfirm" disabled>🔒 VÆLG EN BONUS</button>
+    </div>
+</div>
+
+
+<!-- VÆLG SVÆRHEDSGRAD -->
+<div id="difficultyChoice" class="choice-container hidden">
+    <div class="choice-title">🎚️ VÆLG SVÆRHEDSGRAD</div>
+
+
+    <div class="option-card" data-difficulty="easy">
+        <div class="option-title">😊 LET</div>
+        <div class="option-desc">Rasmus er langsom. God til begyndere.</div>
+    </div>
+
+
+    <div class="option-card" data-difficulty="normal">
+        <div class="option-title">😐 NORMAL</div>
+        <div class="option-desc">Standard oplevelse. Balanceret udfordring.</div>
+    </div>
+
+
+    <div class="option-card" data-difficulty="hard">
+        <div class="option-title">😬 LIDT SVÆR</div>
+        <div class="option-desc">Rasmus er hurtigere. For erfarne spillere.</div>
+    </div>
+
+
+    <div class="option-card" data-difficulty="expert">
+        <div class="option-title">😰 SVÆR</div>
+        <div class="option-desc">Rasmus er MEGET hurtig. Kun for de bedste!</div>
+    </div>
+
+
+    <div class="action-buttons">
+        <button class="action-btn" id="difficultyBack">◀ TILBAGE</button>
+        <button class="action-btn disabled" id="difficultyConfirm" disabled>🔒 VÆLG SVÆRHEDSGRAD</button>
+    </div>
+</div>
+
+
+<!-- SPIL CONTAINER -->
+<div id="gameContainer" class="game-container hidden">
+    <div class="classroom-view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <button class="back-btn" id="exitToMenu">🚪 TILBAGE</button>
+            <div class="clock-display">
+                <span class="clock-time" id="gameClock">13:00</span>
+                <span style="color: #c8a86e; margin-left: 15px;">📅 Dag <span id="currentDay">1</span></span>
+                <span style="color: #ffd700; margin-left: 15px;">⏳ <span id="timeRemaining">2t 0m</span></span>
+            </div>
+        </div>
+
+
+        <div class="students-row">
+            <div class="student"><div class="student-emoji">🐐</div>Aksel</div>
+            <div class="student"><div class="student-emoji">🐄</div>Carl</div>
+            <div class="student"><div class="student-emoji">🍕</div>Saleh</div>
+            <div class="student"><div class="student-emoji">👨‍🌾</div>Johannes</div>
+            <div class="student"><div class="student-emoji">💼</div>Marcus</div>
+            <div class="student"><div class="student-emoji">🏃</div>William</div>
+        </div>
+
+
+        <div style="text-align: center; margin: 30px 0;">
+            <div class="clock-display" style="display: inline-block;">
+                <span id="laptopStatus">💻 LEKTIE</span>
+            </div>
+        </div>
+
+
+        <div id="laptopScreen" class="laptop-screen">
+            <div id="homeworkView">
+                <div style="text-align: center; color: #c8a86e; font-size: 1.5rem;">📚 DU LAVER LEKTIER 📚</div>
+                <div style="text-align: center; color: #8B6914; margin-top: 20px;">Tryk H for at spille 🎮 | Tryk D for kamera 📷</div>
+            </div>
+
+
+            <div id="miniGameView" class="pizza-game hidden">
+                <div class="customer-bubble">
+                    <div style="font-size: 2rem;" id="customerEmoji">🐐</div>
+                    <div style="font-weight: bold; font-size: 1.3rem;" id="customerName">Aksel</div>
+                    <div id="customerOrder">"En pizza med dej og ost tak!"</div>
+                </div>
+                <div class="ingredients-panel">
+                    <button class="ingredient-btn" data-ingredient="dej">🍞 DEJ</button>
+                    <button class="ingredient-btn" data-ingredient="ost">🧀 OST</button>
+                </div>
+                <div class="selected-ingredients" id="selectedIngredientsDisplay"></div>
+                <button class="action-btn" id="bakePizzaBtn" style="margin: 10px 0;">🔥 BAG PIZZA</button>
+                <button class="action-btn" id="resetPizzaBtn" style="margin: 10px 0;">🔄 FORT RYD</button>
+                <div class="progress-bar"><div class="progress-fill" id="pizzaProgress"></div></div>
+                <div id="pizzaCount">0/10 pizzaer</div>
+                <button class="action-btn" id="exitMiniGame" style="margin-top: 20px;">◀ TILBAGE (H)</button>
+            </div>
+
+
+            <div id="cameraView" class="hidden">
+                <div id="cameraGrid" class="camera-grid"></div>
+                <div id="singleCameraView" class="camera-view hidden"></div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="action-btn" id="playSoundBtn" disabled>🔊 AFSPIL LYD (20s)</button>
+                    <button class="action-btn" id="exitCamera">◀ TILBAGE (D)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    console.log('🚀 SPIL STARTER...');
+
+
+    // ========== VIS HOVEDMENU ==========
+    document.getElementById('mainMenu').classList.remove('hidden');
+    document.getElementById('gameContainer').classList.add('hidden');
+    document.getElementById('bonusChoice').classList.add('hidden');
+    document.getElementById('difficultyChoice').classList.add('hidden');
+
+
+    let gameState = {
+        active: false,
+        bonusType: null,
+        difficulty: null,
+        currentDay: 1,
+        timeRemaining: 120 * 60,
+        pizzaCount: 0,
+        selectedIngredients: []
+    };
+
+
+    let selectedBonus = null;
+    let selectedDifficulty = null;
+    let currentView = 'homework';
+    let gameInterval = null;
+
+
+    // ========== NYT SPIL ==========
+    document.getElementById('newGameBtn').addEventListener('click', () => {
+        console.log('🆕 NYT SPIL KLIKKET');
+        document.getElementById('mainMenu').classList.add('hidden');
+        document.getElementById('bonusChoice').classList.remove('hidden');
+    });
+
+
+    document.getElementById('bonusBack').addEventListener('click', () => {
+        document.getElementById('bonusChoice').classList.add('hidden');
+        document.getElementById('mainMenu').classList.remove('hidden');
+    });
+
+
+    // Fiks: Gør konfirm-knappen klikbar når bonus vælges
+    document.querySelectorAll('[data-bonus]').forEach(card => {
+        card.addEventListener('click', () => {
+            document.querySelectorAll('[data-bonus]').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedBonus = card.dataset.bonus;
+            const btn = document.getElementById('bonusConfirm');
+            btn.classList.remove('disabled');
+            btn.disabled = false;
+            btn.innerHTML = '✅ KONFIRMER';
+            btn.classList.add('confirm');
+        });
+    });
+
+
+    document.getElementById('bonusConfirm').addEventListener('click', () => {
+        if (!selectedBonus) return;
+        gameState.bonusType = selectedBonus;
+        document.getElementById('bonusChoice').classList.add('hidden');
+        document.getElementById('difficultyChoice').classList.remove('hidden');
+    });
+
+
+    document.getElementById('difficultyBack').addEventListener('click', () => {
+        document.getElementById('difficultyChoice').classList.add('hidden');
+        document.getElementById('bonusChoice').classList.remove('hidden');
+    });
+
+
+    // Fiks: Gør konfirm-knappen klikbar når sværhedsgrad vælges
+    document.querySelectorAll('[data-difficulty]').forEach(card => {
+        card.addEventListener('click', () => {
+            document.querySelectorAll('[data-difficulty]').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedDifficulty = card.dataset.difficulty;
+            const btn = document.getElementById('difficultyConfirm');
+            btn.classList.remove('disabled');
+            btn.disabled = false;
+            btn.innerHTML = '✅ KONFIRMER';
+            btn.classList.add('confirm');
+        });
+    });
+
+
+    document.getElementById('difficultyConfirm').addEventListener('click', () => {
+        if (!selectedDifficulty) return;
+        gameState.difficulty = selectedDifficulty;
+        startNewGame();
+    });
+
+
+    function startNewGame() {
+        console.log('🎮 STARTER SPIL...');
+        gameState.active = true;
+        gameState.timeRemaining = 120 * 60;
+        
+        document.getElementById('difficultyChoice').classList.add('hidden');
+        document.getElementById('gameContainer').classList.remove('hidden');
+        
+        updateClock();
+        
+        gameInterval = setInterval(() => {
+            if (gameState.active) {
+                gameState.timeRemaining = Math.max(0, gameState.timeRemaining - 1);
+                updateClock();
+                if (gameState.timeRemaining <= 0) {
+                    gameState.active = false;
+                    clearInterval(gameInterval);
+                    alert('🎉 DAG KLARET! 🎉\n\nDu overlevede!');
+                }
+            }
+        }, 1000);
+    }
+
+
+    function updateClock() {
+        const mins = Math.floor(gameState.timeRemaining / 60);
+        const secs = gameState.timeRemaining % 60;
+        document.getElementById('timeRemaining').innerText = `${mins}m ${secs}s`;
+        document.getElementById('gameClock').innerText = `13:${mins.toString().padStart(2, '0')}`;
+    }
+
+
+    // ========== VISNING ==========
+    document.getElementById('exitCamera').addEventListener('click', () => {
+        document.getElementById('cameraView').classList.add('hidden');
+        document.getElementById('homeworkView').classList.remove('hidden');
+        currentView = 'homework';
+        document.getElementById('laptopStatus').innerHTML = '💻 LEKTIE';
+    });
+
+
+    document.getElementById('exitMiniGame').addEventListener('click', () => {
+        document.getElementById('miniGameView').classList.add('hidden');
+        document.getElementById('homeworkView').classList.remove('hidden');
+        currentView = 'homework';
+        document.getElementById('laptopStatus').innerHTML = '💻 LEKTIE';
+    });
+
+
+    document.addEventListener('keydown', (e) => {
+        if (!gameState.active) return;
+        
+        if (e.key === 'h' || e.key === 'H') {
+            if (currentView === 'homework') {
+                document.getElementById('homeworkView').classList.add('hidden');
+                document.getElementById('miniGameView').classList.remove('hidden');
+                currentView = 'miniGame';
+                document.getElementById('laptopStatus').innerHTML = '🎮 SPILLER';
+            } else if (currentView === 'miniGame' || currentView === 'camera') {
+                document.getElementById('miniGameView').classList.add('hidden');
+                document.getElementById('cameraView').classList.add('hidden');
+                document.getElementById('homeworkView').classList.remove('hidden');
+                currentView = 'homework';
+                document.getElementById('laptopStatus').innerHTML = '💻 LEKTIE';
+            }
+        }
+        
+        if (e.key === 'd' || e.key === 'D') {
+            if (currentView === 'homework') {
+                document.getElementById('homeworkView').classList.add('hidden');
+                document.getElementById('cameraView').classList.remove('hidden');
+                currentView = 'camera';
+                document.getElementById('laptopStatus').innerHTML = '📷 KAMERA';
+            }
+        }
+    });
+
+
+    document.getElementById('exitToMenu').addEventListener('click', () => {
+        gameState.active = false;
+        clearInterval(gameInterval);
+        document.getElementById('gameContainer').classList.add('hidden');
+        document.getElementById('mainMenu').classList.remove('hidden');
+    });
+
+
+    console.log('✅ SPIL KLAR! Tryk "NYT SPIL" for at starte!');
+</script>
+</body>
+</html>
