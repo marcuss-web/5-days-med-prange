@@ -170,8 +170,15 @@
 
     function triggerJumpscare() { gameState.active = false; clearInterval(gameInterval); clearInterval(rasmusInterval); clearInterval(afkInterval); document.getElementById('jumpscare').style.display = 'flex'; setTimeout(() => location.reload(), 2000); }
 
-    function updateClock() { let m = Math.floor(gameState.timeRemaining / 60), s = gameState.timeRemaining % 60; document.getElementById('timeRemaining').innerText = `${m}m ${s}s`; document.getElementById('gameClock').innerText = `13:${m.toString().padStart(2,'0')}`; }
+    function updateClock() { 
+        let m = Math.floor(gameState.timeRemaining / 60); 
+        let s = Math.floor(gameState.timeRemaining % 60); 
+        document.getElementById('timeRemaining').innerText = `${m}m ${s}s`; 
+        document.getElementById('gameClock').innerText = `13:${m.toString().padStart(2,'0')}`; 
+    }
+    
     function generateNewCustomer() { currentCustomer = CUSTOMERS[Math.floor(Math.random() * CUSTOMERS.length)]; document.getElementById('customerEmoji').innerText = currentCustomer.emoji; document.getElementById('customerName').innerText = currentCustomer.name; document.getElementById('customerOrder').innerText = `"En pizza med ${currentCustomer.orderText} tak!"`; let txt = 'Rækkefølge: '; currentCustomer.order.forEach((ing,i) => { let e = ing==='dej'?'🍞':ing==='sauce'?'🍅':ing==='ost'?'🧀':ing==='pepperoni'?'🔴':ing==='skinke'?'🍖':'🍄'; txt += e + (i<currentCustomer.order.length-1?' → ':''); }); document.getElementById('requiredIngredients').innerText = txt; gameState.selectedIngredients = []; document.getElementById('selectedIngredientsDisplay').innerText = ''; }
+    
     function renderCameraGrid() { let g = document.getElementById('cameraGrid'); g.innerHTML = ''; CAMERA_ROOMS.forEach(r => { let el = document.createElement('div'); el.className = 'camera-room' + (r.blind ? ' blind' : ''); el.innerHTML = `<strong>${r.name}</strong>${r.blind ? '<br>🚫' : ''}`; el.addEventListener('click', () => { document.getElementById('cameraGrid').classList.add('hidden'); document.getElementById('singleCameraView').classList.remove('hidden'); let isRasmus = gameState.rasmusRoom === r.id; document.getElementById('singleCameraView').innerHTML = `<h2 style="color:white;">📷 ${r.name}</h2><div style="margin:30px;font-size:1.5rem;color:#ccc;">${r.id==='kantine'?'🍕 Saleh laver pizza':r.id==='biblio'?'📚 Stille':r.id==='toilet'?'🚽 Lugter':r.id==='gang1'?'🚪 Korridor':r.id==='gang2'?'🚪 Mørkt':r.id==='trappe'?'🪜 Knirker':r.id==='scene'?'🎭 Tomt':r.id==='udenfor'?'🌳 Regn':r.id==='kontor'?'💼 Marcus PC':'📷 Rum'}</div>${isRasmus?'<div style="font-size:4rem;">👹 RASMUS!</div>':'<div style="color:#888;">👀 Ingen her</div>'}<button class="action-btn" id="backToGrid" style="margin-top:30px;">◀ TILBAGE</button>`; document.getElementById('backToGrid').addEventListener('click', () => { document.getElementById('cameraGrid').classList.remove('hidden'); document.getElementById('singleCameraView').classList.add('hidden'); }); }); g.appendChild(el); }); }
 
     // Mini-spil
