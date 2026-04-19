@@ -2,67 +2,94 @@
 <html lang="da">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, viewport-fit=cover">
     <title>🏫 2 Timer med Rasmus 👹</title>
     <link rel="icon" href="data:,">
     <style>
         * { user-select: none; -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
         html, body { overflow: hidden; height: 100vh; width: 100vw; position: fixed; }
-        body { background: linear-gradient(145deg, #1a0f0c, #0d0705); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .menu-container { max-width: 650px; width: 100%; background: linear-gradient(135deg, rgba(20,15,25,0.98), rgba(10,8,15,0.98)); backdrop-filter: blur(15px); border-radius: 60px; padding: 45px 35px; box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 0 2px rgba(255,215,0,0.3); border: 1px solid rgba(255,180,70,0.5); text-align: center; }
-        .game-title { font-size: 3rem; font-weight: 900; background: linear-gradient(135deg, #ffd700, #ff8c00, #ff4444); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 40px rgba(255,215,0,0.5); margin-bottom: 5px; }
-        .game-subtitle { color: #c8a86e; font-size: 1.2rem; margin-bottom: 40px; border-bottom: 2px solid rgba(255,215,0,0.3); padding-bottom: 20px; }
-        .menu-btn { width: 100%; padding: 20px 30px; margin-bottom: 18px; background: linear-gradient(135deg, #1e160e, #140f0a); border: 2px solid #a07818; border-radius: 50px; color: #ffd700; font-weight: bold; font-size: 1.5rem; cursor: pointer; transition: all 0.25s; box-shadow: 0 6px 0 #5a4310, 0 8px 20px rgba(0,0,0,0.4); text-align: left; display: flex; align-items: center; gap: 20px; }
+        body { background: linear-gradient(145deg, #0d0705, #1a0f0c); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; padding: 15px; }
+        
+        /* MENU STYLES */
+        .menu-container { max-width: 600px; width: 100%; background: linear-gradient(135deg, rgba(15,10,20,0.98), rgba(8,5,12,0.98)); backdrop-filter: blur(20px); border-radius: 60px; padding: 40px 30px; box-shadow: 0 30px 60px rgba(0,0,0,0.9), inset 0 0 0 2px rgba(255,215,0,0.4); border: 1px solid rgba(255,180,70,0.6); text-align: center; }
+        .game-title { font-size: 3.2rem; font-weight: 900; background: linear-gradient(135deg, #ffd700, #ff6600, #ff0000); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 50px rgba(255,215,0,0.7); margin-bottom: 5px; letter-spacing: 2px; }
+        .game-subtitle { color: #d4b87a; font-size: 1.1rem; margin-bottom: 35px; border-bottom: 2px solid rgba(255,215,0,0.4); padding-bottom: 20px; }
+        .menu-btn { width: 100%; padding: 18px 25px; margin-bottom: 15px; background: linear-gradient(135deg, #1e160e, #0d0805); border: 2px solid #c49a1c; border-radius: 50px; color: #ffd700; font-weight: bold; font-size: 1.5rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 6px 0 #6b4a10, 0 8px 20px rgba(0,0,0,0.5); text-align: left; display: flex; align-items: center; gap: 20px; }
+        .menu-btn:hover { background: linear-gradient(135deg, #2a1f12, #1a140e); border-color: #ffd700; transform: translateY(-3px); box-shadow: 0 9px 0 #6b4a10, 0 12px 25px rgba(0,0,0,0.6); }
+        .menu-btn:active { transform: translateY(3px); box-shadow: 0 3px 0 #6b4a10, 0 8px 15px rgba(0,0,0,0.4); }
         .menu-icon { font-size: 2.5rem; min-width: 50px; text-align: center; }
-        .game-container { width: 100%; max-width: 1300px; height: 100%; display: flex; align-items: center; }
-        .classroom-view { background: linear-gradient(135deg, #2d1b0e, #1a0f07); border-radius: 40px; padding: 15px; border: 3px solid #8B6914; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative; width: 100%; max-height: 95vh; overflow: hidden; }
-        .students-row { position: absolute; bottom: 120px; left: 0; right: 0; display: flex; justify-content: space-around; padding: 0 20px; z-index: 10; }
-        .student { text-align: center; color: #ffd700; }
-        .student-emoji { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255,215,0,0.5); }
-        .clock-display { background: rgba(0,0,0,0.6); border: 2px solid #ffd700; border-radius: 20px; padding: 8px 15px; display: inline-block; }
-        .clock-time { font-size: 1.5rem; font-weight: bold; color: #ffd700; }
-        .choice-container { max-width: 700px; width: 100%; background: linear-gradient(135deg, rgba(20,15,25,0.98), rgba(10,8,15,0.98)); backdrop-filter: blur(15px); border-radius: 60px; padding: 40px 35px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); border: 1px solid rgba(255,180,70,0.5); }
-        .choice-title { font-size: 2.2rem; font-weight: bold; color: #ffd700; text-align: center; margin-bottom: 30px; }
-        .option-card { background: rgba(30,25,35,0.9); border: 2px solid #6b4c1a; border-radius: 30px; padding: 25px; margin-bottom: 20px; cursor: pointer; transition: all 0.2s; }
-        .option-card.selected { border-color: #ffd700; background: rgba(50,45,55,1); box-shadow: 0 0 20px rgba(255,215,0,0.3); }
-        .option-title { font-size: 1.8rem; font-weight: bold; color: #ffd700; margin-bottom: 10px; }
-        .option-desc { color: #c8a86e; font-size: 1.1rem; margin-bottom: 15px; }
-        .action-buttons { display: flex; gap: 15px; margin-top: 30px; }
-        .action-btn { flex: 1; padding: 18px; background: linear-gradient(135deg, #1e160e, #140f0a); border: 2px solid #a07818; border-radius: 50px; color: #ffd700; font-weight: bold; font-size: 1.3rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 5px 0 #5a4310; text-align: center; }
-        .action-btn.confirm { background: linear-gradient(135deg, #4CAF50, #2e7d32); border-color: #8bc34a; color: white; }
-        .action-btn.disabled { opacity: 0.5; cursor: not-allowed; }
-        .hidden { display: none !important; }
-        .pizza-game { text-align: center; }
-        .customer-bubble { background: white; border-radius: 30px; padding: 20px; margin-bottom: 30px; }
-        .ingredients-panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 30px 0; }
-        .ingredient-btn { background: #e48f2b; border: none; padding: 15px; border-radius: 20px; font-size: 1.2rem; cursor: pointer; box-shadow: 0 5px 0 #784a1a; }
-        .selected-ingredients { font-size: 2rem; margin: 20px 0; min-height: 50px; }
-        .progress-bar { background: #1a1208; height: 30px; border-radius: 20px; overflow: hidden; margin: 20px 0; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #4CAF50, #8bc34a); width: 0%; transition: width 0.3s; }
-        .classroom-bg { position: relative; width: 100%; border-radius: 20px; overflow: hidden; }
-        .classroom-img { width: 100%; height: auto; border-radius: 20px; display: block; }
-        .pc-overlay { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); border: 3px solid #16213e; border-radius: 50px; padding: 8px 20px; display: flex; align-items: center; gap: 15px; color: #4CAF50; font-family: monospace; z-index: 20; }
-        .pc-emoji { font-size: 2rem; }
-        .pc-text { font-size: 1rem; font-weight: bold; }
-        .pc-hint { color: #ffd700; font-size: 0.8rem; margin-left: 15px; }
-        .rasmus-in-class { position: absolute; bottom: 80px; right: -10px; width: 100px; height: 100px; border-radius: 10px; border: 3px solid red; box-shadow: 0 0 30px red; z-index: 15; object-fit: cover; transform: rotate(-5deg); clip-path: inset(0 0 0 25%); }
-        .camera-panel { margin-top: 15px; background: #1a1a2e; border-radius: 20px; padding: 15px; border: 4px solid #16213e; box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 0 0 2px #0a0a1a; }
+
+        /* SPIL CONTAINER */
+        .game-container { width: 100%; max-width: 1400px; height: 100%; display: flex; align-items: center; }
+        .classroom-view { background: linear-gradient(135deg, #2d1b0e, #150a05); border-radius: 30px; padding: 12px; border: 3px solid #a07818; box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,0.5); position: relative; width: 100%; max-height: 98vh; overflow: hidden; }
+        
+        /* TOP BAR */
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0 5px; }
+        .back-btn { background: #6b3a1a; border: 2px solid #a07818; padding: 8px 18px; border-radius: 30px; color: #ffd700; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #4a2a10; transition: all 0.1s; }
+        .back-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #4a2a10; }
+        .clock-display { background: rgba(0,0,0,0.7); border: 2px solid #ffd700; border-radius: 30px; padding: 8px 20px; display: inline-block; backdrop-filter: blur(5px); }
+        .clock-time { font-size: 1.6rem; font-weight: bold; color: #ffd700; }
+        .clock-label { color: #c8a86e; margin: 0 8px; }
+
+        /* KLASSEVÆRELSET */
+        .classroom-bg { position: relative; width: 100%; border-radius: 20px; overflow: hidden; border: 2px solid #6b4a10; }
+        .classroom-img { width: 100%; height: auto; display: block; }
+        
+        /* ELEVER - PLACERET NEDE PÅ STOLENE */
+        .students-row { position: absolute; bottom: 18%; left: 0; right: 0; display: flex; justify-content: space-around; padding: 0 8%; z-index: 15; }
+        .student { text-align: center; color: #ffd700; text-shadow: 2px 2px 4px black; font-weight: bold; font-size: 0.9rem; }
+        .student-emoji { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.6), 0 4px 0 #6b4a10; background: #2c2e3e; }
+
+        /* PC OVERLAY */
+        .pc-overlay { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); border: 3px solid #16213e; border-radius: 50px; padding: 10px 25px; display: flex; align-items: center; gap: 15px; color: #4CAF50; font-family: 'Courier New', monospace; z-index: 25; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        .pc-emoji { font-size: 2.2rem; filter: drop-shadow(0 0 10px #4CAF50); }
+        .pc-text { font-size: 1.2rem; font-weight: bold; text-shadow: 0 0 8px #4CAF50; }
+        .pc-hint { color: #ffd700; font-size: 0.9rem; margin-left: 15px; border-left: 2px solid #6b4a10; padding-left: 15px; }
+
+        /* RASMUS I KLASSEN */
+        .rasmus-in-class { position: absolute; bottom: 12%; right: 3%; width: 110px; height: 110px; border-radius: 15px; border: 4px solid #ff0000; box-shadow: 0 0 40px #ff0000, inset 0 0 20px rgba(255,0,0,0.5); z-index: 20; object-fit: cover; transform: rotate(-8deg); clip-path: inset(0 0 0 20%); }
+
+        /* KAMERA PANEL */
+        .camera-panel { margin-top: 12px; background: #111122; border-radius: 20px; padding: 12px; border: 4px solid #16213e; box-shadow: inset 0 0 20px rgba(0,0,0,0.7), 0 0 0 2px #0a0a1a; }
         .camera-thumbnails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
-        .camera-thumb { background: #0f3460; border: 2px solid #e94560; border-radius: 10px; padding: 10px 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem; text-align: center; transition: all 0.2s; }
-        .camera-thumb:hover { border-color: #ffd700; background: #1a1a6e; }
+        .camera-thumb { background: #0a1a2e; border: 2px solid #e94560; border-radius: 12px; padding: 12px 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem; text-align: center; transition: all 0.15s; box-shadow: 0 4px 0 #0a0a1a; }
+        .camera-thumb:hover { border-color: #ffd700; background: #1a2a4e; transform: translateY(-2px); box-shadow: 0 6px 0 #0a0a1a; }
         .camera-thumb.blind { border-color: #ffd700; }
-        .camera-large-view { background: #0a0a1a; border-radius: 15px; padding: 10px; border: 2px solid #e94560; min-height: 200px; display: flex; align-items: center; justify-content: center; }
-        .camera-large-image { max-width: 100%; max-height: 200px; border-radius: 10px; }
+        .camera-large-view { background: #050510; border-radius: 15px; padding: 10px; border: 2px solid #e94560; min-height: 180px; display: flex; align-items: center; justify-content: center; }
+        .camera-large-image { max-width: 100%; max-height: 180px; border-radius: 10px; }
+
+        /* MINI-SPIL */
+        .pizza-game { text-align: center; color: white; }
+        .customer-bubble { background: #f5e6d3; border-radius: 25px; padding: 15px; margin-bottom: 20px; border: 3px solid #a07818; }
+        .ingredients-panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 20px 0; }
+        .ingredient-btn { background: #e48f2b; border: none; padding: 12px; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #784a1a; transition: all 0.1s; }
+        .ingredient-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #784a1a; }
+        .selected-ingredients { font-size: 1.8rem; margin: 15px 0; min-height: 45px; }
+        .progress-bar { background: #1a1208; height: 25px; border-radius: 15px; overflow: hidden; margin: 15px 0; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #4CAF50, #8bc34a); width: 0%; transition: width 0.3s; }
+        .action-btn { padding: 14px; background: linear-gradient(135deg, #1e160e, #0d0805); border: 2px solid #a07818; border-radius: 40px; color: #ffd700; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 0 #5a4310; width: 100%; margin: 5px 0; }
+        .action-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #5a4310; }
+
+        /* OVERLAYS */
+        .hidden { display: none !important; }
         .gameover-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
-        .gameover-text { color: #ff4444; font-size: 5rem; font-weight: bold; text-shadow: 0 0 30px red; margin-bottom: 30px; }
+        .gameover-text { color: #ff4444; font-size: 5rem; font-weight: bold; text-shadow: 0 0 30px red; margin-bottom: 30px; animation: pulse 1s infinite; }
         .jumpscare-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ff0000; z-index: 9998; display: none; justify-content: center; align-items: center; animation: flash 0.5s; }
-        .jumpscare-face { width: 300px; height: 300px; object-fit: cover; border: 5px solid #ff0000; animation: zoom 0.5s; }
+        .jumpscare-face { width: 350px; height: 350px; object-fit: cover; border: 5px solid #ff0000; border-radius: 20px; animation: zoom 0.5s; }
         @keyframes flash { 0%,100%{ background:#ff0000; } 50%{ background:#8b0000; } }
         @keyframes zoom { 0%{ transform:scale(0); } 100%{ transform:scale(1); } }
-        .spawn-message { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #ff4444; color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; z-index: 500; }
-        .computer-off-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 300; display: flex; justify-content: center; align-items: center; }
-        .computer-off-box { background: #2d1b0e; border: 4px solid #ff4444; border-radius: 40px; padding: 40px; text-align: center; max-width: 500px; }
-        .back-btn { background: #e48f2b; border: none; padding: 10px 20px; border-radius: 40px; font-weight: bold; cursor: pointer; }
+        @keyframes pulse { 0%,100%{ opacity:1; } 50%{ opacity:0.7; } }
+        .spawn-message { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #ff4444; color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; z-index: 500; animation: slideDown 0.3s; }
+        @keyframes slideDown { from{ transform: translateX(-50%) translateY(-100%); opacity: 0; } to{ transform: translateX(-50%) translateY(0); opacity: 1; } }
+        .computer-off-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 300; display: flex; justify-content: center; align-items: center; }
+        .computer-off-box { background: #2d1b0e; border: 5px solid #ff4444; border-radius: 40px; padding: 40px; text-align: center; max-width: 500px; box-shadow: 0 0 50px #ff0000; }
+        .choice-container { max-width: 650px; width: 100%; background: linear-gradient(135deg, rgba(15,10,20,0.98), rgba(8,5,12,0.98)); backdrop-filter: blur(20px); border-radius: 50px; padding: 35px; box-shadow: 0 30px 60px rgba(0,0,0,0.9); border: 1px solid rgba(255,180,70,0.6); }
+        .choice-title { font-size: 2rem; font-weight: bold; color: #ffd700; text-align: center; margin-bottom: 25px; }
+        .option-card { background: rgba(30,25,35,0.9); border: 2px solid #6b4c1a; border-radius: 25px; padding: 20px; margin-bottom: 15px; cursor: pointer; transition: all 0.2s; }
+        .option-card.selected { border-color: #ffd700; background: rgba(50,45,55,1); box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+        .option-title { font-size: 1.6rem; font-weight: bold; color: #ffd700; margin-bottom: 8px; }
+        .option-desc { color: #c8a86e; font-size: 1rem; }
+        .action-buttons { display: flex; gap: 12px; margin-top: 25px; }
     </style>
 </head>
 <body>
@@ -95,9 +122,13 @@
 <!-- SPIL CONTAINER -->
 <div id="gameContainer" class="game-container hidden">
     <div class="classroom-view">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+        <div class="top-bar">
             <button class="back-btn" id="exitToMenu">🚪 TILBAGE</button>
-            <div class="clock-display"><span class="clock-time" id="gameClock">13:00</span><span style="color:#c8a86e; margin-left:10px;">📅 Dag <span id="currentDay">1</span></span><span style="color:#ffd700; margin-left:10px;">⏳ <span id="timeRemaining">5m 0s</span></span></div>
+            <div class="clock-display">
+                <span class="clock-time" id="gameClock">13:00</span>
+                <span class="clock-label">📅 Dag <span id="currentDay">1</span></span>
+                <span class="clock-label">⏳ <span id="timeRemaining">5:00</span></span>
+            </div>
         </div>
         
         <div class="classroom-bg">
@@ -110,21 +141,21 @@
             <img class="rasmus-in-class hidden" id="rasmusInClassImg" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus">
         </div>
         
-        <!-- ELEVER PLACERET NEDE VED STOLENE -->
+        <!-- ELEVER - PERFEKT PLACERET -->
         <div class="students-row">
-            <div class="student"><img class="student-emoji" src="https://imgur.com/jNpqKEf.jpg" alt="Aksel">Aksel</div>
-            <div class="student"><img class="student-emoji" src="https://imgur.com/6tAxCWv.jpg" alt="Carl">Carl</div>
-            <div class="student"><img class="student-emoji" src="https://imgur.com/WGPyjJA.jpg" alt="Saleh">Saleh</div>
-            <div class="student"><img class="student-emoji" src="https://imgur.com/obr2pCz.jpg" alt="Johannes">Johannes</div>
-            <div class="student"><img class="student-emoji" src="https://imgur.com/GKk14ZF.jpg" alt="Marcus">Marcus</div>
-            <div class="student"><img class="student-emoji" src="https://imgur.com/9qSO565.jpg" alt="William">William</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/jNpqKEf.jpg" alt="Aksel"><br>Aksel</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/6tAxCWv.jpg" alt="Carl"><br>Carl</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/WGPyjJA.jpg" alt="Saleh"><br>Saleh</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/obr2pCz.jpg" alt="Johannes"><br>Johannes</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/GKk14ZF.jpg" alt="Marcus"><br>Marcus</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/9qSO565.jpg" alt="William"><br>William</div>
         </div>
         
         <div id="laptopScreen" class="hidden">
             <div id="homeworkView"><div style="text-align:center; color:#c8a86e; font-size:1.5rem;">📚 DU LAVER LEKTIER 📚</div></div>
             <div id="miniGameView" class="pizza-game hidden">
                 <div class="customer-bubble"><div style="font-size:2rem;" id="customerEmoji">🐐</div><div style="font-weight:bold;" id="customerName">Aksel</div><div id="customerOrder">"En pizza med dej og ost tak!"</div></div>
-                <div id="requiredIngredients" style="color:#ffd700; margin:15px 0;"></div>
+                <div id="requiredIngredients" style="color:#ffd700; margin:10px 0;"></div>
                 <div class="ingredients-panel">
                     <button class="ingredient-btn" data-ingredient="dej">🍞 DEJ</button>
                     <button class="ingredient-btn" data-ingredient="sauce">🍅 SAUCE</button>
@@ -235,7 +266,7 @@
         }, 1000);
     }
 
-    function updateClock() { let m = Math.floor(gameState.timeRemaining / 60); let s = Math.floor(gameState.timeRemaining % 60); document.getElementById('timeRemaining').innerText = `${m}m ${s}s`; document.getElementById('gameClock').innerText = `13:${m.toString().padStart(2,'0')}`; }
+    function updateClock() { let m = Math.floor(gameState.timeRemaining / 60); let s = Math.floor(gameState.timeRemaining % 60); document.getElementById('timeRemaining').innerText = `${m}:${s.toString().padStart(2,'0')}`; document.getElementById('gameClock').innerText = `13:${m.toString().padStart(2,'0')}`; }
     function generateNewCustomer() { currentCustomer = CUSTOMERS[Math.floor(Math.random() * CUSTOMERS.length)]; document.getElementById('customerEmoji').innerText = currentCustomer.emoji; document.getElementById('customerName').innerText = currentCustomer.name; document.getElementById('customerOrder').innerText = `"En pizza med ${currentCustomer.orderText} tak!"`; let txt = 'Rækkefølge: '; currentCustomer.order.forEach((ing,i) => { let e = ing==='dej'?'🍞':ing==='sauce'?'🍅':ing==='ost'?'🧀':ing==='pepperoni'?'🔴':ing==='skinke'?'🍖':'🍄'; txt += e + (i<currentCustomer.order.length-1?' → ':''); }); document.getElementById('requiredIngredients').innerText = txt; gameState.selectedIngredients = []; document.getElementById('selectedIngredientsDisplay').innerText = ''; }
     function renderCameraThumbnails() { let container = document.getElementById('cameraThumbnails'); container.innerHTML = ''; CAMERA_ROOMS.forEach(r => { let el = document.createElement('div'); el.className = 'camera-thumb' + (r.blind ? ' blind' : ''); el.innerHTML = `<strong>${r.name}</strong>`; el.addEventListener('click', () => { document.getElementById('cameraLargeImage').src = ROOM_IMAGES[r.id]; updateCameraImage(); }); container.appendChild(el); }); }
     function updateCameraImage() { let currentSrc = document.getElementById('cameraLargeImage').src; let roomId = Object.keys(ROOM_IMAGES).find(key => ROOM_IMAGES[key] === currentSrc); if (roomId && gameState.rasmusRoom === roomId) { document.getElementById('cameraLargeImage').style.border = '4px solid #ff0000'; document.getElementById('cameraLargeImage').style.boxShadow = '0 0 40px red'; } else { document.getElementById('cameraLargeImage').style.border = 'none'; document.getElementById('cameraLargeImage').style.boxShadow = 'none'; } }
