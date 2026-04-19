@@ -3,637 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🌙 Nattevagten · Klik & Slip</title>
+    <title>👹 Five Nights with Rasmus Prange 👹</title>
+    <link rel="icon" href="data:,">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background: linear-gradient(145deg, #0b0e14 0%, #1a1f2c 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            padding: 16px;
-            margin: 0;
-            color: #e0e0e0;
-        }
-
-        .game-wrapper {
-            max-width: 550px;
-            width: 100%;
-            background: rgba(20, 30, 40, 0.75);
-            backdrop-filter: blur(12px);
-            border-radius: 48px;
-            padding: 28px 22px;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,215,0,0.2);
-        }
-
-        /* Header med point og tid */
-        .stats-panel {
-            background: rgba(0,0,0,0.35);
-            border-radius: 100px;
-            padding: 18px 28px;
-            margin-bottom: 28px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255,215,0,0.2);
-            box-shadow: inset 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .points-container {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-        }
-
-        .points-label {
-            font-size: 1rem;
-            font-weight: 500;
-            color: #b0b8c5;
-            letter-spacing: 0.5px;
-        }
-
-        .points-value {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: #ffd966;
-            line-height: 1;
-            text-shadow: 0 2px 8px rgba(255,220,100,0.4);
-        }
-
-        .timer-container {
-            text-align: right;
-        }
-
-        .timer-label {
-            font-size: 0.8rem;
-            color: #8a94a3;
-            letter-spacing: 1px;
-        }
-
-        .timer-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #e0e0e0;
-            line-height: 1.1;
-        }
-
-        /* Hoved-klik-område */
-        .click-area {
-            background: radial-gradient(circle at 30% 20%, #2a3a4a, #0f1a24);
-            border-radius: 180px;
-            padding: 28px 15px 25px;
-            margin-bottom: 30px;
-            text-align: center;
-            border: 2px solid #ffd966;
-            box-shadow: 0 15px 0 #7a5512, 0 25px 35px rgba(0,0,0,0.5);
-            transition: all 0.05s ease;
-            cursor: pointer;
-        }
-
-        .click-area:active {
-            transform: translateY(6px);
-            box-shadow: 0 9px 0 #7a5512, 0 20px 30px rgba(0,0,0,0.5);
-        }
-
-        .click-emoji {
-            font-size: 6.5rem;
-            line-height: 1;
-            filter: drop-shadow(0 8px 12px black);
-            margin-bottom: 5px;
-        }
-
-        .click-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ffd966;
-            text-shadow: 0 3px 0 #7a5512;
-            letter-spacing: 1px;
-        }
-
-        .click-sub {
-            font-size: 0.9rem;
-            color: #a0b0c0;
-            margin-top: 8px;
-        }
-
-        /* Opgraderinger */
-        .upgrades-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #ffd966;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .upgrades-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .upgrade-card {
-            background: rgba(15, 25, 35, 0.7);
-            backdrop-filter: blur(5px);
-            border-radius: 60px;
-            padding: 8px 16px 8px 22px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid #3a5068;
-            box-shadow: 0 5px 0 #0f1a24;
-            transition: all 0.1s;
-        }
-
-        .upgrade-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .upgrade-icon {
-            font-size: 2.2rem;
-            width: 45px;
-            text-align: center;
-        }
-
-        .upgrade-details h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #f0e6d2;
-        }
-
-        .upgrade-details p {
-            font-size: 0.8rem;
-            color: #a0b0c0;
-        }
-
-        .upgrade-action {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .upgrade-cost {
-            font-weight: 700;
-            color: #ffd966;
-            background: #1e2a36;
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 1rem;
-        }
-
-        .buy-btn {
-            background: #3d6b2e;
-            border: none;
-            color: white;
-            font-weight: bold;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            box-shadow: 0 3px 0 #1f3a16;
-            transition: all 0.1s;
-            border: 1px solid #6da34d;
-        }
-
-        .buy-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 #1f3a16;
-        }
-
-        .buy-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 3px 0 #1f3a16;
-            background: #4a4a4a;
-            border-color: #666;
-        }
-
-        .reset-area {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .reset-btn {
-            background: transparent;
-            border: 1px solid #5a4a3a;
-            color: #a09080;
-            padding: 10px 28px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.1s;
-        }
-
-        .reset-btn:hover {
-            background: rgba(255,255,255,0.05);
-            color: #d0c0b0;
-        }
-
-        /* Achievement toast */
-        .toast-message {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e3a5f;
-            color: #ffd966;
-            padding: 14px 28px;
-            border-radius: 60px;
-            font-weight: bold;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-            border-left: 6px solid #ffd966;
-            z-index: 999;
-            animation: slideUp 2.5s ease-out forwards;
-            pointer-events: none;
-        }
-
-        @keyframes slideUp {
-            0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            15% { opacity: 1; transform: translateX(-50%) translateY(0); }
-            80% { opacity: 1; }
-            100% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
-        }
-
-        .footer-note {
-            text-align: center;
-            margin-top: 15px;
-            color: #6a7a8a;
-            font-size: 0.8rem;
-        }
+        * { user-select: none; -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #0a0a0a; min-height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Courier New', monospace; padding: 20px; }
+        
+        .game-container { max-width: 900px; width: 100%; background: #1a1a2e; border-radius: 30px; padding: 25px; border: 4px solid #4a4a6e; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+        
+        /* TOP BAR */
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; color: #00ff88; text-shadow: 0 0 10px #00ff88; }
+        .night-display { font-size: 2rem; font-weight: bold; }
+        .time-display { font-size: 2.5rem; font-weight: bold; }
+        .power-display { font-size: 1.5rem; }
+        .power-bar { width: 200px; height: 20px; background: #333; border-radius: 10px; overflow: hidden; border: 2px solid #00ff88; }
+        .power-fill { height: 100%; background: #00ff88; width: 100%; transition: width 0.5s; }
+        
+        /* MAIN VIEW */
+        .main-view { position: relative; margin-bottom: 20px; }
+        .office-img { width: 100%; height: 300px; object-fit: cover; border-radius: 15px; border: 3px solid #4a4a6e; }
+        .camera-view { width: 100%; height: 300px; object-fit: cover; border-radius: 15px; border: 3px solid #4a4a6e; }
+        
+        /* RASMUS I DØREN */
+        .rasmus-door { position: absolute; bottom: 0; width: 120px; height: 120px; object-fit: cover; display: none; }
+        .rasmus-left { left: 10px; }
+        .rasmus-right { right: 10px; }
+        
+        /* KAMERA GRID */
+        .camera-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
+        .camera-btn { background: #2a2a4e; border: 2px solid #5a5a8e; border-radius: 10px; padding: 10px; color: white; cursor: pointer; text-align: center; font-size: 0.9rem; transition: all 0.2s; }
+        .camera-btn:hover { background: #3a3a6e; border-color: #00ff88; }
+        .camera-btn.active { border-color: #00ff88; box-shadow: 0 0 15px #00ff88; }
+        
+        /* KONTROL PANEL */
+        .control-panel { display: flex; gap: 15px; justify-content: center; margin: 20px 0; }
+        .control-btn { flex: 1; padding: 15px; background: #2a2a4e; border: 3px solid #5a5a8e; border-radius: 15px; color: white; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 5px 0 #1a1a3e; }
+        .control-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #1a1a3e; }
+        .control-btn.active { background: #ff4444; border-color: #ff8888; }
+        
+        /* GAME OVER */
+        .gameover-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 999; display: none; justify-content: center; align-items: center; flex-direction: column; }
+        .gameover-text { color: red; font-size: 5rem; font-weight: bold; text-shadow: 0 0 30px red; margin-bottom: 20px; }
+        .jumpscare { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: red; z-index: 998; display: none; justify-content: center; align-items: center; animation: flash 0.5s; }
+        .jumpscare img { width: 400px; height: 400px; object-fit: cover; border-radius: 20px; border: 5px solid black; }
+        @keyframes flash { 0%,100%{ background: red; } 50%{ background: darkred; } }
+        
+        /* MENU */
+        .menu-screen { text-align: center; color: white; }
+        .menu-title { font-size: 3.5rem; color: #ff4444; text-shadow: 0 0 20px red; margin-bottom: 40px; }
+        .start-btn { padding: 20px 50px; background: #00ff88; border: none; border-radius: 20px; font-size: 1.8rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 0 #00aa55; }
+        .start-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #00aa55; }
+        
+        .hidden { display: none !important; }
+        .back-btn { background: #4a4a6e; border: none; color: white; padding: 8px 20px; border-radius: 10px; cursor: pointer; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-<div class="game-wrapper">
-    <!-- Stats -->
-    <div class="stats-panel">
-        <div class="points-container">
-            <span class="points-label">🔋</span>
-            <span class="points-value" id="pointsDisplay">0</span>
-        </div>
-        <div class="timer-container">
-            <div class="timer-label">OVERLEVET</div>
-            <div class="timer-value" id="timerDisplay">00:00</div>
-        </div>
-    </div>
+<!-- HOVEDMENU -->
+<div id="mainMenu" class="menu-screen">
+    <div class="menu-title">👹 FIVE NIGHTS WITH RASMUS</div>
+    <button class="start-btn" id="startGameBtn">START NAT 1</button>
+    <p style="color: #888; margin-top: 30px;">Overlev fra 12AM til 6AM</p>
+</div>
 
-    <!-- Klik område -->
-    <div class="click-area" id="clickArea">
-        <div class="click-emoji">👁️</div>
-        <div class="click-text">HOLD DIG VÅGEN</div>
-        <div class="click-sub">+<span id="clickPower">1</span> point · Klik her</div>
+<!-- SPIL CONTAINER -->
+<div id="gameContainer" class="game-container hidden">
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="night-display">NAT <span id="nightDisplay">1</span></div>
+        <div class="time-display" id="timeDisplay">12:00 AM</div>
+        <div class="power-display">
+            <div>🔋 <span id="powerPercent">100</span>%</div>
+            <div class="power-bar"><div class="power-fill" id="powerFill"></div></div>
+        </div>
     </div>
+    
+    <!-- HOVED VISNING (KONTOR / KAMERA) -->
+    <div class="main-view">
+        <img class="office-img" id="officeView" src="https://imgur.com/nVo7Mr1.jpg" alt="Kontor">
+        <img class="camera-view hidden" id="cameraView" src="" alt="Kamera">
+        <img class="rasmus-door rasmus-left" id="rasmusLeft" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus">
+        <img class="rasmus-door rasmus-right" id="rasmusRight" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus">
+    </div>
+    
+    <!-- KAMERA GRID -->
+    <div id="cameraPanel" class="hidden">
+        <button class="back-btn" id="closeCameraBtn">◀ TILBAGE TIL KONTOR</button>
+        <div class="camera-grid" id="cameraGrid"></div>
+    </div>
+    
+    <!-- KONTROL PANEL -->
+    <div class="control-panel">
+        <button class="control-btn" id="leftDoorBtn">🚪 VENSTRE DØR</button>
+        <button class="control-btn" id="cameraToggleBtn">📷 KAMERA</button>
+        <button class="control-btn" id="rightDoorBtn">🚪 HØJRE DØR</button>
+    </div>
+</div>
 
-    <!-- Opgraderinger -->
-    <div class="upgrades-title">
-        <span>🛠️ OPGRADERINGER</span>
-        <span style="font-size: 0.8rem; opacity: 0.7;">(passiv indkomst)</span>
-    </div>
-    <div class="upgrades-list">
-        <!-- Kaffe -->
-        <div class="upgrade-card">
-            <div class="upgrade-info">
-                <span class="upgrade-icon">☕</span>
-                <div class="upgrade-details">
-                    <h4>Stærkere Kaffe</h4>
-                    <p>+1 point per klik (Niv. <span id="coffeeLevel">1</span>)</p>
-                </div>
-            </div>
-            <div class="upgrade-action">
-                <span class="upgrade-cost" id="coffeeCost">15</span>
-                <button class="buy-btn" id="buyCoffeeBtn">KØB</button>
-            </div>
-        </div>
-        <!-- Radio -->
-        <div class="upgrade-card">
-            <div class="upgrade-info">
-                <span class="upgrade-icon">📻</span>
-                <div class="upgrade-details">
-                    <h4>Radio</h4>
-                    <p>+2 point/sek</p>
-                </div>
-            </div>
-            <div class="upgrade-action">
-                <span class="upgrade-cost" id="radioCost">30</span>
-                <button class="buy-btn" id="buyRadioBtn">KØB</button>
-            </div>
-        </div>
-        <!-- Flere skærme -->
-        <div class="upgrade-card">
-            <div class="upgrade-info">
-                <span class="upgrade-icon">🖥️</span>
-                <div class="upgrade-details">
-                    <h4>Ekstra Skærm</h4>
-                    <p>+8 point/sek</p>
-                </div>
-            </div>
-            <div class="upgrade-action">
-                <span class="upgrade-cost" id="screenCost">120</span>
-                <button class="buy-btn" id="buyScreenBtn">KØB</button>
-            </div>
-        </div>
-        <!-- Dør -->
-        <div class="upgrade-card">
-            <div class="upgrade-info">
-                <span class="upgrade-icon">🚪</span>
-                <div class="upgrade-details">
-                    <h4>Forstærket Dør</h4>
-                    <p>+20 point/sek</p>
-                </div>
-            </div>
-            <div class="upgrade-action">
-                <span class="upgrade-cost" id="doorCost">300</span>
-                <button class="buy-btn" id="buyDoorBtn">KØB</button>
-            </div>
-        </div>
-    </div>
+<!-- GAME OVER -->
+<div id="gameoverScreen" class="gameover-overlay">
+    <div class="gameover-text">GAME OVER</div>
+    <button class="start-btn" id="restartBtn" style="font-size: 1.5rem;">PRØV IGEN</button>
+</div>
 
-    <div class="reset-area">
-        <button class="reset-btn" id="resetBtn">🔄 Nulstil fremskridt</button>
-    </div>
-    <div class="footer-note">💾 Spillet gemmer automatisk</div>
+<!-- JUMP SCARE -->
+<div id="jumpscareScreen" class="jumpscare">
+    <img src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus Jump Scare">
 </div>
 
 <script>
-    (function(){
-        "use strict";
-
-        // ----- Spil State -----
-        let points = 0;
-        let survivedSeconds = 0;
-        let clickMultiplier = 1;          // Niveau for kaffe
-        let hasRadio = false;
-        let hasScreen = false;
-        let hasDoor = false;
-
-        // Opgraderings-priser
-        const COFFEE_BASE_COST = 15;
-        const RADIO_COST = 30;
-        const SCREEN_COST = 120;
-        const DOOR_COST = 300;
-
-        // DOM Elementer
-        const pointsDisplay = document.getElementById('pointsDisplay');
-        const timerDisplay = document.getElementById('timerDisplay');
-        const clickPowerSpan = document.getElementById('clickPower');
-        const coffeeLevelSpan = document.getElementById('coffeeLevel');
-        const coffeeCostSpan = document.getElementById('coffeeCost');
-        const buyCoffeeBtn = document.getElementById('buyCoffeeBtn');
-        const buyRadioBtn = document.getElementById('buyRadioBtn');
-        const buyScreenBtn = document.getElementById('buyScreenBtn');
-        const buyDoorBtn = document.getElementById('buyDoorBtn');
-        const clickArea = document.getElementById('clickArea');
-        const resetBtn = document.getElementById('resetBtn');
-
-        // Intervaller
-        let gameInterval = null;
-        let saveInterval = null;
-
-        // ----- Hjælpefunktioner -----
-        function showToast(text) {
-            const toast = document.createElement('div');
-            toast.className = 'toast-message';
-            toast.textContent = text;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2500);
+    // BILLEDER
+    const OFFICE_IMG = 'https://imgur.com/nVo7Mr1.jpg';
+    const CAMERA_IMGS = {
+        'scene': 'https://imgur.com/r0Qx608.jpg',
+        'gang1': 'https://imgur.com/RVy04Qn.jpg',
+        'gang2': 'https://imgur.com/Lx6Qn86.jpg',
+        'kantine': 'https://imgur.com/r0Qx608.jpg',
+        'trappe': 'https://imgur.com/3iPixEm.jpg',
+        'toilet': 'https://imgur.com/Ltatxyg.jpg',
+        'biblio': 'https://imgur.com/YIfzseW.jpg',
+        'udenfor': 'https://imgur.com/vcQPODA.jpg',
+        'kontor': 'https://imgur.com/nllrJB0.jpg'
+    };
+    const RASMUS_IMG = 'https://imgur.com/G4CZuhM.jpg';
+    
+    // SPIL STATE
+    let gameActive = false;
+    let night = 1;
+    let timeHour = 0;
+    let timeMinute = 0;
+    let power = 100;
+    let leftDoorClosed = false;
+    let rightDoorClosed = false;
+    let cameraOpen = false;
+    let rasmusPosition = 'scene';
+    let rasmusAtLeftDoor = false;
+    let rasmusAtRightDoor = false;
+    let gameInterval = null;
+    let rasmusInterval = null;
+    
+    // DOM
+    const mainMenu = document.getElementById('mainMenu');
+    const gameContainer = document.getElementById('gameContainer');
+    const gameoverScreen = document.getElementById('gameoverScreen');
+    const jumpscareScreen = document.getElementById('jumpscareScreen');
+    const nightDisplay = document.getElementById('nightDisplay');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const powerPercent = document.getElementById('powerPercent');
+    const powerFill = document.getElementById('powerFill');
+    const officeView = document.getElementById('officeView');
+    const cameraView = document.getElementById('cameraView');
+    const cameraPanel = document.getElementById('cameraPanel');
+    const cameraGrid = document.getElementById('cameraGrid');
+    const rasmusLeft = document.getElementById('rasmusLeft');
+    const rasmusRight = document.getElementById('rasmusRight');
+    const leftDoorBtn = document.getElementById('leftDoorBtn');
+    const rightDoorBtn = document.getElementById('rightDoorBtn');
+    const cameraToggleBtn = document.getElementById('cameraToggleBtn');
+    
+    // KAMERA RUM
+    const ROOMS = ['scene', 'gang1', 'gang2', 'kantine', 'trappe', 'toilet', 'biblio', 'udenfor', 'kontor'];
+    
+    function updateUI() {
+        powerPercent.textContent = Math.floor(power);
+        powerFill.style.width = power + '%';
+        
+        let hour = Math.floor(timeHour);
+        let minute = Math.floor((timeHour - hour) * 60);
+        let ampm = hour >= 12 ? 'PM' : 'AM';
+        let displayHour = hour % 12;
+        if (displayHour === 0) displayHour = 12;
+        timeDisplay.textContent = `${displayHour}:${minute.toString().padStart(2,'0')} ${ampm}`;
+        
+        leftDoorBtn.classList.toggle('active', leftDoorClosed);
+        rightDoorBtn.classList.toggle('active', rightDoorClosed);
+    }
+    
+    function drainPower() {
+        let drain = 1;
+        if (leftDoorClosed) drain += 2;
+        if (rightDoorClosed) drain += 2;
+        if (cameraOpen) drain += 1;
+        power = Math.max(0, power - drain / 10);
+        if (power <= 0) { leftDoorClosed = false; rightDoorClosed = false; cameraOpen = false; cameraPanel.classList.add('hidden'); officeView.classList.remove('hidden'); }
+        updateUI();
+    }
+    
+    function moveRasmus() {
+        if (!gameActive) return;
+        let currentIndex = ROOMS.indexOf(rasmusPosition);
+        let direction = Math.random() > 0.5 ? 1 : -1;
+        let newIndex = Math.max(0, Math.min(ROOMS.length - 1, currentIndex + direction));
+        rasmusPosition = ROOMS[newIndex];
+        
+        rasmusAtLeftDoor = (rasmusPosition === 'gang1' && Math.random() < 0.3);
+        rasmusAtRightDoor = (rasmusPosition === 'gang2' && Math.random() < 0.3);
+        
+        rasmusLeft.style.display = rasmusAtLeftDoor && !leftDoorClosed ? 'block' : 'none';
+        rasmusRight.style.display = rasmusAtRightDoor && !rightDoorClosed ? 'block' : 'none';
+        
+        if ((rasmusAtLeftDoor && !leftDoorClosed) || (rasmusAtRightDoor && !rightDoorClosed)) {
+            if (!cameraOpen) gameOver();
         }
-
-        // ----- Opdater UI -----
-        function updateUI() {
-            // Point
-            pointsDisplay.textContent = Math.floor(points);
-
-            // Timer
-            const mins = Math.floor(survivedSeconds / 60);
-            const secs = survivedSeconds % 60;
-            timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-
-            // Kaffe (Klik-power)
-            clickPowerSpan.textContent = clickMultiplier;
-            coffeeLevelSpan.textContent = clickMultiplier;
-            const nextCoffeeCost = COFFEE_BASE_COST + (clickMultiplier - 1) * 8;
-            coffeeCostSpan.textContent = nextCoffeeCost;
-            buyCoffeeBtn.disabled = (points < nextCoffeeCost);
-
-            // Radio
-            const radioCostSpan = document.getElementById('radioCost');
-            if (!hasRadio) {
-                radioCostSpan.textContent = RADIO_COST;
-                buyRadioBtn.disabled = (points < RADIO_COST);
-                buyRadioBtn.textContent = 'KØB';
-            } else {
-                radioCostSpan.textContent = '—';
-                buyRadioBtn.disabled = true;
-                buyRadioBtn.textContent = 'Ejet';
-            }
-
-            // Skærm
-            const screenCostSpan = document.getElementById('screenCost');
-            if (!hasScreen) {
-                screenCostSpan.textContent = SCREEN_COST;
-                buyScreenBtn.disabled = (points < SCREEN_COST);
-                buyScreenBtn.textContent = 'KØB';
-            } else {
-                screenCostSpan.textContent = '—';
-                buyScreenBtn.disabled = true;
-                buyScreenBtn.textContent = 'Ejet';
-            }
-
-            // Dør
-            const doorCostSpan = document.getElementById('doorCost');
-            if (!hasDoor) {
-                doorCostSpan.textContent = DOOR_COST;
-                buyDoorBtn.disabled = (points < DOOR_COST);
-                buyDoorBtn.textContent = 'KØB';
-            } else {
-                doorCostSpan.textContent = '—';
-                buyDoorBtn.disabled = true;
-                buyDoorBtn.textContent = 'Ejet';
-            }
-        }
-
-        // ----- Tilføj point (sikrer UI opdatering)-----
-        function addPoints(amount) {
-            points += amount;
+    }
+    
+    function gameOver() {
+        gameActive = false;
+        clearInterval(gameInterval);
+        clearInterval(rasmusInterval);
+        jumpscareScreen.style.display = 'flex';
+        setTimeout(() => { jumpscareScreen.style.display = 'none'; gameoverScreen.style.display = 'flex'; }, 800);
+    }
+    
+    function winGame() {
+        gameActive = false;
+        clearInterval(gameInterval);
+        clearInterval(rasmusInterval);
+        alert('🎉 DU OVERLEVEDE NATTEN! 🎉\n\nKommer snart: Nat ' + (night + 1));
+        gameContainer.classList.add('hidden');
+        mainMenu.classList.remove('hidden');
+    }
+    
+    function renderCameraGrid() {
+        cameraGrid.innerHTML = '';
+        ROOMS.forEach(room => {
+            let btn = document.createElement('button');
+            btn.className = 'camera-btn';
+            btn.textContent = room.toUpperCase();
+            btn.addEventListener('click', () => { cameraView.src = CAMERA_IMGS[room]; });
+            cameraGrid.appendChild(btn);
+        });
+    }
+    
+    // EVENT LISTENERS
+    document.getElementById('startGameBtn').addEventListener('click', () => {
+        night = 1;
+        startNight();
+    });
+    
+    document.getElementById('restartBtn').addEventListener('click', () => {
+        gameoverScreen.style.display = 'none';
+        startNight();
+    });
+    
+    function startNight() {
+        gameActive = true;
+        timeHour = 0;
+        power = 100;
+        rasmusPosition = 'scene';
+        leftDoorClosed = false; rightDoorClosed = false; cameraOpen = false;
+        rasmusLeft.style.display = 'none'; rasmusRight.style.display = 'none';
+        cameraPanel.classList.add('hidden'); officeView.classList.remove('hidden');
+        
+        mainMenu.classList.add('hidden');
+        gameContainer.classList.remove('hidden');
+        gameoverScreen.style.display = 'none';
+        nightDisplay.textContent = night;
+        
+        updateUI();
+        renderCameraGrid();
+        
+        if (gameInterval) clearInterval(gameInterval);
+        if (rasmusInterval) clearInterval(rasmusInterval);
+        
+        gameInterval = setInterval(() => {
+            if (!gameActive) return;
+            timeHour += 0.01;
+            drainPower();
+            if (timeHour >= 6) winGame();
             updateUI();
-        }
-
-        // ----- Beregn passiv indkomst -----
-        function calculatePassiveIncome() {
-            let income = 0;
-            if (hasRadio) income += 2;
-            if (hasScreen) income += 8;
-            if (hasDoor) income += 20;
-            return income;
-        }
-
-        // ----- Game Loop (hvert sekund) -----
-        function gameTick() {
-            if (!gameInterval) return;
-
-            // Overlevelsestid
-            survivedSeconds++;
-            
-            // Passiv indkomst
-            const passive = calculatePassiveIncome();
-            if (passive > 0) {
-                points += passive;
-            }
-
-            // Gemmer spillet automatisk hvert 10. sekund (for at være sikker)
-            // ... gøres i saveInterval
-
-            updateUI();
-        }
-
-        // ----- Gem / Load -----
-        const STORAGE_KEY = 'nattevagten_save_v1';
-
-        function saveGame() {
-            const saveData = {
-                points: points,
-                survived: survivedSeconds,
-                clickMult: clickMultiplier,
-                radio: hasRadio,
-                screen: hasScreen,
-                door: hasDoor
-            };
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData));
-        }
-
-        function loadGame() {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            if (!raw) return;
-
-            try {
-                const data = JSON.parse(raw);
-                points = data.points || 0;
-                survivedSeconds = data.survived || 0;
-                clickMultiplier = data.clickMult || 1;
-                hasRadio = data.radio || false;
-                hasScreen = data.screen || false;
-                hasDoor = data.door || false;
-            } catch (e) {
-                console.warn("Kunne ikke loade save, starter frisk.");
-            }
-            updateUI();
-        }
-
-        // ----- Nulstil spil -----
-        function resetGame() {
-            if (confirm('Er du sikker på, at du vil slette alt? Dette kan ikke fortrydes.')) {
-                points = 0;
-                survivedSeconds = 0;
-                clickMultiplier = 1;
-                hasRadio = false;
-                hasScreen = false;
-                hasDoor = false;
-
-                updateUI();
-                saveGame();
-                showToast('🔄 Spillet er nulstillet');
-            }
-        }
-
-        // ----- Køb opgraderinger -----
-        function buyCoffee() {
-            const cost = COFFEE_BASE_COST + (clickMultiplier - 1) * 8;
-            if (points >= cost) {
-                points -= cost;
-                clickMultiplier++;
-                updateUI();
-                saveGame();
-                showToast(`☕ Kaffe niveau ${clickMultiplier}!`);
-            }
-        }
-
-        function buyRadio() {
-            if (!hasRadio && points >= RADIO_COST) {
-                points -= RADIO_COST;
-                hasRadio = true;
-                updateUI();
-                saveGame();
-                showToast('📻 Radio købt! +2 point/sek');
-            }
-        }
-
-        function buyScreen() {
-            if (!hasScreen && points >= SCREEN_COST) {
-                points -= SCREEN_COST;
-                hasScreen = true;
-                updateUI();
-                saveGame();
-                showToast('🖥️ Ekstra skærm købt! +8 point/sek');
-            }
-        }
-
-        function buyDoor() {
-            if (!hasDoor && points >= DOOR_COST) {
-                points -= DOOR_COST;
-                hasDoor = true;
-                updateUI();
-                saveGame();
-                showToast('🚪 Forstærket dør købt! +20 point/sek');
-            }
-        }
-
-        // ----- Klik på hovedområdet -----
-        function handleClick() {
-            addPoints(clickMultiplier);
-            saveGame(); // Gem efter hver klik (føles responsivt)
-            // Lille visuel feedback
-            clickArea.style.transform = 'translateY(6px)';
-            clickArea.style.boxShadow = '0 9px 0 #7a5512, 0 20px 30px rgba(0,0,0,0.5)';
-            setTimeout(() => {
-                clickArea.style.transform = '';
-                clickArea.style.boxShadow = '0 15px 0 #7a5512, 0 25px 35px rgba(0,0,0,0.5)';
-            }, 80);
-        }
-
-        // ----- Init -----
-        function init() {
-            // Load først
-            loadGame();
-            
-            // Starter timere
-            if (gameInterval) clearInterval(gameInterval);
-            if (saveInterval) clearInterval(saveInterval);
-            
-            gameInterval = setInterval(() => gameTick(), 1000);
-            saveInterval = setInterval(() => saveGame(), 8000); // Gemmer ofte
-
-            // Event listeners
-            clickArea.addEventListener('click', handleClick);
-            buyCoffeeBtn.addEventListener('click', buyCoffee);
-            buyRadioBtn.addEventListener('click', buyRadio);
-            buyScreenBtn.addEventListener('click', buyScreen);
-            buyDoorBtn.addEventListener('click', buyDoor);
-            resetBtn.addEventListener('click', resetGame);
-
-            updateUI();
-            showToast('🌙 God vagt! Hold dig vågen.');
-        }
-
-        // Start spillet
-        init();
-    })();
+        }, 100);
+        
+        rasmusInterval = setInterval(() => moveRasmus(), 3000);
+    }
+    
+    leftDoorBtn.addEventListener('click', () => { if (power > 0) { leftDoorClosed = !leftDoorClosed; if (!leftDoorClosed) rasmusLeft.style.display = 'none'; updateUI(); } });
+    rightDoorBtn.addEventListener('click', () => { if (power > 0) { rightDoorClosed = !rightDoorClosed; if (!rightDoorClosed) rasmusRight.style.display = 'none'; updateUI(); } });
+    
+    cameraToggleBtn.addEventListener('click', () => {
+        cameraOpen = !cameraOpen;
+        cameraPanel.classList.toggle('hidden', !cameraOpen);
+        officeView.classList.toggle('hidden', cameraOpen);
+        cameraView.classList.toggle('hidden', !cameraOpen);
+        cameraToggleBtn.classList.toggle('active', cameraOpen);
+        if (!cameraOpen) cameraView.src = '';
+    });
+    
+    document.getElementById('closeCameraBtn').addEventListener('click', () => { cameraOpen = false; cameraPanel.classList.add('hidden'); officeView.classList.remove('hidden'); cameraToggleBtn.classList.remove('active'); });
 </script>
 </body>
 </html>
