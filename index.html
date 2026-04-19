@@ -7,55 +7,60 @@
     <link rel="icon" href="data:,">
     <style>
         * { user-select: none; -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0a0a0a; min-height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Courier New', monospace; padding: 20px; }
+        body { background: #000000; min-height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Courier New', monospace; padding: 20px; }
         
-        .game-container { max-width: 900px; width: 100%; background: #1a1a2e; border-radius: 30px; padding: 25px; border: 4px solid #4a4a6e; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+        .game-container { max-width: 1000px; width: 100%; background: #0a0a0a; border-radius: 20px; padding: 20px; border: 3px solid #333; box-shadow: 0 0 60px rgba(0,0,0,0.9); }
         
         /* TOP BAR */
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; color: #00ff88; text-shadow: 0 0 10px #00ff88; }
-        .night-display { font-size: 2rem; font-weight: bold; }
-        .time-display { font-size: 2.5rem; font-weight: bold; }
-        .power-display { font-size: 1.5rem; }
-        .power-bar { width: 200px; height: 20px; background: #333; border-radius: 10px; overflow: hidden; border: 2px solid #00ff88; }
-        .power-fill { height: 100%; background: #00ff88; width: 100%; transition: width 0.5s; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; color: #888; }
+        .night-display { font-size: 1.5rem; background: #111; padding: 5px 15px; border-radius: 10px; border: 1px solid #444; }
+        .time-display { font-size: 2rem; font-weight: bold; color: #00ff88; text-shadow: 0 0 10px #00ff88; background: #111; padding: 5px 20px; border-radius: 10px; border: 1px solid #00ff88; }
+        .power-display { font-size: 1.2rem; color: #ff4444; }
+        .power-bar { width: 150px; height: 15px; background: #222; border-radius: 10px; overflow: hidden; border: 1px solid #ff4444; }
+        .power-fill { height: 100%; background: #ff4444; width: 100%; transition: width 0.3s; }
         
-        /* MAIN VIEW */
-        .main-view { position: relative; margin-bottom: 20px; }
-        .office-img { width: 100%; height: 300px; object-fit: cover; border-radius: 15px; border: 3px solid #4a4a6e; }
-        .camera-view { width: 100%; height: 300px; object-fit: cover; border-radius: 15px; border: 3px solid #4a4a6e; }
+        /* MAIN VIEW - KONTOR */
+        .office-view { position: relative; margin-bottom: 15px; }
+        .office-img { width: 100%; height: 280px; object-fit: cover; border-radius: 10px; border: 2px solid #333; filter: brightness(0.4) grayscale(0.3); }
         
-        /* RASMUS I DØREN */
-        .rasmus-door { position: absolute; bottom: 0; width: 120px; height: 120px; object-fit: cover; display: none; }
-        .rasmus-left { left: 10px; }
-        .rasmus-right { right: 10px; }
+        /* LEKTIE OVERLAY */
+        .homework-overlay { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); border: 2px solid #00ff88; border-radius: 15px; padding: 15px 30px; display: flex; align-items: center; gap: 20px; }
+        .homework-text { color: #00ff88; font-size: 1.3rem; font-weight: bold; text-shadow: 0 0 10px #00ff88; }
+        .homework-btn { background: #00ff88; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
+        .homework-btn:active { transform: scale(0.95); }
         
-        /* KAMERA GRID */
-        .camera-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
-        .camera-btn { background: #2a2a4e; border: 2px solid #5a5a8e; border-radius: 10px; padding: 10px; color: white; cursor: pointer; text-align: center; font-size: 0.9rem; transition: all 0.2s; }
-        .camera-btn:hover { background: #3a3a6e; border-color: #00ff88; }
-        .camera-btn.active { border-color: #00ff88; box-shadow: 0 0 15px #00ff88; }
+        /* RASMUS I KONTORET */
+        .rasmus-office { position: absolute; bottom: 20px; right: 20px; width: 100px; height: 100px; object-fit: cover; border-radius: 10px; border: 2px solid red; box-shadow: 0 0 20px red; display: none; }
         
-        /* KONTROL PANEL */
-        .control-panel { display: flex; gap: 15px; justify-content: center; margin: 20px 0; }
-        .control-btn { flex: 1; padding: 15px; background: #2a2a4e; border: 3px solid #5a5a8e; border-radius: 15px; color: white; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 5px 0 #1a1a3e; }
-        .control-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #1a1a3e; }
-        .control-btn.active { background: #ff4444; border-color: #ff8888; }
+        /* KAMERA PANEL - FNAF EPSTEIN STYLE */
+        .camera-panel { background: #0a0a0a; border: 2px solid #333; border-radius: 10px; padding: 15px; margin-top: 10px; }
+        .camera-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #888; }
+        .camera-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; }
+        .camera-btn { background: #1a1a1a; border: 2px solid #444; border-radius: 8px; padding: 12px 5px; color: #aaa; cursor: pointer; text-align: center; font-size: 0.8rem; font-weight: bold; transition: all 0.1s; }
+        .camera-btn:hover { background: #2a2a2a; border-color: #888; }
+        .camera-btn.active { border-color: #00ff88; color: #00ff88; box-shadow: 0 0 10px #00ff88; }
+        .camera-btn.blind { border-color: #ff8800; }
+        
+        .camera-main-view { display: flex; gap: 10px; }
+        .camera-large { flex: 1; height: 200px; object-fit: cover; border-radius: 8px; border: 2px solid #333; filter: brightness(0.3) grayscale(0.4); }
+        .camera-side { width: 150px; }
+        .camera-side-btn { width: 100%; padding: 10px; margin-bottom: 8px; background: #1a1a1a; border: 2px solid #444; border-radius: 8px; color: #aaa; cursor: pointer; font-size: 0.8rem; }
         
         /* GAME OVER */
         .gameover-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 999; display: none; justify-content: center; align-items: center; flex-direction: column; }
-        .gameover-text { color: red; font-size: 5rem; font-weight: bold; text-shadow: 0 0 30px red; margin-bottom: 20px; }
-        .jumpscare { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: red; z-index: 998; display: none; justify-content: center; align-items: center; animation: flash 0.5s; }
+        .gameover-text { color: red; font-size: 4rem; font-weight: bold; text-shadow: 0 0 30px red; margin-bottom: 30px; }
+        .jumpscare { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: red; z-index: 998; display: none; justify-content: center; align-items: center; animation: flash 0.4s; }
         .jumpscare img { width: 400px; height: 400px; object-fit: cover; border-radius: 20px; border: 5px solid black; }
         @keyframes flash { 0%,100%{ background: red; } 50%{ background: darkred; } }
         
         /* MENU */
         .menu-screen { text-align: center; color: white; }
-        .menu-title { font-size: 3.5rem; color: #ff4444; text-shadow: 0 0 20px red; margin-bottom: 40px; }
-        .start-btn { padding: 20px 50px; background: #00ff88; border: none; border-radius: 20px; font-size: 1.8rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 0 #00aa55; }
-        .start-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #00aa55; }
+        .menu-title { font-size: 3rem; color: #ff4444; text-shadow: 0 0 20px red; margin-bottom: 30px; }
+        .start-btn { padding: 15px 40px; background: #00ff88; border: none; border-radius: 15px; font-size: 1.5rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 0 #00aa55; }
         
         .hidden { display: none !important; }
-        .back-btn { background: #4a4a6e; border: none; color: white; padding: 8px 20px; border-radius: 10px; cursor: pointer; margin-bottom: 10px; }
+        .warning-text { color: #ff4444; font-size: 1.2rem; text-align: center; margin: 10px 0; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100%{ opacity: 1; } 50%{ opacity: 0.5; } }
     </style>
 </head>
 <body>
@@ -64,14 +69,14 @@
 <div id="mainMenu" class="menu-screen">
     <div class="menu-title">👹 FIVE NIGHTS WITH RASMUS</div>
     <button class="start-btn" id="startGameBtn">START NAT 1</button>
-    <p style="color: #888; margin-top: 30px;">Overlev fra 12AM til 6AM</p>
+    <p style="color: #666; margin-top: 30px;">Lav lektier for at overleve · Tjek kameraer</p>
 </div>
 
 <!-- SPIL CONTAINER -->
 <div id="gameContainer" class="game-container hidden">
     <!-- TOP BAR -->
     <div class="top-bar">
-        <div class="night-display">NAT <span id="nightDisplay">1</span></div>
+        <div class="night-display">🌙 NAT <span id="nightDisplay">1</span></div>
         <div class="time-display" id="timeDisplay">12:00 AM</div>
         <div class="power-display">
             <div>🔋 <span id="powerPercent">100</span>%</div>
@@ -79,32 +84,39 @@
         </div>
     </div>
     
-    <!-- HOVED VISNING (KONTOR / KAMERA) -->
-    <div class="main-view">
-        <img class="office-img" id="officeView" src="https://imgur.com/nVo7Mr1.jpg" alt="Kontor">
-        <img class="camera-view hidden" id="cameraView" src="" alt="Kamera">
-        <img class="rasmus-door rasmus-left" id="rasmusLeft" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus">
-        <img class="rasmus-door rasmus-right" id="rasmusRight" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus">
+    <!-- KONTOR VISNING -->
+    <div class="office-view" id="officeView">
+        <img class="office-img" id="officeImg" src="https://imgur.com/nVo7Mr1.jpg" alt="Kontor">
+        <div class="homework-overlay" id="homeworkOverlay">
+            <span class="homework-text">📚 LAV LEKTIER 📚</span>
+            <button class="homework-btn" id="homeworkBtn">KLIK FOR AT LAVE LEKTIER</button>
+        </div>
+        <img class="rasmus-office" id="rasmusOffice" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus">
     </div>
     
-    <!-- KAMERA GRID -->
-    <div id="cameraPanel" class="hidden">
-        <button class="back-btn" id="closeCameraBtn">◀ TILBAGE TIL KONTOR</button>
+    <div class="warning-text hidden" id="warningText">⚠️ RASMUS ER I NÆRHEDEN! LAV LEKTIER! ⚠️</div>
+    
+    <!-- KAMERA PANEL -->
+    <div id="cameraPanel" class="camera-panel hidden">
+        <div class="camera-header">
+            <span>📷 KAMERA SYSTEM</span>
+            <button class="camera-side-btn" id="closeCameraBtn" style="width: auto; padding: 5px 15px;">LUK KAMERA</button>
+        </div>
         <div class="camera-grid" id="cameraGrid"></div>
-    </div>
-    
-    <!-- KONTROL PANEL -->
-    <div class="control-panel">
-        <button class="control-btn" id="leftDoorBtn">🚪 VENSTRE DØR</button>
-        <button class="control-btn" id="cameraToggleBtn">📷 KAMERA</button>
-        <button class="control-btn" id="rightDoorBtn">🚪 HØJRE DØR</button>
+        <div class="camera-main-view">
+            <img class="camera-large" id="cameraLarge" src="" alt="Kamera visning">
+            <div class="camera-side">
+                <button class="camera-side-btn" id="playSoundBtn">🔊 AFSPIL LYD</button>
+                <div style="color: #888; font-size: 0.8rem; margin-top: 10px;">Brug lyd for at lokke Rasmus væk</div>
+            </div>
+        </div>
     </div>
 </div>
 
 <!-- GAME OVER -->
 <div id="gameoverScreen" class="gameover-overlay">
-    <div class="gameover-text">GAME OVER</div>
-    <button class="start-btn" id="restartBtn" style="font-size: 1.5rem;">PRØV IGEN</button>
+    <div class="gameover-text">💀 GAME OVER 💀</div>
+    <button class="start-btn" id="restartBtn" style="font-size: 1.3rem;">PRØV IGEN</button>
 </div>
 
 <!-- JUMP SCARE -->
@@ -113,7 +125,7 @@
 </div>
 
 <script>
-    // BILLEDER
+    // BILLEDER (MØRKE OG UHYGGELIGE)
     const OFFICE_IMG = 'https://imgur.com/nVo7Mr1.jpg';
     const CAMERA_IMGS = {
         'scene': 'https://imgur.com/r0Qx608.jpg',
@@ -132,16 +144,16 @@
     let gameActive = false;
     let night = 1;
     let timeHour = 0;
-    let timeMinute = 0;
     let power = 100;
-    let leftDoorClosed = false;
-    let rightDoorClosed = false;
     let cameraOpen = false;
     let rasmusPosition = 'scene';
-    let rasmusAtLeftDoor = false;
-    let rasmusAtRightDoor = false;
+    let rasmusInOffice = false;
+    let doingHomework = false;
+    let homeworkTimer = 0;
     let gameInterval = null;
     let rasmusInterval = null;
+    let homeworkInterval = null;
+    let soundCooldown = 0;
     
     // DOM
     const mainMenu = document.getElementById('mainMenu');
@@ -153,16 +165,14 @@
     const powerPercent = document.getElementById('powerPercent');
     const powerFill = document.getElementById('powerFill');
     const officeView = document.getElementById('officeView');
-    const cameraView = document.getElementById('cameraView');
     const cameraPanel = document.getElementById('cameraPanel');
     const cameraGrid = document.getElementById('cameraGrid');
-    const rasmusLeft = document.getElementById('rasmusLeft');
-    const rasmusRight = document.getElementById('rasmusRight');
-    const leftDoorBtn = document.getElementById('leftDoorBtn');
-    const rightDoorBtn = document.getElementById('rightDoorBtn');
-    const cameraToggleBtn = document.getElementById('cameraToggleBtn');
+    const cameraLarge = document.getElementById('cameraLarge');
+    const rasmusOffice = document.getElementById('rasmusOffice');
+    const warningText = document.getElementById('warningText');
+    const homeworkBtn = document.getElementById('homeworkBtn');
+    const playSoundBtn = document.getElementById('playSoundBtn');
     
-    // KAMERA RUM
     const ROOMS = ['scene', 'gang1', 'gang2', 'kantine', 'trappe', 'toilet', 'biblio', 'udenfor', 'kontor'];
     
     function updateUI() {
@@ -176,42 +186,52 @@
         if (displayHour === 0) displayHour = 12;
         timeDisplay.textContent = `${displayHour}:${minute.toString().padStart(2,'0')} ${ampm}`;
         
-        leftDoorBtn.classList.toggle('active', leftDoorClosed);
-        rightDoorBtn.classList.toggle('active', rightDoorClosed);
+        if (soundCooldown > 0) {
+            playSoundBtn.textContent = `🔊 AFSPIL LYD (${soundCooldown}s)`;
+            playSoundBtn.disabled = true;
+        } else {
+            playSoundBtn.textContent = '🔊 AFSPIL LYD';
+            playSoundBtn.disabled = false;
+        }
     }
     
     function drainPower() {
-        let drain = 1;
-        if (leftDoorClosed) drain += 2;
-        if (rightDoorClosed) drain += 2;
+        let drain = 0.5;
         if (cameraOpen) drain += 1;
-        power = Math.max(0, power - drain / 10);
-        if (power <= 0) { leftDoorClosed = false; rightDoorClosed = false; cameraOpen = false; cameraPanel.classList.add('hidden'); officeView.classList.remove('hidden'); }
+        power = Math.max(0, power - drain / 20);
+        if (power <= 0) { cameraOpen = false; cameraPanel.classList.add('hidden'); }
         updateUI();
     }
     
     function moveRasmus() {
         if (!gameActive) return;
+        
         let currentIndex = ROOMS.indexOf(rasmusPosition);
         let direction = Math.random() > 0.5 ? 1 : -1;
         let newIndex = Math.max(0, Math.min(ROOMS.length - 1, currentIndex + direction));
         rasmusPosition = ROOMS[newIndex];
         
-        rasmusAtLeftDoor = (rasmusPosition === 'gang1' && Math.random() < 0.3);
-        rasmusAtRightDoor = (rasmusPosition === 'gang2' && Math.random() < 0.3);
+        let nearOffice = (rasmusPosition === 'gang1' || rasmusPosition === 'gang2');
+        warningText.classList.toggle('hidden', !nearOffice);
         
-        rasmusLeft.style.display = rasmusAtLeftDoor && !leftDoorClosed ? 'block' : 'none';
-        rasmusRight.style.display = rasmusAtRightDoor && !rightDoorClosed ? 'block' : 'none';
-        
-        if ((rasmusAtLeftDoor && !leftDoorClosed) || (rasmusAtRightDoor && !rightDoorClosed)) {
-            if (!cameraOpen) gameOver();
+        if (nearOffice && Math.random() < 0.4 && !doingHomework) {
+            rasmusInOffice = true;
+            rasmusOffice.style.display = 'block';
+            homeworkTimer = 5;
         }
+        
+        if (cameraOpen) updateCameraImage();
+    }
+    
+    function updateCameraImage() {
+        cameraLarge.src = CAMERA_IMGS[rasmusPosition] || CAMERA_IMGS['scene'];
     }
     
     function gameOver() {
         gameActive = false;
         clearInterval(gameInterval);
         clearInterval(rasmusInterval);
+        clearInterval(homeworkInterval);
         jumpscareScreen.style.display = 'flex';
         setTimeout(() => { jumpscareScreen.style.display = 'none'; gameoverScreen.style.display = 'flex'; }, 800);
     }
@@ -220,6 +240,7 @@
         gameActive = false;
         clearInterval(gameInterval);
         clearInterval(rasmusInterval);
+        clearInterval(homeworkInterval);
         alert('🎉 DU OVERLEVEDE NATTEN! 🎉\n\nKommer snart: Nat ' + (night + 1));
         gameContainer.classList.add('hidden');
         mainMenu.classList.remove('hidden');
@@ -229,68 +250,65 @@
         cameraGrid.innerHTML = '';
         ROOMS.forEach(room => {
             let btn = document.createElement('button');
-            btn.className = 'camera-btn';
+            btn.className = 'camera-btn' + (room.includes('scene') || room.includes('toilet') || room.includes('biblio') || room.includes('kontor') ? ' blind' : '');
             btn.textContent = room.toUpperCase();
-            btn.addEventListener('click', () => { cameraView.src = CAMERA_IMGS[room]; });
+            btn.addEventListener('click', () => { cameraLarge.src = CAMERA_IMGS[room]; });
             cameraGrid.appendChild(btn);
         });
     }
     
     // EVENT LISTENERS
-    document.getElementById('startGameBtn').addEventListener('click', () => {
-        night = 1;
-        startNight();
-    });
-    
-    document.getElementById('restartBtn').addEventListener('click', () => {
-        gameoverScreen.style.display = 'none';
-        startNight();
-    });
+    document.getElementById('startGameBtn').addEventListener('click', () => { night = 1; startNight(); });
+    document.getElementById('restartBtn').addEventListener('click', () => { gameoverScreen.style.display = 'none'; startNight(); });
     
     function startNight() {
-        gameActive = true;
-        timeHour = 0;
-        power = 100;
-        rasmusPosition = 'scene';
-        leftDoorClosed = false; rightDoorClosed = false; cameraOpen = false;
-        rasmusLeft.style.display = 'none'; rasmusRight.style.display = 'none';
-        cameraPanel.classList.add('hidden'); officeView.classList.remove('hidden');
+        gameActive = true; timeHour = 0; power = 100; rasmusPosition = 'scene'; rasmusInOffice = false; doingHomework = false; cameraOpen = false;
+        rasmusOffice.style.display = 'none'; cameraPanel.classList.add('hidden'); warningText.classList.add('hidden');
         
-        mainMenu.classList.add('hidden');
-        gameContainer.classList.remove('hidden');
-        gameoverScreen.style.display = 'none';
+        mainMenu.classList.add('hidden'); gameContainer.classList.remove('hidden'); gameoverScreen.style.display = 'none';
         nightDisplay.textContent = night;
         
-        updateUI();
-        renderCameraGrid();
+        updateUI(); renderCameraGrid();
         
         if (gameInterval) clearInterval(gameInterval);
         if (rasmusInterval) clearInterval(rasmusInterval);
+        if (homeworkInterval) clearInterval(homeworkInterval);
         
         gameInterval = setInterval(() => {
             if (!gameActive) return;
-            timeHour += 0.01;
+            timeHour += 0.005;
             drainPower();
+            if (soundCooldown > 0) soundCooldown--;
             if (timeHour >= 6) winGame();
             updateUI();
         }, 100);
         
-        rasmusInterval = setInterval(() => moveRasmus(), 3000);
+        rasmusInterval = setInterval(() => moveRasmus(), 4000);
+        
+        homeworkInterval = setInterval(() => {
+            if (!gameActive) return;
+            if (rasmusInOffice && !doingHomework) { homeworkTimer--; if (homeworkTimer <= 0) gameOver(); }
+            if (doingHomework) { rasmusInOffice = false; rasmusOffice.style.display = 'none'; }
+        }, 1000);
     }
     
-    leftDoorBtn.addEventListener('click', () => { if (power > 0) { leftDoorClosed = !leftDoorClosed; if (!leftDoorClosed) rasmusLeft.style.display = 'none'; updateUI(); } });
-    rightDoorBtn.addEventListener('click', () => { if (power > 0) { rightDoorClosed = !rightDoorClosed; if (!rightDoorClosed) rasmusRight.style.display = 'none'; updateUI(); } });
+    homeworkBtn.addEventListener('click', () => { doingHomework = true; setTimeout(() => doingHomework = false, 2000); homeworkBtn.textContent = 'LAVER LEKTIER...'; setTimeout(() => homeworkBtn.textContent = 'KLIK FOR AT LAVE LEKTIER', 2000); });
     
-    cameraToggleBtn.addEventListener('click', () => {
-        cameraOpen = !cameraOpen;
-        cameraPanel.classList.toggle('hidden', !cameraOpen);
-        officeView.classList.toggle('hidden', cameraOpen);
-        cameraView.classList.toggle('hidden', !cameraOpen);
-        cameraToggleBtn.classList.toggle('active', cameraOpen);
-        if (!cameraOpen) cameraView.src = '';
+    document.getElementById('closeCameraBtn').addEventListener('click', () => { cameraOpen = false; cameraPanel.classList.add('hidden'); });
+    
+    document.addEventListener('keydown', (e) => {
+        if (!gameActive) return;
+        if (e.key === 'c' || e.key === 'C') { cameraOpen = !cameraOpen; cameraPanel.classList.toggle('hidden', !cameraOpen); if (cameraOpen) updateCameraImage(); }
+        if (e.key === 'h' || e.key === 'H') { doingHomework = true; homeworkBtn.textContent = 'LAVER LEKTIER...'; setTimeout(() => { doingHomework = false; homeworkBtn.textContent = 'KLIK FOR AT LAVE LEKTIER'; }, 2000); }
     });
     
-    document.getElementById('closeCameraBtn').addEventListener('click', () => { cameraOpen = false; cameraPanel.classList.add('hidden'); officeView.classList.remove('hidden'); cameraToggleBtn.classList.remove('active'); });
+    playSoundBtn.addEventListener('click', () => {
+        if (soundCooldown > 0) return;
+        soundCooldown = 15;
+        let rooms = ROOMS.filter(r => r !== rasmusPosition);
+        rasmusPosition = rooms[Math.floor(Math.random() * rooms.length)];
+        if (cameraOpen) updateCameraImage();
+    });
 </script>
 </body>
 </html>
