@@ -2,290 +2,638 @@
 <html lang="da">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, viewport-fit=cover">
-    <title>🏫 2 Timer med Rasmus 👹</title>
-    <link rel="icon" href="data:,">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🌙 Nattevagten · Klik & Slip</title>
     <style>
-        * { user-select: none; -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { overflow: hidden; height: 100vh; width: 100vw; position: fixed; background: #0d0705; }
-        body { font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; padding: 8px; }
-        
-        /* MENU */
-        .menu-container { max-width: 550px; width: 100%; background: linear-gradient(135deg, rgba(15,10,20,0.98), rgba(8,5,12,0.98)); backdrop-filter: blur(20px); border-radius: 50px; padding: 35px 25px; box-shadow: 0 30px 60px rgba(0,0,0,0.9), inset 0 0 0 2px rgba(255,215,0,0.4); border: 1px solid rgba(255,180,70,0.6); text-align: center; }
-        .game-title { font-size: 2.8rem; font-weight: 900; background: linear-gradient(135deg, #ffd700, #ff6600, #ff0000); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 40px rgba(255,215,0,0.7); }
-        .game-subtitle { color: #d4b87a; font-size: 1rem; margin-bottom: 30px; border-bottom: 2px solid rgba(255,215,0,0.4); padding-bottom: 15px; }
-        .menu-btn { width: 100%; padding: 16px 22px; margin-bottom: 12px; background: linear-gradient(135deg, #1e160e, #0d0805); border: 2px solid #c49a1c; border-radius: 50px; color: #ffd700; font-weight: bold; font-size: 1.4rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 5px 0 #6b4a10; text-align: left; display: flex; align-items: center; gap: 15px; }
-        .menu-icon { font-size: 2.2rem; min-width: 45px; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        /* SPIL */
-        .game-container { width: 100%; max-width: 1400px; height: 100%; display: flex; align-items: center; }
-        .classroom-view { background: linear-gradient(135deg, #2d1b0e, #150a05); border-radius: 25px; padding: 10px; border: 3px solid #a07818; box-shadow: 0 20px 40px rgba(0,0,0,0.8); position: relative; width: 100%; height: 95vh; display: flex; flex-direction: column; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-shrink: 0; }
-        .back-btn { background: #6b3a1a; border: 2px solid #a07818; padding: 6px 15px; border-radius: 30px; color: #ffd700; font-weight: bold; cursor: pointer; box-shadow: 0 3px 0 #4a2a10; }
-        .clock-display { background: rgba(0,0,0,0.7); border: 2px solid #ffd700; border-radius: 30px; padding: 6px 15px; display: inline-block; }
-        .clock-time { font-size: 1.4rem; font-weight: bold; color: #ffd700; }
-        .clock-label { color: #c8a86e; margin: 0 6px; font-size: 0.9rem; }
+        body {
+            background: linear-gradient(145deg, #0b0e14 0%, #1a1f2c 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 16px;
+            margin: 0;
+            color: #e0e0e0;
+        }
 
-        /* KLASSEVÆRELSE */
-        .classroom-wrapper { position: relative; flex: 1; min-height: 0; }
-        .classroom-bg { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .classroom-img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 15px; border: 2px solid #6b4a10; }
-        
-        /* ELEVER - PLACERET HELT NEDE PÅ STOLENE */
-        .students-row { position: absolute; bottom: 25%; left: 0; right: 0; display: flex; justify-content: space-around; padding: 0 5%; z-index: 15; }
-        .student { text-align: center; color: #ffd700; text-shadow: 2px 2px 4px black; font-weight: bold; font-size: 0.75rem; }
-        .student-emoji { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; box-shadow: 0 0 10px rgba(255,215,0,0.6); background: #2c2e3e; }
+        .game-wrapper {
+            max-width: 550px;
+            width: 100%;
+            background: rgba(20, 30, 40, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 28px 22px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,215,0,0.2);
+        }
 
-        /* PC OVERLAY */
-        .pc-overlay { position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); border: 3px solid #16213e; border-radius: 40px; padding: 6px 18px; display: flex; align-items: center; gap: 10px; color: #4CAF50; font-family: 'Courier New', monospace; z-index: 25; }
-        .pc-emoji { font-size: 1.8rem; }
-        .pc-text { font-size: 1rem; font-weight: bold; }
-        .pc-hint { color: #ffd700; font-size: 0.75rem; margin-left: 8px; border-left: 2px solid #6b4a10; padding-left: 8px; }
+        /* Header med point og tid */
+        .stats-panel {
+            background: rgba(0,0,0,0.35);
+            border-radius: 100px;
+            padding: 18px 28px;
+            margin-bottom: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255,215,0,0.2);
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.3);
+        }
 
-        /* RASMUS */
-        .rasmus-in-class { position: absolute; bottom: 22%; right: 3%; width: 80px; height: 80px; border-radius: 10px; border: 3px solid #ff0000; box-shadow: 0 0 30px #ff0000; z-index: 20; object-fit: cover; transform: rotate(-5deg); clip-path: inset(0 0 0 15%); }
+        .points-container {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
 
-        /* KAMERA */
-        .camera-panel { background: #111122; border-radius: 15px; padding: 10px; border: 3px solid #16213e; margin-top: 8px; flex-shrink: 0; }
-        .camera-thumbnails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
-        .camera-thumb { background: #0a1a2e; border: 2px solid #e94560; border-radius: 10px; padding: 8px 3px; cursor: pointer; color: white; font-weight: bold; font-size: 0.7rem; text-align: center; }
-        .camera-large-view { background: #050510; border-radius: 10px; padding: 8px; border: 2px solid #e94560; }
-        .camera-large-image { width: 100%; max-height: 120px; object-fit: contain; border-radius: 8px; }
+        .points-label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #b0b8c5;
+            letter-spacing: 0.5px;
+        }
 
-        /* MINI-SPIL */
-        .pizza-game { text-align: center; color: white; padding: 10px; }
-        .customer-bubble { background: #f5e6d3; border-radius: 20px; padding: 10px; margin-bottom: 10px; border: 2px solid #a07818; }
-        .ingredients-panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 10px 0; }
-        .ingredient-btn { background: #e48f2b; border: none; padding: 10px; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 3px 0 #784a1a; }
-        .selected-ingredients { font-size: 1.5rem; margin: 8px 0; min-height: 35px; }
-        .progress-bar { background: #1a1208; height: 20px; border-radius: 10px; overflow: hidden; margin: 10px 0; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #4CAF50, #8bc34a); width: 0%; }
-        .action-btn { padding: 10px; background: linear-gradient(135deg, #1e160e, #0d0805); border: 2px solid #a07818; border-radius: 30px; color: #ffd700; font-weight: bold; font-size: 1rem; cursor: pointer; box-shadow: 0 3px 0 #5a4310; width: 100%; margin: 4px 0; }
+        .points-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffd966;
+            line-height: 1;
+            text-shadow: 0 2px 8px rgba(255,220,100,0.4);
+        }
 
-        /* OVERLAYS */
-        .hidden { display: none !important; }
-        .gameover-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: none; flex-direction: column; justify-content: center; align-items: center; }
-        .gameover-text { color: #ff4444; font-size: 4rem; font-weight: bold; text-shadow: 0 0 30px red; margin-bottom: 20px; }
-        .gameover-stats { color: #ffd700; font-size: 2rem; margin-bottom: 30px; }
-        .gameover-btn { padding: 15px 40px; background: #e48f2b; border: none; border-radius: 40px; color: black; font-weight: bold; font-size: 1.3rem; cursor: pointer; box-shadow: 0 5px 0 #784a1a; }
-        .jumpscare-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ff0000; z-index: 9998; display: none; justify-content: center; align-items: center; animation: flash 0.5s; }
-        .jumpscare-face { width: 300px; height: 300px; object-fit: cover; border: 5px solid #ff0000; border-radius: 20px; animation: zoom 0.5s; }
-        @keyframes flash { 0%,100%{ background:#ff0000; } 50%{ background:#8b0000; } }
-        @keyframes zoom { 0%{ transform:scale(0); } 100%{ transform:scale(1); } }
-        .spawn-message { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #ff4444; color: white; padding: 12px 25px; border-radius: 40px; font-weight: bold; z-index: 500; }
-        .computer-off-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 300; display: flex; justify-content: center; align-items: center; }
-        .computer-off-box { background: #2d1b0e; border: 4px solid #ff4444; border-radius: 30px; padding: 30px; text-align: center; max-width: 450px; }
-        .choice-container { max-width: 600px; width: 100%; background: linear-gradient(135deg, rgba(15,10,20,0.98), rgba(8,5,12,0.98)); backdrop-filter: blur(20px); border-radius: 40px; padding: 30px; box-shadow: 0 30px 60px rgba(0,0,0,0.9); border: 1px solid rgba(255,180,70,0.6); }
-        .choice-title { font-size: 1.8rem; font-weight: bold; color: #ffd700; text-align: center; margin-bottom: 20px; }
-        .option-card { background: rgba(30,25,35,0.9); border: 2px solid #6b4c1a; border-radius: 20px; padding: 15px; margin-bottom: 12px; cursor: pointer; }
-        .option-card.selected { border-color: #ffd700; background: rgba(50,45,55,1); box-shadow: 0 0 20px rgba(255,215,0,0.3); }
-        .option-title { font-size: 1.4rem; font-weight: bold; color: #ffd700; }
-        .option-desc { color: #c8a86e; font-size: 0.9rem; }
-        .action-buttons { display: flex; gap: 10px; margin-top: 20px; }
+        .timer-container {
+            text-align: right;
+        }
+
+        .timer-label {
+            font-size: 0.8rem;
+            color: #8a94a3;
+            letter-spacing: 1px;
+        }
+
+        .timer-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e0e0e0;
+            line-height: 1.1;
+        }
+
+        /* Hoved-klik-område */
+        .click-area {
+            background: radial-gradient(circle at 30% 20%, #2a3a4a, #0f1a24);
+            border-radius: 180px;
+            padding: 28px 15px 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px solid #ffd966;
+            box-shadow: 0 15px 0 #7a5512, 0 25px 35px rgba(0,0,0,0.5);
+            transition: all 0.05s ease;
+            cursor: pointer;
+        }
+
+        .click-area:active {
+            transform: translateY(6px);
+            box-shadow: 0 9px 0 #7a5512, 0 20px 30px rgba(0,0,0,0.5);
+        }
+
+        .click-emoji {
+            font-size: 6.5rem;
+            line-height: 1;
+            filter: drop-shadow(0 8px 12px black);
+            margin-bottom: 5px;
+        }
+
+        .click-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd966;
+            text-shadow: 0 3px 0 #7a5512;
+            letter-spacing: 1px;
+        }
+
+        .click-sub {
+            font-size: 0.9rem;
+            color: #a0b0c0;
+            margin-top: 8px;
+        }
+
+        /* Opgraderinger */
+        .upgrades-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffd966;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upgrades-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .upgrade-card {
+            background: rgba(15, 25, 35, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 8px 16px 8px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #3a5068;
+            box-shadow: 0 5px 0 #0f1a24;
+            transition: all 0.1s;
+        }
+
+        .upgrade-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .upgrade-icon {
+            font-size: 2.2rem;
+            width: 45px;
+            text-align: center;
+        }
+
+        .upgrade-details h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f0e6d2;
+        }
+
+        .upgrade-details p {
+            font-size: 0.8rem;
+            color: #a0b0c0;
+        }
+
+        .upgrade-action {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .upgrade-cost {
+            font-weight: 700;
+            color: #ffd966;
+            background: #1e2a36;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+
+        .buy-btn {
+            background: #3d6b2e;
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #1f3a16;
+            transition: all 0.1s;
+            border: 1px solid #6da34d;
+        }
+
+        .buy-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #1f3a16;
+        }
+
+        .buy-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 3px 0 #1f3a16;
+            background: #4a4a4a;
+            border-color: #666;
+        }
+
+        .reset-area {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .reset-btn {
+            background: transparent;
+            border: 1px solid #5a4a3a;
+            color: #a09080;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .reset-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: #d0c0b0;
+        }
+
+        /* Achievement toast */
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e3a5f;
+            color: #ffd966;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            border-left: 6px solid #ffd966;
+            z-index: 999;
+            animation: slideUp 2.5s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 15px;
+            color: #6a7a8a;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
 
-<!-- HOVEDMENU -->
-<div id="mainMenu" class="menu-container">
-    <div class="game-title">🏫 2 TIMER MED RASMUS</div>
-    <div class="game-subtitle">Overlev vagten · Lav pizzaer · Find Rasmus</div>
-    <button class="menu-btn" id="newGameBtn"><span class="menu-icon">🆕</span><span>NYT SPIL</span></button>
-</div>
-
-<!-- VÆLG BONUS -->
-<div id="bonusChoice" class="choice-container hidden">
-    <div class="choice-title">🎁 VÆLG BONUS TYPE</div>
-    <div class="option-card" data-bonus="faster"><div class="option-title">⏰ HURTIGERE TID</div><div class="option-desc">Tiden går 1.5% hurtigere mens du spiller.</div></div>
-    <div class="option-card" data-bonus="reduce"><div class="option-title">⏳ TRÆK TID FRA</div><div class="option-desc">Når du når 100%, trækkes 30 sekunder fra!</div></div>
-    <div class="action-buttons"><button class="action-btn" id="bonusBack">◀ TILBAGE</button><button class="action-btn disabled" id="bonusConfirm" disabled>🔒 VÆLG BONUS</button></div>
-</div>
-
-<!-- VÆLG SVÆRHEDSGRAD -->
-<div id="difficultyChoice" class="choice-container hidden">
-    <div class="choice-title">🎚️ VÆLG SVÆRHEDSGRAD</div>
-    <div class="option-card" data-difficulty="easy"><div class="option-title">😊 LET</div><div class="option-desc">Rasmus i klasse: 5 sekunder</div></div>
-    <div class="option-card" data-difficulty="normal"><div class="option-title">😐 NORMAL</div><div class="option-desc">Rasmus i klasse: 3 sekunder</div></div>
-    <div class="option-card" data-difficulty="hard"><div class="option-title">😬 LIDT SVÆR</div><div class="option-desc">Rasmus i klasse: 2 sekunder</div></div>
-    <div class="option-card" data-difficulty="expert"><div class="option-title">😰 SVÆR</div><div class="option-desc">Rasmus i klasse: 1 sekund</div></div>
-    <div class="action-buttons"><button class="action-btn" id="difficultyBack">◀ TILBAGE</button><button class="action-btn disabled" id="difficultyConfirm" disabled>🔒 VÆLG SVÆRHEDSGRAD</button></div>
-</div>
-
-<!-- SPIL CONTAINER -->
-<div id="gameContainer" class="game-container hidden">
-    <div class="classroom-view">
-        <div class="top-bar">
-            <button class="back-btn" id="exitToMenu">🚪 TILBAGE</button>
-            <div class="clock-display">
-                <span class="clock-time" id="gameClock">13:00</span>
-                <span class="clock-label">📅 Dag <span id="currentDay">1</span></span>
-                <span class="clock-label">⏳ <span id="timeRemaining">5:00</span></span>
-            </div>
+<div class="game-wrapper">
+    <!-- Stats -->
+    <div class="stats-panel">
+        <div class="points-container">
+            <span class="points-label">🔋</span>
+            <span class="points-value" id="pointsDisplay">0</span>
         </div>
-        
-        <div class="classroom-wrapper">
-            <div class="classroom-bg">
-                <img class="classroom-img" id="classroomImage" src="https://imgur.com/nVo7Mr1.jpg" alt="Klasseværelse">
-                <div class="pc-overlay">
-                    <span class="pc-emoji">💻</span>
-                    <span class="pc-text" id="laptopStatus">LEKTIE</span>
-                    <span class="pc-hint">H: Spil 🎮 | D: Kamera 📷</span>
+        <div class="timer-container">
+            <div class="timer-label">OVERLEVET</div>
+            <div class="timer-value" id="timerDisplay">00:00</div>
+        </div>
+    </div>
+
+    <!-- Klik område -->
+    <div class="click-area" id="clickArea">
+        <div class="click-emoji">👁️</div>
+        <div class="click-text">HOLD DIG VÅGEN</div>
+        <div class="click-sub">+<span id="clickPower">1</span> point · Klik her</div>
+    </div>
+
+    <!-- Opgraderinger -->
+    <div class="upgrades-title">
+        <span>🛠️ OPGRADERINGER</span>
+        <span style="font-size: 0.8rem; opacity: 0.7;">(passiv indkomst)</span>
+    </div>
+    <div class="upgrades-list">
+        <!-- Kaffe -->
+        <div class="upgrade-card">
+            <div class="upgrade-info">
+                <span class="upgrade-icon">☕</span>
+                <div class="upgrade-details">
+                    <h4>Stærkere Kaffe</h4>
+                    <p>+1 point per klik (Niv. <span id="coffeeLevel">1</span>)</p>
                 </div>
-                <img class="rasmus-in-class hidden" id="rasmusInClassImg" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus">
             </div>
-            
-            <!-- ELEVER - PLACERET HELT NEDE -->
-            <div class="students-row">
-                <div class="student"><img class="student-emoji" src="https://imgur.com/jNpqKEf.jpg" alt="Aksel"><br>Aksel</div>
-                <div class="student"><img class="student-emoji" src="https://imgur.com/6tAxCWv.jpg" alt="Carl"><br>Carl</div>
-                <div class="student"><img class="student-emoji" src="https://imgur.com/WGPyjJA.jpg" alt="Saleh"><br>Saleh</div>
-                <div class="student"><img class="student-emoji" src="https://imgur.com/obr2pCz.jpg" alt="Johannes"><br>Johannes</div>
-                <div class="student"><img class="student-emoji" src="https://imgur.com/GKk14ZF.jpg" alt="Marcus"><br>Marcus</div>
-                <div class="student"><img class="student-emoji" src="https://imgur.com/9qSO565.jpg" alt="William"><br>William</div>
+            <div class="upgrade-action">
+                <span class="upgrade-cost" id="coffeeCost">15</span>
+                <button class="buy-btn" id="buyCoffeeBtn">KØB</button>
             </div>
         </div>
-        
-        <div id="laptopScreen" class="hidden">
-            <div id="homeworkView"><div style="text-align:center; color:#c8a86e; font-size:1.3rem;">📚 DU LAVER LEKTIER 📚</div></div>
-            <div id="miniGameView" class="pizza-game hidden">
-                <div class="customer-bubble"><div style="font-size:1.8rem;" id="customerEmoji">🐐</div><div style="font-weight:bold;" id="customerName">Aksel</div><div id="customerOrder">"En pizza med dej og ost tak!"</div></div>
-                <div id="requiredIngredients" style="color:#ffd700; margin:8px 0;"></div>
-                <div class="ingredients-panel">
-                    <button class="ingredient-btn" data-ingredient="dej">🍞 DEJ</button>
-                    <button class="ingredient-btn" data-ingredient="sauce">🍅 SAUCE</button>
-                    <button class="ingredient-btn" data-ingredient="ost">🧀 OST</button>
-                    <button class="ingredient-btn" data-ingredient="pepperoni">🔴 PEPPERONI</button>
-                    <button class="ingredient-btn" data-ingredient="skinke">🍖 SKINKE</button>
-                    <button class="ingredient-btn" data-ingredient="champignon">🍄 CHAMPIGNON</button>
+        <!-- Radio -->
+        <div class="upgrade-card">
+            <div class="upgrade-info">
+                <span class="upgrade-icon">📻</span>
+                <div class="upgrade-details">
+                    <h4>Radio</h4>
+                    <p>+2 point/sek</p>
                 </div>
-                <div class="selected-ingredients" id="selectedIngredientsDisplay"></div>
-                <button class="action-btn" id="bakePizzaBtn">🔥 BAG PIZZA</button>
-                <button class="action-btn" id="resetPizzaBtn">🔄 FORT RYD</button>
-                <div class="progress-bar"><div class="progress-fill" id="pizzaProgress"></div></div>
-                <div id="pizzaCount">0/10 pizzaer</div>
-                <button class="action-btn" id="exitMiniGame">◀ TILBAGE (H)</button>
+            </div>
+            <div class="upgrade-action">
+                <span class="upgrade-cost" id="radioCost">30</span>
+                <button class="buy-btn" id="buyRadioBtn">KØB</button>
             </div>
         </div>
-        
-        <div id="cameraPanel" class="camera-panel hidden">
-            <div id="cameraThumbnails" class="camera-thumbnails"></div>
-            <div id="cameraLargeView" class="camera-large-view">
-                <img id="cameraLargeImage" class="camera-large-image" src="" alt="Kamera">
+        <!-- Flere skærme -->
+        <div class="upgrade-card">
+            <div class="upgrade-info">
+                <span class="upgrade-icon">🖥️</span>
+                <div class="upgrade-details">
+                    <h4>Ekstra Skærm</h4>
+                    <p>+8 point/sek</p>
+                </div>
+            </div>
+            <div class="upgrade-action">
+                <span class="upgrade-cost" id="screenCost">120</span>
+                <button class="buy-btn" id="buyScreenBtn">KØB</button>
+            </div>
+        </div>
+        <!-- Dør -->
+        <div class="upgrade-card">
+            <div class="upgrade-info">
+                <span class="upgrade-icon">🚪</span>
+                <div class="upgrade-details">
+                    <h4>Forstærket Dør</h4>
+                    <p>+20 point/sek</p>
+                </div>
+            </div>
+            <div class="upgrade-action">
+                <span class="upgrade-cost" id="doorCost">300</span>
+                <button class="buy-btn" id="buyDoorBtn">KØB</button>
             </div>
         </div>
     </div>
-</div>
 
-<!-- COMPUTER SLUKKET -->
-<div id="computerOffOverlay" class="computer-off-overlay hidden">
-    <div class="computer-off-box">
-        <h2 style="color:#ff4444; font-size:1.8rem; margin-bottom:15px;">⚠️ COMPUTER SLUKKET!</h2>
-        <p style="color:white; font-size:1.2rem;"><span id="saboteurName">Saleh</span> slukkede din computer!</p>
-        <p style="color:#ffd700; margin:15px 0;">Hold T nede for at tænde</p>
-        <div class="progress-bar"><div class="progress-fill" id="powerProgress" style="width:0%"></div></div>
-        <p style="color:#aaa;">Slip T for at annullere</p>
+    <div class="reset-area">
+        <button class="reset-btn" id="resetBtn">🔄 Nulstil fremskridt</button>
     </div>
+    <div class="footer-note">💾 Spillet gemmer automatisk</div>
 </div>
-
-<!-- GAME OVER -->
-<div id="gameover" class="gameover-overlay">
-    <div class="gameover-text">💀 GAME OVER 💀</div>
-    <div class="gameover-stats" id="gameoverStats">Du overlevede 4:32</div>
-    <button class="gameover-btn" id="gameoverMenuBtn">🏠 TILBAGE TIL MENU</button>
-</div>
-
-<!-- JUMP SCARE -->
-<div id="jumpscare" class="jumpscare-overlay"><img class="jumpscare-face" id="jumpscareImg" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus"></div>
 
 <script>
-    const ROOM_IMAGES = {
-        'scene': 'https://imgur.com/r0Qx608.jpg', 'gang1': 'https://imgur.com/RVy04Qn.jpg', 'gang2': 'https://imgur.com/Lx6Qn86.jpg',
-        'kantine': 'https://imgur.com/r0Qx608.jpg', 'trappe': 'https://imgur.com/3iPixEm.jpg', 'toilet': 'https://imgur.com/Ltatxyg.jpg',
-        'biblio': 'https://imgur.com/YIfzseW.jpg', 'udenfor': 'https://imgur.com/vcQPODA.jpg', 'kontor': 'https://imgur.com/nllrJB0.jpg'
-    };
-    const RASMUS_IMAGE = 'https://imgur.com/G4CZuhM.jpg';
-    const STUDENTS = ['Aksel', 'Carl', 'Saleh', 'Johannes', 'Marcus', 'William'];
-    
-    document.getElementById('mainMenu').classList.remove('hidden');
-    
-    let gameState = { active: false, bonusType: null, difficulty: 'normal', timeRemaining: 300, rasmusRoom: 'scene', pizzaCount: 0, selectedIngredients: [], computerOff: false, rasmusInClass: false, rasmusClassTimer: 0, rasmusLeaveTimer: 0, rasmusSpawned: false };
-    let selectedBonus = null, selectedDifficulty = 'normal', currentView = 'homework', gameInterval = null, rasmusInterval = null, classInterval = null, currentCustomer = null, powerProgress = 0, powerInterval = null, tKeyDown = false;
-    
-    const CAMERA_ROOMS = [
-        { id: 'scene', name: 'SCENE', blind: true }, { id: 'gang1', name: 'GANG 1', blind: false }, { id: 'gang2', name: 'GANG 2', blind: false },
-        { id: 'kantine', name: 'KANTINE', blind: false }, { id: 'trappe', name: 'TRAPPE', blind: false }, { id: 'toilet', name: 'TOILET', blind: true },
-        { id: 'biblio', name: 'BIBLIO.', blind: true }, { id: 'udenfor', name: 'UDENFOR', blind: false }, { id: 'kontor', name: 'KONTOR', blind: true }
-    ];
-    const CUSTOMERS = [
-        { emoji: '🐐', name: 'Aksel', order: ['dej', 'ost'], orderText: 'Dej + Ost' },
-        { emoji: '🐄', name: 'Carl', order: ['dej', 'sauce', 'ost'], orderText: 'Dej + Sauce + Ost' },
-        { emoji: '👨‍🌾', name: 'Johannes', order: ['dej', 'sauce', 'ost', 'pepperoni'], orderText: 'Alle ingredienser' },
-        { emoji: '💼', name: 'Marcus', order: ['dej', 'pepperoni'], orderText: 'Dej + Pepperoni' },
-        { emoji: '🏃', name: 'William', order: ['dej', 'sauce', 'ost', 'pepperoni', 'skinke'], orderText: 'Luksus pizza' }
-    ];
-    const DIFFICULTY_TIMERS = { easy: 5, normal: 3, hard: 2, expert: 1 };
+    (function(){
+        "use strict";
 
-    function gameOver() {
-        gameState.active = false; clearInterval(gameInterval); clearInterval(rasmusInterval); clearInterval(classInterval);
-        let m = Math.floor((300 - gameState.timeRemaining) / 60); let s = (300 - gameState.timeRemaining) % 60;
-        document.getElementById('gameoverStats').innerText = `Du overlevede ${m}:${s.toString().padStart(2,'0')}`;
-        document.getElementById('gameover').style.display = 'flex';
-    }
-    document.getElementById('gameoverMenuBtn').addEventListener('click', () => { document.getElementById('gameover').style.display = 'none'; document.getElementById('jumpscare').style.display = 'none'; document.getElementById('gameContainer').classList.add('hidden'); document.getElementById('mainMenu').classList.remove('hidden'); });
+        // ----- Spil State -----
+        let points = 0;
+        let survivedSeconds = 0;
+        let clickMultiplier = 1;          // Niveau for kaffe
+        let hasRadio = false;
+        let hasScreen = false;
+        let hasDoor = false;
 
-    function triggerJumpscare() { gameOver(); setTimeout(() => { document.getElementById('jumpscare').style.display = 'flex'; setTimeout(() => document.getElementById('jumpscare').style.display = 'none', 800); }, 300); }
+        // Opgraderings-priser
+        const COFFEE_BASE_COST = 15;
+        const RADIO_COST = 30;
+        const SCREEN_COST = 120;
+        const DOOR_COST = 300;
 
-    function showSpawnMessage() { const msg = document.createElement('div'); msg.className = 'spawn-message'; msg.innerText = '👹 RASMUS ER SPAWNET! 👹'; document.body.appendChild(msg); setTimeout(() => msg.remove(), 3000); }
+        // DOM Elementer
+        const pointsDisplay = document.getElementById('pointsDisplay');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const clickPowerSpan = document.getElementById('clickPower');
+        const coffeeLevelSpan = document.getElementById('coffeeLevel');
+        const coffeeCostSpan = document.getElementById('coffeeCost');
+        const buyCoffeeBtn = document.getElementById('buyCoffeeBtn');
+        const buyRadioBtn = document.getElementById('buyRadioBtn');
+        const buyScreenBtn = document.getElementById('buyScreenBtn');
+        const buyDoorBtn = document.getElementById('buyDoorBtn');
+        const clickArea = document.getElementById('clickArea');
+        const resetBtn = document.getElementById('resetBtn');
 
-    // Computer slukkes MINDRE (0.008 chance ≈ hvert 2. minut)
-    setInterval(() => { if (gameState.active && !gameState.computerOff && !gameState.rasmusInClass && Math.random() < 0.008) { gameState.computerOff = true; const saboteur = STUDENTS[Math.floor(Math.random() * STUDENTS.length)]; document.getElementById('saboteurName').innerText = saboteur; document.getElementById('computerOffOverlay').classList.remove('hidden'); if (currentView !== 'homework') { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('cameraPanel').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; } }}, 1000);
+        // Intervaller
+        let gameInterval = null;
+        let saveInterval = null;
 
-    document.addEventListener('keydown', (e) => { if (e.key === 't' || e.key === 'T') { tKeyDown = true; if (gameState.computerOff && !powerInterval) startPowerCharge(); } });
-    document.addEventListener('keyup', (e) => { if (e.key === 't' || e.key === 'T') { tKeyDown = false; if (powerInterval) { clearInterval(powerInterval); powerInterval = null; powerProgress = 0; document.getElementById('powerProgress').style.width = '0%'; } } });
-    function startPowerCharge() { powerProgress = 0; powerInterval = setInterval(() => { if (!tKeyDown) { clearInterval(powerInterval); powerInterval = null; powerProgress = 0; document.getElementById('powerProgress').style.width = '0%'; return; } powerProgress += 2; document.getElementById('powerProgress').style.width = powerProgress + '%'; if (powerProgress >= 100) { gameState.computerOff = false; document.getElementById('computerOffOverlay').classList.add('hidden'); clearInterval(powerInterval); powerInterval = null; powerProgress = 0; } }, 100); }
-
-    document.getElementById('newGameBtn').addEventListener('click', () => { document.getElementById('mainMenu').classList.add('hidden'); document.getElementById('bonusChoice').classList.remove('hidden'); });
-    document.getElementById('bonusBack').addEventListener('click', () => { document.getElementById('bonusChoice').classList.add('hidden'); document.getElementById('mainMenu').classList.remove('hidden'); });
-    document.querySelectorAll('[data-bonus]').forEach(c => c.addEventListener('click', () => { document.querySelectorAll('[data-bonus]').forEach(x => x.classList.remove('selected')); c.classList.add('selected'); selectedBonus = c.dataset.bonus; let b = document.getElementById('bonusConfirm'); b.classList.remove('disabled'); b.disabled = false; b.innerHTML = '✅ KONFIRMER'; }));
-    document.getElementById('bonusConfirm').addEventListener('click', () => { if(!selectedBonus) return; gameState.bonusType = selectedBonus; document.getElementById('bonusChoice').classList.add('hidden'); document.getElementById('difficultyChoice').classList.remove('hidden'); });
-    document.getElementById('difficultyBack').addEventListener('click', () => { document.getElementById('difficultyChoice').classList.add('hidden'); document.getElementById('bonusChoice').classList.remove('hidden'); });
-    document.querySelectorAll('[data-difficulty]').forEach(c => c.addEventListener('click', () => { document.querySelectorAll('[data-difficulty]').forEach(x => x.classList.remove('selected')); c.classList.add('selected'); selectedDifficulty = c.dataset.difficulty; let d = document.getElementById('difficultyConfirm'); d.classList.remove('disabled'); d.disabled = false; d.innerHTML = '✅ KONFIRMER'; }));
-    document.getElementById('difficultyConfirm').addEventListener('click', () => { if(!selectedDifficulty) return; gameState.difficulty = selectedDifficulty; startNewGame(); });
-
-    function startNewGame() {
-        gameState.active = true; gameState.timeRemaining = 300; gameState.rasmusRoom = 'scene'; gameState.pizzaCount = 0; gameState.computerOff = false; gameState.rasmusInClass = false; gameState.rasmusSpawned = false;
-        document.getElementById('difficultyChoice').classList.add('hidden'); document.getElementById('gameContainer').classList.remove('hidden'); document.getElementById('computerOffOverlay').classList.add('hidden'); document.getElementById('rasmusInClassImg').classList.add('hidden'); document.getElementById('gameover').style.display = 'none';
-        updateClock(); renderCameraThumbnails(); generateNewCustomer();
-        if(gameInterval) clearInterval(gameInterval); if(rasmusInterval) clearInterval(rasmusInterval); if(classInterval) clearInterval(classInterval);
-        gameInterval = setInterval(() => { if(gameState.active) { let r = (currentView === 'miniGame' && gameState.bonusType === 'faster') ? 1.015 : 1; gameState.timeRemaining = Math.max(0, gameState.timeRemaining - r); updateClock(); if(gameState.timeRemaining <= 0) { gameState.active = false; clearInterval(gameInterval); alert('🎉 DAG KLARET! 🎉'); } } }, 1000);
-        setTimeout(() => { if(gameState.active) { gameState.rasmusSpawned = true; showSpawnMessage(); rasmusInterval = setInterval(() => { if(!gameState.active) return; let rooms = CAMERA_ROOMS.filter(r => !r.blind && r.id !== gameState.rasmusRoom); gameState.rasmusRoom = rooms[Math.floor(Math.random() * rooms.length)].id; updateCameraImage(); }, 8000); } }, 30000);
-        classInterval = setInterval(() => { if(!gameState.active || !gameState.rasmusSpawned) return;
-            if(gameState.rasmusRoom === 'gang1' && !gameState.rasmusInClass) { gameState.rasmusInClass = true; gameState.rasmusClassTimer = DIFFICULTY_TIMERS[gameState.difficulty]; gameState.rasmusLeaveTimer = 0; document.getElementById('rasmusInClassImg').classList.remove('hidden'); }
-            if(gameState.rasmusInClass) {
-                if(currentView !== 'homework' || gameState.computerOff) { gameState.rasmusClassTimer--; if(gameState.rasmusClassTimer <= 0) { triggerJumpscare(); return; } gameState.rasmusLeaveTimer = 5; }
-                else { if(gameState.rasmusLeaveTimer > 0) { gameState.rasmusLeaveTimer--; } else { gameState.rasmusInClass = false; document.getElementById('rasmusInClassImg').classList.add('hidden'); } }
-            }
-        }, 1000);
-    }
-
-    function updateClock() { let m = Math.floor(gameState.timeRemaining / 60); let s = Math.floor(gameState.timeRemaining % 60); document.getElementById('timeRemaining').innerText = `${m}:${s.toString().padStart(2,'0')}`; document.getElementById('gameClock').innerText = `13:${m.toString().padStart(2,'0')}`; }
-    function generateNewCustomer() { currentCustomer = CUSTOMERS[Math.floor(Math.random() * CUSTOMERS.length)]; document.getElementById('customerEmoji').innerText = currentCustomer.emoji; document.getElementById('customerName').innerText = currentCustomer.name; document.getElementById('customerOrder').innerText = `"En pizza med ${currentCustomer.orderText} tak!"`; let txt = 'Rækkefølge: '; currentCustomer.order.forEach((ing,i) => { let e = ing==='dej'?'🍞':ing==='sauce'?'🍅':ing==='ost'?'🧀':ing==='pepperoni'?'🔴':ing==='skinke'?'🍖':'🍄'; txt += e + (i<currentCustomer.order.length-1?' → ':''); }); document.getElementById('requiredIngredients').innerText = txt; gameState.selectedIngredients = []; document.getElementById('selectedIngredientsDisplay').innerText = ''; }
-    function renderCameraThumbnails() { let container = document.getElementById('cameraThumbnails'); container.innerHTML = ''; CAMERA_ROOMS.forEach(r => { let el = document.createElement('div'); el.className = 'camera-thumb' + (r.blind ? ' blind' : ''); el.innerHTML = `<strong>${r.name}</strong>`; el.addEventListener('click', () => { document.getElementById('cameraLargeImage').src = ROOM_IMAGES[r.id]; updateCameraImage(); }); container.appendChild(el); }); }
-    function updateCameraImage() { let currentSrc = document.getElementById('cameraLargeImage').src; let roomId = Object.keys(ROOM_IMAGES).find(key => ROOM_IMAGES[key] === currentSrc); if (roomId && gameState.rasmusRoom === roomId) { document.getElementById('cameraLargeImage').style.border = '4px solid #ff0000'; document.getElementById('cameraLargeImage').style.boxShadow = '0 0 30px red'; } else { document.getElementById('cameraLargeImage').style.border = 'none'; document.getElementById('cameraLargeImage').style.boxShadow = 'none'; } }
-
-    document.querySelectorAll('.ingredient-btn').forEach(b => b.addEventListener('click', () => { gameState.selectedIngredients.push(b.dataset.ingredient); document.getElementById('selectedIngredientsDisplay').innerText = gameState.selectedIngredients.map(i => i==='dej'?'🍞':i==='sauce'?'🍅':i==='ost'?'🧀':i==='pepperoni'?'🔴':i==='skinke'?'🍖':'🍄').join(' '); }));
-    document.getElementById('bakePizzaBtn').addEventListener('click', () => { let correct = gameState.selectedIngredients.length === currentCustomer.order.length && gameState.selectedIngredients.every((ing,i) => ing === currentCustomer.order[i]); if(correct) { gameState.pizzaCount++; let p = (gameState.pizzaCount % 10) * 10; document.getElementById('pizzaProgress').style.width = p + '%'; document.getElementById('pizzaCount').innerText = `${gameState.pizzaCount % 10}/10 pizzaer`; if(gameState.pizzaCount % 10 === 0 && gameState.bonusType === 'reduce') { gameState.timeRemaining = Math.max(0, gameState.timeRemaining - 30); updateClock(); } generateNewCustomer(); } else { alert('❌ Forkert!'); } });
-    document.getElementById('resetPizzaBtn').addEventListener('click', () => { gameState.selectedIngredients = []; document.getElementById('selectedIngredientsDisplay').innerText = ''; });
-
-    window.addEventListener('keydown', (e) => { if(!gameState.active || gameState.computerOff) return;
-        if(e.key === 'h' || e.key === 'H') { e.preventDefault();
-            if(currentView === 'homework') { document.getElementById('homeworkView').classList.add('hidden'); document.getElementById('miniGameView').classList.remove('hidden'); document.getElementById('cameraPanel').classList.add('hidden'); currentView = 'miniGame'; document.getElementById('laptopStatus').innerHTML = 'SPILLER'; if(!currentCustomer) generateNewCustomer(); }
-            else { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('cameraPanel').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; document.getElementById('laptopStatus').innerHTML = 'LEKTIE'; }
+        // ----- Hjælpefunktioner -----
+        function showToast(text) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.textContent = text;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
         }
-        if(e.key === 'd' || e.key === 'D') { e.preventDefault(); document.getElementById('homeworkView').classList.add('hidden'); document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('cameraPanel').classList.remove('hidden'); currentView = 'camera'; document.getElementById('laptopStatus').innerHTML = 'KAMERA'; }
-    });
-    document.getElementById('exitMiniGame').addEventListener('click', () => { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; document.getElementById('laptopStatus').innerHTML = 'LEKTIE'; });
-    document.getElementById('exitToMenu').addEventListener('click', () => { gameState.active = false; clearInterval(gameInterval); clearInterval(rasmusInterval); clearInterval(classInterval); document.getElementById('gameContainer').classList.add('hidden'); document.getElementById('mainMenu').classList.remove('hidden'); });
+
+        // ----- Opdater UI -----
+        function updateUI() {
+            // Point
+            pointsDisplay.textContent = Math.floor(points);
+
+            // Timer
+            const mins = Math.floor(survivedSeconds / 60);
+            const secs = survivedSeconds % 60;
+            timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            // Kaffe (Klik-power)
+            clickPowerSpan.textContent = clickMultiplier;
+            coffeeLevelSpan.textContent = clickMultiplier;
+            const nextCoffeeCost = COFFEE_BASE_COST + (clickMultiplier - 1) * 8;
+            coffeeCostSpan.textContent = nextCoffeeCost;
+            buyCoffeeBtn.disabled = (points < nextCoffeeCost);
+
+            // Radio
+            const radioCostSpan = document.getElementById('radioCost');
+            if (!hasRadio) {
+                radioCostSpan.textContent = RADIO_COST;
+                buyRadioBtn.disabled = (points < RADIO_COST);
+                buyRadioBtn.textContent = 'KØB';
+            } else {
+                radioCostSpan.textContent = '—';
+                buyRadioBtn.disabled = true;
+                buyRadioBtn.textContent = 'Ejet';
+            }
+
+            // Skærm
+            const screenCostSpan = document.getElementById('screenCost');
+            if (!hasScreen) {
+                screenCostSpan.textContent = SCREEN_COST;
+                buyScreenBtn.disabled = (points < SCREEN_COST);
+                buyScreenBtn.textContent = 'KØB';
+            } else {
+                screenCostSpan.textContent = '—';
+                buyScreenBtn.disabled = true;
+                buyScreenBtn.textContent = 'Ejet';
+            }
+
+            // Dør
+            const doorCostSpan = document.getElementById('doorCost');
+            if (!hasDoor) {
+                doorCostSpan.textContent = DOOR_COST;
+                buyDoorBtn.disabled = (points < DOOR_COST);
+                buyDoorBtn.textContent = 'KØB';
+            } else {
+                doorCostSpan.textContent = '—';
+                buyDoorBtn.disabled = true;
+                buyDoorBtn.textContent = 'Ejet';
+            }
+        }
+
+        // ----- Tilføj point (sikrer UI opdatering)-----
+        function addPoints(amount) {
+            points += amount;
+            updateUI();
+        }
+
+        // ----- Beregn passiv indkomst -----
+        function calculatePassiveIncome() {
+            let income = 0;
+            if (hasRadio) income += 2;
+            if (hasScreen) income += 8;
+            if (hasDoor) income += 20;
+            return income;
+        }
+
+        // ----- Game Loop (hvert sekund) -----
+        function gameTick() {
+            if (!gameInterval) return;
+
+            // Overlevelsestid
+            survivedSeconds++;
+            
+            // Passiv indkomst
+            const passive = calculatePassiveIncome();
+            if (passive > 0) {
+                points += passive;
+            }
+
+            // Gemmer spillet automatisk hvert 10. sekund (for at være sikker)
+            // ... gøres i saveInterval
+
+            updateUI();
+        }
+
+        // ----- Gem / Load -----
+        const STORAGE_KEY = 'nattevagten_save_v1';
+
+        function saveGame() {
+            const saveData = {
+                points: points,
+                survived: survivedSeconds,
+                clickMult: clickMultiplier,
+                radio: hasRadio,
+                screen: hasScreen,
+                door: hasDoor
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData));
+        }
+
+        function loadGame() {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return;
+
+            try {
+                const data = JSON.parse(raw);
+                points = data.points || 0;
+                survivedSeconds = data.survived || 0;
+                clickMultiplier = data.clickMult || 1;
+                hasRadio = data.radio || false;
+                hasScreen = data.screen || false;
+                hasDoor = data.door || false;
+            } catch (e) {
+                console.warn("Kunne ikke loade save, starter frisk.");
+            }
+            updateUI();
+        }
+
+        // ----- Nulstil spil -----
+        function resetGame() {
+            if (confirm('Er du sikker på, at du vil slette alt? Dette kan ikke fortrydes.')) {
+                points = 0;
+                survivedSeconds = 0;
+                clickMultiplier = 1;
+                hasRadio = false;
+                hasScreen = false;
+                hasDoor = false;
+
+                updateUI();
+                saveGame();
+                showToast('🔄 Spillet er nulstillet');
+            }
+        }
+
+        // ----- Køb opgraderinger -----
+        function buyCoffee() {
+            const cost = COFFEE_BASE_COST + (clickMultiplier - 1) * 8;
+            if (points >= cost) {
+                points -= cost;
+                clickMultiplier++;
+                updateUI();
+                saveGame();
+                showToast(`☕ Kaffe niveau ${clickMultiplier}!`);
+            }
+        }
+
+        function buyRadio() {
+            if (!hasRadio && points >= RADIO_COST) {
+                points -= RADIO_COST;
+                hasRadio = true;
+                updateUI();
+                saveGame();
+                showToast('📻 Radio købt! +2 point/sek');
+            }
+        }
+
+        function buyScreen() {
+            if (!hasScreen && points >= SCREEN_COST) {
+                points -= SCREEN_COST;
+                hasScreen = true;
+                updateUI();
+                saveGame();
+                showToast('🖥️ Ekstra skærm købt! +8 point/sek');
+            }
+        }
+
+        function buyDoor() {
+            if (!hasDoor && points >= DOOR_COST) {
+                points -= DOOR_COST;
+                hasDoor = true;
+                updateUI();
+                saveGame();
+                showToast('🚪 Forstærket dør købt! +20 point/sek');
+            }
+        }
+
+        // ----- Klik på hovedområdet -----
+        function handleClick() {
+            addPoints(clickMultiplier);
+            saveGame(); // Gem efter hver klik (føles responsivt)
+            // Lille visuel feedback
+            clickArea.style.transform = 'translateY(6px)';
+            clickArea.style.boxShadow = '0 9px 0 #7a5512, 0 20px 30px rgba(0,0,0,0.5)';
+            setTimeout(() => {
+                clickArea.style.transform = '';
+                clickArea.style.boxShadow = '0 15px 0 #7a5512, 0 25px 35px rgba(0,0,0,0.5)';
+            }, 80);
+        }
+
+        // ----- Init -----
+        function init() {
+            // Load først
+            loadGame();
+            
+            // Starter timere
+            if (gameInterval) clearInterval(gameInterval);
+            if (saveInterval) clearInterval(saveInterval);
+            
+            gameInterval = setInterval(() => gameTick(), 1000);
+            saveInterval = setInterval(() => saveGame(), 8000); // Gemmer ofte
+
+            // Event listeners
+            clickArea.addEventListener('click', handleClick);
+            buyCoffeeBtn.addEventListener('click', buyCoffee);
+            buyRadioBtn.addEventListener('click', buyRadio);
+            buyScreenBtn.addEventListener('click', buyScreen);
+            buyDoorBtn.addEventListener('click', buyDoor);
+            resetBtn.addEventListener('click', resetGame);
+
+            updateUI();
+            showToast('🌙 God vagt! Hold dig vågen.');
+        }
+
+        // Start spillet
+        init();
+    })();
 </script>
 </body>
 </html>
