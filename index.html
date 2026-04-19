@@ -2,7 +2,7 @@
 <html lang="da">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
     <title>🏫 2 Timer med Rasmus 👹</title>
     <link rel="icon" href="data:,">
     <style>
@@ -16,9 +16,9 @@
         .menu-icon { font-size: 2.5rem; min-width: 50px; text-align: center; }
         .game-container { width: 100%; max-width: 1300px; height: 100%; display: flex; align-items: center; }
         .classroom-view { background: linear-gradient(135deg, #2d1b0e, #1a0f07); border-radius: 40px; padding: 15px; border: 3px solid #8B6914; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative; width: 100%; max-height: 95vh; overflow: hidden; }
-        .students-row { position: absolute; top: 70px; left: 0; right: 0; display: flex; justify-content: space-around; padding: 0 15px; z-index: 10; }
+        .students-row { position: absolute; bottom: 120px; left: 0; right: 0; display: flex; justify-content: space-around; padding: 0 20px; z-index: 10; }
         .student { text-align: center; color: #ffd700; }
-        .student-emoji { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; box-shadow: 0 0 10px rgba(255,215,0,0.5); }
+        .student-emoji { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255,215,0,0.5); }
         .clock-display { background: rgba(0,0,0,0.6); border: 2px solid #ffd700; border-radius: 20px; padding: 8px 15px; display: inline-block; }
         .clock-time { font-size: 1.5rem; font-weight: bold; color: #ffd700; }
         .choice-container { max-width: 700px; width: 100%; background: linear-gradient(135deg, rgba(20,15,25,0.98), rgba(10,8,15,0.98)); backdrop-filter: blur(15px); border-radius: 60px; padding: 40px 35px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); border: 1px solid rgba(255,180,70,0.5); }
@@ -45,7 +45,7 @@
         .pc-emoji { font-size: 2rem; }
         .pc-text { font-size: 1rem; font-weight: bold; }
         .pc-hint { color: #ffd700; font-size: 0.8rem; margin-left: 15px; }
-        .rasmus-in-class { position: absolute; top: 40%; right: -20px; width: 120px; height: 120px; border-radius: 10px; border: 3px solid red; box-shadow: 0 0 30px red; z-index: 15; object-fit: cover; transform: rotate(-10deg); clip-path: inset(0 0 0 30%); }
+        .rasmus-in-class { position: absolute; bottom: 80px; right: -10px; width: 100px; height: 100px; border-radius: 10px; border: 3px solid red; box-shadow: 0 0 30px red; z-index: 15; object-fit: cover; transform: rotate(-5deg); clip-path: inset(0 0 0 25%); }
         .camera-panel { margin-top: 15px; background: #1a1a2e; border-radius: 20px; padding: 15px; border: 4px solid #16213e; box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 0 0 2px #0a0a1a; }
         .camera-thumbnails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
         .camera-thumb { background: #0f3460; border: 2px solid #e94560; border-radius: 10px; padding: 10px 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem; text-align: center; transition: all 0.2s; }
@@ -110,6 +110,7 @@
             <img class="rasmus-in-class hidden" id="rasmusInClassImg" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus">
         </div>
         
+        <!-- ELEVER PLACERET NEDE VED STOLENE -->
         <div class="students-row">
             <div class="student"><img class="student-emoji" src="https://imgur.com/jNpqKEf.jpg" alt="Aksel">Aksel</div>
             <div class="student"><img class="student-emoji" src="https://imgur.com/6tAxCWv.jpg" alt="Carl">Carl</div>
@@ -204,14 +205,12 @@
 
     function showSpawnMessage() { const msg = document.createElement('div'); msg.className = 'spawn-message'; msg.innerText = '👹 RASMUS ER SPAWNET! 👹'; document.body.appendChild(msg); setTimeout(() => msg.remove(), 3000); }
 
-    // Computer sabotage (IKKE hvis Rasmus er i klassen)
     setInterval(() => { if (gameState.active && !gameState.computerOff && !gameState.rasmusInClass && Math.random() < 0.016) { gameState.computerOff = true; const saboteur = STUDENTS[Math.floor(Math.random() * STUDENTS.length)]; document.getElementById('saboteurName').innerText = saboteur; document.getElementById('computerOffOverlay').classList.remove('hidden'); if (currentView !== 'homework') { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('cameraPanel').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; } }}, 1000);
 
     document.addEventListener('keydown', (e) => { if (e.key === 't' || e.key === 'T') { tKeyDown = true; if (gameState.computerOff && !powerInterval) startPowerCharge(); } });
     document.addEventListener('keyup', (e) => { if (e.key === 't' || e.key === 'T') { tKeyDown = false; if (powerInterval) { clearInterval(powerInterval); powerInterval = null; powerProgress = 0; document.getElementById('powerProgress').style.width = '0%'; } } });
     function startPowerCharge() { powerProgress = 0; powerInterval = setInterval(() => { if (!tKeyDown) { clearInterval(powerInterval); powerInterval = null; powerProgress = 0; document.getElementById('powerProgress').style.width = '0%'; return; } powerProgress += 2; document.getElementById('powerProgress').style.width = powerProgress + '%'; if (powerProgress >= 100) { gameState.computerOff = false; document.getElementById('computerOffOverlay').classList.add('hidden'); clearInterval(powerInterval); powerInterval = null; powerProgress = 0; } }, 100); }
 
-    // MENU
     document.getElementById('newGameBtn').addEventListener('click', () => { document.getElementById('mainMenu').classList.add('hidden'); document.getElementById('bonusChoice').classList.remove('hidden'); });
     document.getElementById('bonusBack').addEventListener('click', () => { document.getElementById('bonusChoice').classList.add('hidden'); document.getElementById('mainMenu').classList.remove('hidden'); });
     document.querySelectorAll('[data-bonus]').forEach(c => c.addEventListener('click', () => { document.querySelectorAll('[data-bonus]').forEach(x => x.classList.remove('selected')); c.classList.add('selected'); selectedBonus = c.dataset.bonus; let b = document.getElementById('bonusConfirm'); b.classList.remove('disabled'); b.disabled = false; b.innerHTML = '✅ KONFIRMER'; b.classList.add('confirm'); }));
@@ -241,12 +240,10 @@
     function renderCameraThumbnails() { let container = document.getElementById('cameraThumbnails'); container.innerHTML = ''; CAMERA_ROOMS.forEach(r => { let el = document.createElement('div'); el.className = 'camera-thumb' + (r.blind ? ' blind' : ''); el.innerHTML = `<strong>${r.name}</strong>`; el.addEventListener('click', () => { document.getElementById('cameraLargeImage').src = ROOM_IMAGES[r.id]; updateCameraImage(); }); container.appendChild(el); }); }
     function updateCameraImage() { let currentSrc = document.getElementById('cameraLargeImage').src; let roomId = Object.keys(ROOM_IMAGES).find(key => ROOM_IMAGES[key] === currentSrc); if (roomId && gameState.rasmusRoom === roomId) { document.getElementById('cameraLargeImage').style.border = '4px solid #ff0000'; document.getElementById('cameraLargeImage').style.boxShadow = '0 0 40px red'; } else { document.getElementById('cameraLargeImage').style.border = 'none'; document.getElementById('cameraLargeImage').style.boxShadow = 'none'; } }
 
-    // Mini-spil
     document.querySelectorAll('.ingredient-btn').forEach(b => b.addEventListener('click', () => { gameState.selectedIngredients.push(b.dataset.ingredient); document.getElementById('selectedIngredientsDisplay').innerText = gameState.selectedIngredients.map(i => i==='dej'?'🍞':i==='sauce'?'🍅':i==='ost'?'🧀':i==='pepperoni'?'🔴':i==='skinke'?'🍖':'🍄').join(' '); }));
     document.getElementById('bakePizzaBtn').addEventListener('click', () => { let correct = gameState.selectedIngredients.length === currentCustomer.order.length && gameState.selectedIngredients.every((ing,i) => ing === currentCustomer.order[i]); if(correct) { gameState.pizzaCount++; let p = (gameState.pizzaCount % 10) * 10; document.getElementById('pizzaProgress').style.width = p + '%'; document.getElementById('pizzaCount').innerText = `${gameState.pizzaCount % 10}/10 pizzaer`; if(gameState.pizzaCount % 10 === 0 && gameState.bonusType === 'reduce') { gameState.timeRemaining = Math.max(0, gameState.timeRemaining - 30); updateClock(); } generateNewCustomer(); } else { alert('❌ Forkert!'); } });
     document.getElementById('resetPizzaBtn').addEventListener('click', () => { gameState.selectedIngredients = []; document.getElementById('selectedIngredientsDisplay').innerText = ''; });
 
-    // Visning
     document.addEventListener('keydown', (e) => { if(!gameState.active || gameState.computerOff) return;
         if(e.key === 'h' || e.key === 'H') {
             if(currentView === 'homework') { document.getElementById('homeworkView').classList.add('hidden'); document.getElementById('miniGameView').classList.remove('hidden'); document.getElementById('cameraPanel').classList.add('hidden'); currentView = 'miniGame'; document.getElementById('laptopStatus').innerHTML = 'SPILLER'; if(!currentCustomer) generateNewCustomer(); }
