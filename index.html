@@ -2,24 +2,25 @@
 <html lang="da">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, user-scalable=no">
     <title>🏫 2 Timer med Rasmus 👹</title>
     <link rel="icon" href="data:,">
     <style>
         * { user-select: none; -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: linear-gradient(145deg, #1a0f0c, #0d0705); min-height: 100vh; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        html, body { overflow: hidden; height: 100vh; width: 100vw; position: fixed; }
+        body { background: linear-gradient(145deg, #1a0f0c, #0d0705); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; padding: 20px; }
         .menu-container { max-width: 650px; width: 100%; background: linear-gradient(135deg, rgba(20,15,25,0.98), rgba(10,8,15,0.98)); backdrop-filter: blur(15px); border-radius: 60px; padding: 45px 35px; box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 0 2px rgba(255,215,0,0.3); border: 1px solid rgba(255,180,70,0.5); text-align: center; }
         .game-title { font-size: 3rem; font-weight: 900; background: linear-gradient(135deg, #ffd700, #ff8c00, #ff4444); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 40px rgba(255,215,0,0.5); margin-bottom: 5px; }
         .game-subtitle { color: #c8a86e; font-size: 1.2rem; margin-bottom: 40px; border-bottom: 2px solid rgba(255,215,0,0.3); padding-bottom: 20px; }
         .menu-btn { width: 100%; padding: 20px 30px; margin-bottom: 18px; background: linear-gradient(135deg, #1e160e, #140f0a); border: 2px solid #a07818; border-radius: 50px; color: #ffd700; font-weight: bold; font-size: 1.5rem; cursor: pointer; transition: all 0.25s; box-shadow: 0 6px 0 #5a4310, 0 8px 20px rgba(0,0,0,0.4); text-align: left; display: flex; align-items: center; gap: 20px; }
         .menu-icon { font-size: 2.5rem; min-width: 50px; text-align: center; }
-        .game-container { width: 100%; max-width: 1300px; }
-        .classroom-view { background: linear-gradient(135deg, #2d1b0e, #1a0f07); border-radius: 40px; padding: 20px; border: 3px solid #8B6914; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative; }
-        .students-row { position: absolute; top: 80px; left: 0; right: 0; display: flex; justify-content: space-around; padding: 0 20px; z-index: 10; }
+        .game-container { width: 100%; max-width: 1300px; height: 100%; display: flex; align-items: center; }
+        .classroom-view { background: linear-gradient(135deg, #2d1b0e, #1a0f07); border-radius: 40px; padding: 15px; border: 3px solid #8B6914; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative; width: 100%; max-height: 95vh; overflow: hidden; }
+        .students-row { position: absolute; top: 70px; left: 0; right: 0; display: flex; justify-content: space-around; padding: 0 15px; z-index: 10; }
         .student { text-align: center; color: #ffd700; }
-        .student-emoji { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255,215,0,0.5); }
-        .clock-display { background: rgba(0,0,0,0.6); border: 2px solid #ffd700; border-radius: 20px; padding: 10px 20px; display: inline-block; margin: 10px 0; }
-        .clock-time { font-size: 1.8rem; font-weight: bold; color: #ffd700; }
+        .student-emoji { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; box-shadow: 0 0 10px rgba(255,215,0,0.5); }
+        .clock-display { background: rgba(0,0,0,0.6); border: 2px solid #ffd700; border-radius: 20px; padding: 8px 15px; display: inline-block; }
+        .clock-time { font-size: 1.5rem; font-weight: bold; color: #ffd700; }
         .choice-container { max-width: 700px; width: 100%; background: linear-gradient(135deg, rgba(20,15,25,0.98), rgba(10,8,15,0.98)); backdrop-filter: blur(15px); border-radius: 60px; padding: 40px 35px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); border: 1px solid rgba(255,180,70,0.5); }
         .choice-title { font-size: 2.2rem; font-weight: bold; color: #ffd700; text-align: center; margin-bottom: 30px; }
         .option-card { background: rgba(30,25,35,0.9); border: 2px solid #6b4c1a; border-radius: 30px; padding: 25px; margin-bottom: 20px; cursor: pointer; transition: all 0.2s; }
@@ -40,18 +41,18 @@
         .progress-fill { height: 100%; background: linear-gradient(90deg, #4CAF50, #8bc34a); width: 0%; transition: width 0.3s; }
         .classroom-bg { position: relative; width: 100%; border-radius: 20px; overflow: hidden; }
         .classroom-img { width: 100%; height: auto; border-radius: 20px; display: block; }
-        .pc-overlay { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); border: 3px solid #16213e; border-radius: 50px; padding: 12px 25px; display: flex; align-items: center; gap: 20px; color: #4CAF50; font-family: monospace; z-index: 20; }
-        .pc-emoji { font-size: 2.5rem; }
-        .pc-text { font-size: 1.2rem; font-weight: bold; }
-        .pc-hint { color: #ffd700; font-size: 0.9rem; margin-left: 20px; }
-        .rasmus-in-class { position: absolute; bottom: 100px; right: 20px; width: 90px; height: 90px; border-radius: 10px; border: 3px solid red; box-shadow: 0 0 30px red; z-index: 15; object-fit: cover; }
-        .camera-panel { margin-top: 20px; background: #1a1a2e; border-radius: 20px; padding: 20px; border: 4px solid #16213e; box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 0 0 2px #0a0a1a; }
-        .camera-thumbnails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
-        .camera-thumb { background: #0f3460; border: 2px solid #e94560; border-radius: 10px; padding: 12px 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.9rem; text-align: center; transition: all 0.2s; }
-        .camera-thumb:hover { border-color: #ffd700; transform: scale(1.02); background: #1a1a6e; }
+        .pc-overlay { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); border: 3px solid #16213e; border-radius: 50px; padding: 8px 20px; display: flex; align-items: center; gap: 15px; color: #4CAF50; font-family: monospace; z-index: 20; }
+        .pc-emoji { font-size: 2rem; }
+        .pc-text { font-size: 1rem; font-weight: bold; }
+        .pc-hint { color: #ffd700; font-size: 0.8rem; margin-left: 15px; }
+        .rasmus-in-class { position: absolute; top: 40%; right: -20px; width: 120px; height: 120px; border-radius: 10px; border: 3px solid red; box-shadow: 0 0 30px red; z-index: 15; object-fit: cover; transform: rotate(-10deg); clip-path: inset(0 0 0 30%); }
+        .camera-panel { margin-top: 15px; background: #1a1a2e; border-radius: 20px; padding: 15px; border: 4px solid #16213e; box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 0 0 2px #0a0a1a; }
+        .camera-thumbnails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+        .camera-thumb { background: #0f3460; border: 2px solid #e94560; border-radius: 10px; padding: 10px 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem; text-align: center; transition: all 0.2s; }
+        .camera-thumb:hover { border-color: #ffd700; background: #1a1a6e; }
         .camera-thumb.blind { border-color: #ffd700; }
-        .camera-large-view { background: #0a0a1a; border-radius: 15px; padding: 15px; border: 2px solid #e94560; min-height: 250px; display: flex; align-items: center; justify-content: center; }
-        .camera-large-image { max-width: 100%; max-height: 250px; border-radius: 10px; }
+        .camera-large-view { background: #0a0a1a; border-radius: 15px; padding: 10px; border: 2px solid #e94560; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+        .camera-large-image { max-width: 100%; max-height: 200px; border-radius: 10px; }
         .gameover-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
         .gameover-text { color: #ff4444; font-size: 5rem; font-weight: bold; text-shadow: 0 0 30px red; margin-bottom: 30px; }
         .jumpscare-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ff0000; z-index: 9998; display: none; justify-content: center; align-items: center; animation: flash 0.5s; }
@@ -61,6 +62,7 @@
         .spawn-message { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #ff4444; color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; z-index: 500; }
         .computer-off-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 300; display: flex; justify-content: center; align-items: center; }
         .computer-off-box { background: #2d1b0e; border: 4px solid #ff4444; border-radius: 40px; padding: 40px; text-align: center; max-width: 500px; }
+        .back-btn { background: #e48f2b; border: none; padding: 10px 20px; border-radius: 40px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -93,9 +95,9 @@
 <!-- SPIL CONTAINER -->
 <div id="gameContainer" class="game-container hidden">
     <div class="classroom-view">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
             <button class="back-btn" id="exitToMenu">🚪 TILBAGE</button>
-            <div class="clock-display"><span class="clock-time" id="gameClock">13:00</span><span style="color:#c8a86e; margin-left:15px;">📅 Dag <span id="currentDay">1</span></span><span style="color:#ffd700; margin-left:15px;">⏳ <span id="timeRemaining">5m 0s</span></span></div>
+            <div class="clock-display"><span class="clock-time" id="gameClock">13:00</span><span style="color:#c8a86e; margin-left:10px;">📅 Dag <span id="currentDay">1</span></span><span style="color:#ffd700; margin-left:10px;">⏳ <span id="timeRemaining">5m 0s</span></span></div>
         </div>
         
         <div class="classroom-bg">
@@ -164,7 +166,6 @@
 <div id="jumpscare" class="jumpscare-overlay"><img class="jumpscare-face" id="jumpscareImg" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus"></div>
 
 <script>
-    // BILLEDER
     const ROOM_IMAGES = {
         'scene': 'https://imgur.com/r0Qx608.jpg', 'gang1': 'https://imgur.com/RVy04Qn.jpg', 'gang2': 'https://imgur.com/Lx6Qn86.jpg',
         'kantine': 'https://imgur.com/r0Qx608.jpg', 'trappe': 'https://imgur.com/3iPixEm.jpg', 'toilet': 'https://imgur.com/Ltatxyg.jpg',
@@ -175,7 +176,7 @@
     
     document.getElementById('mainMenu').classList.remove('hidden');
     
-    let gameState = { active: false, bonusType: null, difficulty: 'normal', timeRemaining: 300, rasmusRoom: 'scene', pizzaCount: 0, selectedIngredients: [], computerOff: false, rasmusInClass: false, rasmusClassTimer: 0, rasmusSpawned: false };
+    let gameState = { active: false, bonusType: null, difficulty: 'normal', timeRemaining: 300, rasmusRoom: 'scene', pizzaCount: 0, selectedIngredients: [], computerOff: false, rasmusInClass: false, rasmusClassTimer: 0, rasmusLeaveTimer: 0, rasmusSpawned: false };
     let selectedBonus = null, selectedDifficulty = 'normal', currentView = 'homework', gameInterval = null, rasmusInterval = null, classInterval = null, currentCustomer = null, powerProgress = 0, powerInterval = null, tKeyDown = false;
     
     const CAMERA_ROOMS = [
@@ -193,12 +194,9 @@
     const DIFFICULTY_TIMERS = { easy: 5, normal: 3, hard: 2, expert: 1 };
 
     function gameOver() {
-        gameState.active = false;
-        clearInterval(gameInterval); clearInterval(rasmusInterval); clearInterval(classInterval);
+        gameState.active = false; clearInterval(gameInterval); clearInterval(rasmusInterval); clearInterval(classInterval);
         document.getElementById('gameover').style.display = 'flex';
-        setTimeout(() => {
-            document.getElementById('gameover').style.display = 'none';
-            document.getElementById('jumpscare').style.display = 'flex';
+        setTimeout(() => { document.getElementById('gameover').style.display = 'none'; document.getElementById('jumpscare').style.display = 'flex';
             try { new Audio('data:audio/wav;base64,U3lzdGVtIGZhaWxlZA==').play(); } catch(e) {}
             setTimeout(() => { document.getElementById('jumpscare').style.display = 'none'; document.getElementById('gameContainer').classList.add('hidden'); document.getElementById('mainMenu').classList.remove('hidden'); }, 1500);
         }, 500);
@@ -206,8 +204,8 @@
 
     function showSpawnMessage() { const msg = document.createElement('div'); msg.className = 'spawn-message'; msg.innerText = '👹 RASMUS ER SPAWNET! 👹'; document.body.appendChild(msg); setTimeout(() => msg.remove(), 3000); }
 
-    // Computer sabotage (ca. 1 gang per minut)
-    setInterval(() => { if (gameState.active && !gameState.computerOff && Math.random() < 0.016) { gameState.computerOff = true; const saboteur = STUDENTS[Math.floor(Math.random() * STUDENTS.length)]; document.getElementById('saboteurName').innerText = saboteur; document.getElementById('computerOffOverlay').classList.remove('hidden'); if (currentView !== 'homework') { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('cameraPanel').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; } }}, 1000);
+    // Computer sabotage (IKKE hvis Rasmus er i klassen)
+    setInterval(() => { if (gameState.active && !gameState.computerOff && !gameState.rasmusInClass && Math.random() < 0.016) { gameState.computerOff = true; const saboteur = STUDENTS[Math.floor(Math.random() * STUDENTS.length)]; document.getElementById('saboteurName').innerText = saboteur; document.getElementById('computerOffOverlay').classList.remove('hidden'); if (currentView !== 'homework') { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('cameraPanel').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; } }}, 1000);
 
     document.addEventListener('keydown', (e) => { if (e.key === 't' || e.key === 'T') { tKeyDown = true; if (gameState.computerOff && !powerInterval) startPowerCharge(); } });
     document.addEventListener('keyup', (e) => { if (e.key === 't' || e.key === 'T') { tKeyDown = false; if (powerInterval) { clearInterval(powerInterval); powerInterval = null; powerProgress = 0; document.getElementById('powerProgress').style.width = '0%'; } } });
@@ -229,12 +227,17 @@
         if(gameInterval) clearInterval(gameInterval); if(rasmusInterval) clearInterval(rasmusInterval); if(classInterval) clearInterval(classInterval);
         gameInterval = setInterval(() => { if(gameState.active) { let r = (currentView === 'miniGame' && gameState.bonusType === 'faster') ? 1.015 : 1; gameState.timeRemaining = Math.max(0, gameState.timeRemaining - r); updateClock(); if(gameState.timeRemaining <= 0) { gameState.active = false; clearInterval(gameInterval); alert('🎉 DAG KLARET! 🎉'); } } }, 1000);
         setTimeout(() => { if(gameState.active) { gameState.rasmusSpawned = true; showSpawnMessage(); rasmusInterval = setInterval(() => { if(!gameState.active) return; let rooms = CAMERA_ROOMS.filter(r => !r.blind && r.id !== gameState.rasmusRoom); gameState.rasmusRoom = rooms[Math.floor(Math.random() * rooms.length)].id; updateCameraImage(); }, 8000); } }, 30000);
-        classInterval = setInterval(() => { if(!gameState.active || !gameState.rasmusSpawned) return; if(gameState.rasmusRoom === 'gang1' && !gameState.rasmusInClass) { gameState.rasmusInClass = true; gameState.rasmusClassTimer = DIFFICULTY_TIMERS[gameState.difficulty]; document.getElementById('rasmusInClassImg').classList.remove('hidden'); } if(gameState.rasmusInClass) { if(currentView !== 'homework' || gameState.computerOff) { gameState.rasmusClassTimer--; if(gameState.rasmusClassTimer <= 0) { gameOver(); return; } } else { gameState.rasmusInClass = false; document.getElementById('rasmusInClassImg').classList.add('hidden'); } } }, 1000);
+        classInterval = setInterval(() => { if(!gameState.active || !gameState.rasmusSpawned) return;
+            if(gameState.rasmusRoom === 'gang1' && !gameState.rasmusInClass) { gameState.rasmusInClass = true; gameState.rasmusClassTimer = DIFFICULTY_TIMERS[gameState.difficulty]; gameState.rasmusLeaveTimer = 0; document.getElementById('rasmusInClassImg').classList.remove('hidden'); }
+            if(gameState.rasmusInClass) {
+                if(currentView !== 'homework' || gameState.computerOff) { gameState.rasmusClassTimer--; if(gameState.rasmusClassTimer <= 0) { gameOver(); return; } gameState.rasmusLeaveTimer = 5; }
+                else { if(gameState.rasmusLeaveTimer > 0) { gameState.rasmusLeaveTimer--; } else { gameState.rasmusInClass = false; document.getElementById('rasmusInClassImg').classList.add('hidden'); } }
+            }
+        }, 1000);
     }
 
     function updateClock() { let m = Math.floor(gameState.timeRemaining / 60); let s = Math.floor(gameState.timeRemaining % 60); document.getElementById('timeRemaining').innerText = `${m}m ${s}s`; document.getElementById('gameClock').innerText = `13:${m.toString().padStart(2,'0')}`; }
     function generateNewCustomer() { currentCustomer = CUSTOMERS[Math.floor(Math.random() * CUSTOMERS.length)]; document.getElementById('customerEmoji').innerText = currentCustomer.emoji; document.getElementById('customerName').innerText = currentCustomer.name; document.getElementById('customerOrder').innerText = `"En pizza med ${currentCustomer.orderText} tak!"`; let txt = 'Rækkefølge: '; currentCustomer.order.forEach((ing,i) => { let e = ing==='dej'?'🍞':ing==='sauce'?'🍅':ing==='ost'?'🧀':ing==='pepperoni'?'🔴':ing==='skinke'?'🍖':'🍄'; txt += e + (i<currentCustomer.order.length-1?' → ':''); }); document.getElementById('requiredIngredients').innerText = txt; gameState.selectedIngredients = []; document.getElementById('selectedIngredientsDisplay').innerText = ''; }
-    
     function renderCameraThumbnails() { let container = document.getElementById('cameraThumbnails'); container.innerHTML = ''; CAMERA_ROOMS.forEach(r => { let el = document.createElement('div'); el.className = 'camera-thumb' + (r.blind ? ' blind' : ''); el.innerHTML = `<strong>${r.name}</strong>`; el.addEventListener('click', () => { document.getElementById('cameraLargeImage').src = ROOM_IMAGES[r.id]; updateCameraImage(); }); container.appendChild(el); }); }
     function updateCameraImage() { let currentSrc = document.getElementById('cameraLargeImage').src; let roomId = Object.keys(ROOM_IMAGES).find(key => ROOM_IMAGES[key] === currentSrc); if (roomId && gameState.rasmusRoom === roomId) { document.getElementById('cameraLargeImage').style.border = '4px solid #ff0000'; document.getElementById('cameraLargeImage').style.boxShadow = '0 0 40px red'; } else { document.getElementById('cameraLargeImage').style.border = 'none'; document.getElementById('cameraLargeImage').style.boxShadow = 'none'; } }
 
@@ -244,8 +247,7 @@
     document.getElementById('resetPizzaBtn').addEventListener('click', () => { gameState.selectedIngredients = []; document.getElementById('selectedIngredientsDisplay').innerText = ''; });
 
     // Visning
-    document.addEventListener('keydown', (e) => {
-        if(!gameState.active || gameState.computerOff) return;
+    document.addEventListener('keydown', (e) => { if(!gameState.active || gameState.computerOff) return;
         if(e.key === 'h' || e.key === 'H') {
             if(currentView === 'homework') { document.getElementById('homeworkView').classList.add('hidden'); document.getElementById('miniGameView').classList.remove('hidden'); document.getElementById('cameraPanel').classList.add('hidden'); currentView = 'miniGame'; document.getElementById('laptopStatus').innerHTML = 'SPILLER'; if(!currentCustomer) generateNewCustomer(); }
             else { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('cameraPanel').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; document.getElementById('laptopStatus').innerHTML = 'LEKTIE'; }
