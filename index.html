@@ -3,56 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>👹 Five Nights with Epstein 👹</title>
+    <title>👹 Five Nights with Rasmus 👹</title>
     <link rel="icon" href="data:,">
     <style>
         * { user-select: none; -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
         body { background: #000; min-height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Courier New', monospace; padding: 20px; }
         
-        /* MENU - PRÆCIS SOM EPSTEIN */
-        .menu-screen { position: relative; width: 100%; max-width: 900px; height: 550px; background: url('https://i.imgur.com/8vQZQ5b.jpg') center/cover; border-radius: 15px; overflow: hidden; border: 3px solid #444; }
-        .menu-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .menu-title { font-size: 3.5rem; color: #ff0000; text-shadow: 0 0 30px red; margin-bottom: 30px; font-weight: bold; letter-spacing: 3px; }
-        .menu-epstein { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 3px solid red; box-shadow: 0 0 40px red; margin-bottom: 30px; }
-        .start-btn { padding: 12px 40px; background: #cc0000; border: none; border-radius: 8px; color: white; font-size: 1.5rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #660000; transition: all 0.1s; }
-        .start-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #660000; }
-        
-        /* SPIL CONTAINER */
-        .game-container { max-width: 900px; width: 100%; background: #0a0a0a; border-radius: 15px; padding: 12px; border: 3px solid #333; }
+        .game-container { max-width: 950px; width: 100%; background: #0a0a0a; border-radius: 20px; padding: 15px; border: 3px solid #1a1a1a; box-shadow: 0 0 60px rgba(0,0,0,0.9); }
         
         /* TOP BAR */
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: #aaa; font-size: 1.2rem; }
-        .night-text { background: #1a1a1a; padding: 4px 12px; border-radius: 6px; }
-        .time-text { font-size: 1.8rem; color: #00ff00; text-shadow: 0 0 8px #00ff00; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #888; }
+        .night-text { font-size: 1.2rem; background: #111; padding: 5px 15px; border-radius: 8px; border: 1px solid #333; }
+        .time-text { font-size: 2rem; color: #00ff88; text-shadow: 0 0 10px #00ff88; }
         .power-container { display: flex; align-items: center; gap: 8px; }
         .power-text { color: #ff4444; }
-        .power-bar { width: 100px; height: 12px; background: #222; border-radius: 6px; overflow: hidden; }
-        .power-fill { height: 100%; background: #ff4444; width: 100%; }
+        .power-bar { width: 120px; height: 14px; background: #1a1a1a; border-radius: 7px; overflow: hidden; border: 1px solid #ff4444; }
+        .power-fill { height: 100%; background: #ff4444; width: 100%; transition: width 0.3s; }
         
-        /* KONTOR - PRÆCIS SOM EPSTEIN */
-        .office-container { position: relative; margin-bottom: 8px; }
-        .office-bg { width: 100%; height: 320px; object-fit: cover; border-radius: 8px; border: 2px solid #444; filter: brightness(0.45); }
+        /* KONTOR */
+        .office-container { position: relative; margin-bottom: 10px; }
+        .office-bg { width: 100%; height: 320px; object-fit: cover; border-radius: 12px; border: 3px solid #222; filter: brightness(0.25) grayscale(0.4); }
         
         /* DØR I MIDTEN */
-        .door-center { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; background: rgba(20,20,20,0.8); padding: 8px 20px; border-radius: 30px; border: 1px solid #555; }
-        .door-btn { background: #2a2a2a; border: 2px solid #555; color: white; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
-        .door-btn.active { background: #00aa00; border-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
-        .light-btn { background: #2a2a2a; border: 2px solid #555; color: white; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
-        .light-btn.active { background: #ff8800; border-color: #ffcc00; box-shadow: 0 0 10px #ffcc00; }
+        .door-area { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; background: rgba(10,10,10,0.85); padding: 10px 25px; border-radius: 40px; border: 2px solid #444; backdrop-filter: blur(5px); }
+        .door-btn { background: #2a2a2a; border: 2px solid #666; color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: all 0.1s; box-shadow: 0 4px 0 #1a1a1a; }
+        .door-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #1a1a1a; }
+        .door-btn.active { background: #00aa00; border-color: #00ff00; box-shadow: 0 0 15px #00ff00, 0 4px 0 #006600; }
+        .light-btn { background: #2a2a2a; border: 2px solid #666; color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: all 0.1s; box-shadow: 0 4px 0 #1a1a1a; }
+        .light-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #1a1a1a; }
+        .light-btn.active { background: #ff8800; border-color: #ffcc00; box-shadow: 0 0 15px #ffcc00, 0 4px 0 #aa5500; }
         
-        .epstein-door { position: absolute; bottom: 70px; left: 50%; transform: translateX(-50%); width: 110px; height: 110px; object-fit: cover; border-radius: 8px; border: 2px solid red; box-shadow: 0 0 20px red; display: none; }
+        .rasmus-door { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); width: 130px; height: 130px; object-fit: cover; border-radius: 12px; border: 3px solid red; box-shadow: 0 0 30px red; display: none; animation: rasmusAppear 0.3s; }
+        @keyframes rasmusAppear { from { opacity: 0; transform: translateX(-50%) scale(0.8); } to { opacity: 1; transform: translateX(-50%) scale(1); } }
         
-        /* KAMERA PANEL */
-        .camera-panel { background: #0a0a0a; border: 2px solid #333; border-radius: 8px; padding: 12px; margin-top: 8px; }
-        .camera-map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px; }
-        .camera-room { background: #1a1a1a; border: 2px solid #444; border-radius: 6px; padding: 12px 4px; color: #aaa; text-align: center; font-size: 0.75rem; cursor: pointer; position: relative; }
+        /* COMPUTER SKÆRM (KAMERA) */
+        .computer-screen { background: #0a0a0a; border-radius: 15px; padding: 15px; border: 4px solid #1a1a1a; margin-top: 10px; position: relative; }
+        .computer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; color: #888; }
+        .computer-title { color: #00ff88; text-shadow: 0 0 5px #00ff88; }
+        
+        /* KAMERA MAP MED STREGER */
+        .camera-map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; position: relative; }
+        .camera-room { background: #111; border: 2px solid #444; border-radius: 8px; padding: 12px 4px; color: #aaa; text-align: center; font-size: 0.7rem; cursor: pointer; position: relative; transition: all 0.1s; }
+        .camera-room.active { border-color: #00ff88; box-shadow: 0 0 10px #00ff88; }
         .camera-room.blind { border-color: #ff8800; }
-        .camera-room.active { border-color: #00ff00; box-shadow: 0 0 8px #00ff00; }
         
-        .camera-view { display: flex; gap: 12px; }
-        .camera-image { flex: 1; height: 170px; object-fit: cover; border-radius: 6px; border: 2px solid #444; filter: brightness(0.4); }
-        .camera-controls { width: 130px; }
-        .camera-btn { width: 100%; padding: 8px; margin-bottom: 6px; background: #222; border: 2px solid #444; border-radius: 6px; color: white; cursor: pointer; font-size: 0.8rem; }
+        /* STREGER MELLEM RUM */
+        .connection-line { position: absolute; background: #00ff88; opacity: 0.3; z-index: 1; }
+        .line-h { height: 3px; width: 15px; }
+        .line-v { width: 3px; height: 15px; }
+        
+        .camera-view { display: flex; gap: 15px; }
+        .camera-image { flex: 1; height: 170px; object-fit: cover; border-radius: 8px; border: 2px solid #444; filter: brightness(0.3) grayscale(0.4); }
+        .camera-controls { width: 140px; }
+        .camera-btn { width: 100%; padding: 10px; margin-bottom: 8px; background: #1a1a1a; border: 2px solid #444; border-radius: 8px; color: white; cursor: pointer; font-size: 0.85rem; transition: all 0.1s; box-shadow: 0 3px 0 #0a0a0a; }
+        .camera-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #0a0a0a; }
         
         .hidden { display: none !important; }
         
@@ -60,8 +64,16 @@
         .gameover-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 999; display: none; justify-content: center; align-items: center; flex-direction: column; }
         .gameover-text { color: red; font-size: 4rem; margin-bottom: 30px; text-shadow: 0 0 20px red; }
         .jumpscare { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: red; z-index: 998; display: none; justify-content: center; align-items: center; animation: flash 0.3s; }
-        .jumpscare img { width: 400px; height: 400px; object-fit: cover; border-radius: 20px; }
+        .jumpscare img { width: 450px; height: 450px; object-fit: cover; border-radius: 20px; border: 5px solid black; }
         @keyframes flash { 0%,100%{ background: red; } 50%{ background: darkred; } }
+        
+        /* MENU */
+        .menu-screen { position: relative; width: 100%; max-width: 900px; height: 500px; background: url('https://imgur.com/nVo7Mr1.jpg') center/cover; border-radius: 20px; overflow: hidden; border: 4px solid #222; }
+        .menu-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .menu-title { font-size: 3.5rem; color: #ff0000; text-shadow: 0 0 30px red; margin-bottom: 20px; font-weight: bold; }
+        .menu-rasmus { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 4px solid red; box-shadow: 0 0 50px red; margin-bottom: 30px; }
+        .start-btn { padding: 15px 45px; background: #cc0000; border: none; border-radius: 10px; color: white; font-size: 1.6rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 0 #660000; transition: all 0.1s; }
+        .start-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #660000; }
     </style>
 </head>
 <body>
@@ -70,8 +82,8 @@
 <div id="menuScreen" class="menu-screen">
     <div class="menu-overlay">
         <div class="menu-title">FIVE NIGHTS</div>
-        <img class="menu-epstein" src="https://i.imgur.com/8vQZQ5b.jpg" alt="Epstein" id="menuEpsteinImg">
-        <div class="menu-title" style="font-size: 2.8rem;">WITH EPSTEIN</div>
+        <img class="menu-rasmus" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus">
+        <div class="menu-title" style="font-size: 2.8rem;">WITH RASMUS</div>
         <button class="start-btn" id="startBtn">START NAT 1</button>
     </div>
 </div>
@@ -79,7 +91,7 @@
 <!-- SPIL -->
 <div id="gameContainer" class="game-container hidden">
     <div class="top-bar">
-        <div class="night-text">NAT <span id="nightDisplay">1</span></div>
+        <div class="night-text">🌙 NAT <span id="nightDisplay">1</span></div>
         <div class="time-text" id="timeDisplay">12:00 AM</div>
         <div class="power-container">
             <span class="power-text">🔋 <span id="powerPercent">100</span>%</span>
@@ -89,22 +101,29 @@
     
     <!-- KONTOR -->
     <div class="office-container">
-        <img class="office-bg" src="https://i.imgur.com/8vQZQ5b.jpg" alt="Office" id="officeImg">
-        <div class="door-center">
+        <img class="office-bg" src="https://imgur.com/nVo7Mr1.jpg" alt="Kontor">
+        <div class="door-area">
             <button class="door-btn" id="doorBtn">🚪 DØR</button>
             <button class="light-btn" id="lightBtn">💡 LYS</button>
         </div>
-        <img class="epstein-door" src="https://i.imgur.com/8vQZQ5b.jpg" alt="Epstein" id="epsteinDoor">
+        <img class="rasmus-door" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus" id="rasmusDoor">
     </div>
     
-    <!-- KAMERA -->
-    <div id="cameraPanel" class="camera-panel hidden">
-        <div class="camera-map" id="cameraMap"></div>
+    <!-- COMPUTER SKÆRM (KAMERA) -->
+    <div id="computerScreen" class="computer-screen hidden">
+        <div class="computer-header">
+            <span class="computer-title">📷 KAMERA SYSTEM</span>
+            <button class="camera-btn" id="closeComputerBtn" style="width: auto; padding: 6px 15px;">LUK</button>
+        </div>
+        
+        <!-- KAMERA MAP MED STREGER -->
+        <div id="cameraMap" class="camera-map"></div>
+        
         <div class="camera-view">
             <img class="camera-image" id="cameraImage" src="">
             <div class="camera-controls">
-                <button class="camera-btn" id="closeCameraBtn">LUK</button>
                 <button class="camera-btn" id="playSoundBtn">🔊 LYD</button>
+                <div style="color: #888; font-size: 0.7rem; margin-top: 5px;">Lok Rasmus væk</div>
             </div>
         </div>
     </div>
@@ -112,55 +131,58 @@
 
 <!-- GAME OVER -->
 <div id="gameoverScreen" class="gameover-screen">
-    <div class="gameover-text">GAME OVER</div>
+    <div class="gameover-text">💀 GAME OVER 💀</div>
     <button class="start-btn" id="restartBtn">PRØV IGEN</button>
 </div>
 
 <!-- JUMP SCARE -->
 <div id="jumpscareScreen" class="jumpscare">
-    <img src="https://i.imgur.com/8vQZQ5b.jpg" alt="Epstein Jump" id="jumpscareImg">
+    <img src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus">
 </div>
 
 <script>
-    // ========== EPSTEIN SPIL - 1:1 KOPI ==========
-    
-    // BILLEDER (placeholder - du kan erstatte med dine egne)
+    // DINE BILLEDER
     const IMAGES = {
-        menu: 'https://i.imgur.com/8vQZQ5b.jpg',
-        office: 'https://i.imgur.com/8vQZQ5b.jpg',
-        epstein: 'https://i.imgur.com/8vQZQ5b.jpg',
-        scene: 'https://i.imgur.com/8vQZQ5b.jpg',
-        gang1: 'https://i.imgur.com/8vQZQ5b.jpg',
-        gang2: 'https://i.imgur.com/8vQZQ5b.jpg',
-        kantine: 'https://i.imgur.com/8vQZQ5b.jpg',
-        trappe: 'https://i.imgur.com/8vQZQ5b.jpg',
-        toilet: 'https://i.imgur.com/8vQZQ5b.jpg',
-        biblio: 'https://i.imgur.com/8vQZQ5b.jpg',
-        udenfor: 'https://i.imgur.com/8vQZQ5b.jpg',
-        kontor: 'https://i.imgur.com/8vQZQ5b.jpg'
+        office: 'https://imgur.com/nVo7Mr1.jpg',
+        rasmus: 'https://imgur.com/G4CZuhM.jpg',
+        scene: 'https://imgur.com/r0Qx608.jpg',
+        gang1: 'https://imgur.com/RVy04Qn.jpg',
+        gang2: 'https://imgur.com/Lx6Qn86.jpg',
+        kantine: 'https://imgur.com/r0Qx608.jpg',
+        trappe: 'https://imgur.com/3iPixEm.jpg',
+        toilet: 'https://imgur.com/Ltatxyg.jpg',
+        biblio: 'https://imgur.com/YIfzseW.jpg',
+        udenfor: 'https://imgur.com/vcQPODA.jpg',
+        kontor: 'https://imgur.com/nllrJB0.jpg'
     };
     
-    // Sæt billeder
-    document.getElementById('menuEpsteinImg').src = IMAGES.epstein;
-    document.getElementById('officeImg').src = IMAGES.office;
-    document.getElementById('epsteinDoor').src = IMAGES.epstein;
-    document.getElementById('jumpscareImg').src = IMAGES.epstein;
-    
     // SPIL STATE
-    let gameActive = false, night = 1, timeHour = 0, power = 100, cameraOpen = false;
-    let epsteinRoom = 'scene', doorClosed = false, lightOn = false;
-    let gameInterval, epsteinInterval, soundCooldown = 0;
+    let gameActive = false, night = 1, timeHour = 0, power = 100, computerOpen = false;
+    let rasmusRoom = 'scene', doorClosed = false, lightOn = false, soundCooldown = 0;
+    let gameInterval, rasmusInterval;
+    
+    // FORBINDELSER MELLEM RUM (streger)
+    const CONNECTIONS = {
+        'scene': ['gang1'],
+        'gang1': ['scene', 'gang2', 'kantine'],
+        'gang2': ['gang1', 'trappe'],
+        'kantine': ['gang1', 'biblio'],
+        'trappe': ['gang2', 'udenfor'],
+        'toilet': ['gang2'],
+        'biblio': ['kantine'],
+        'udenfor': ['trappe', 'kontor'],
+        'kontor': ['udenfor']
+    };
     
     const ROOMS = ['scene', 'gang1', 'gang2', 'kantine', 'trappe', 'toilet', 'biblio', 'udenfor', 'kontor'];
     const ROOM_NAMES = { scene:'SCENE', gang1:'GANG 1', gang2:'GANG 2', kantine:'KANTINE', trappe:'TRAPPE', toilet:'TOILET', biblio:'BIBLIO', udenfor:'UDENFOR', kontor:'KONTOR' };
-    const BLIND_ROOMS = ['scene', 'toilet', 'biblio', 'kontor'];
     
     const menuScreen = document.getElementById('menuScreen'), gameContainer = document.getElementById('gameContainer');
     const gameoverScreen = document.getElementById('gameoverScreen'), jumpscareScreen = document.getElementById('jumpscareScreen');
     const nightDisplay = document.getElementById('nightDisplay'), timeDisplay = document.getElementById('timeDisplay');
     const powerPercent = document.getElementById('powerPercent'), powerFill = document.getElementById('powerFill');
-    const cameraPanel = document.getElementById('cameraPanel'), cameraMap = document.getElementById('cameraMap');
-    const cameraImage = document.getElementById('cameraImage'), epsteinDoor = document.getElementById('epsteinDoor');
+    const computerScreen = document.getElementById('computerScreen'), cameraMap = document.getElementById('cameraMap');
+    const cameraImage = document.getElementById('cameraImage'), rasmusDoor = document.getElementById('rasmusDoor');
     const doorBtn = document.getElementById('doorBtn'), lightBtn = document.getElementById('lightBtn');
     
     function updateUI() {
@@ -171,25 +193,28 @@
     }
     
     function drainPower() { 
-        let d = 0.5; if (doorClosed) d += 1.5; if (lightOn) d += 0.5; if (cameraOpen) d += 0.8; 
-        power = Math.max(0, power - d/12); if (power <= 0) { doorClosed = lightOn = cameraOpen = false; cameraPanel.classList.add('hidden'); } 
+        let d = 0.5; if (doorClosed) d += 1.5; if (lightOn) d += 0.5; if (computerOpen) d += 0.8; 
+        power = Math.max(0, power - d/10); 
+        if (power <= 0) { doorClosed = lightOn = computerOpen = false; computerScreen.classList.add('hidden'); } 
         updateUI(); 
     }
     
-    function moveEpstein() {
+    function moveRasmus() {
         if (!gameActive) return;
-        let idx = ROOMS.indexOf(epsteinRoom), dir = Math.random() > 0.5 ? 1 : -1;
-        epsteinRoom = ROOMS[Math.max(0, Math.min(ROOMS.length-1, idx + dir))];
+        let connections = CONNECTIONS[rasmusRoom] || [];
+        if (connections.length > 0) {
+            rasmusRoom = connections[Math.floor(Math.random() * connections.length)];
+        }
         
-        let atDoor = (epsteinRoom === 'gang1' || epsteinRoom === 'gang2');
-        epsteinDoor.style.display = (atDoor && !doorClosed) ? 'block' : 'none';
+        let atDoor = (rasmusRoom === 'gang1' || rasmusRoom === 'gang2');
+        rasmusDoor.style.display = (atDoor && !doorClosed) ? 'block' : 'none';
         
-        if (atDoor && !doorClosed && !cameraOpen) gameOver();
-        if (cameraOpen) cameraImage.src = IMAGES[epsteinRoom] || IMAGES.scene;
+        if (atDoor && !doorClosed && !computerOpen) gameOver();
+        if (computerOpen) cameraImage.src = IMAGES[rasmusRoom] || IMAGES.scene;
     }
     
     function gameOver() { 
-        gameActive = false; clearInterval(gameInterval); clearInterval(epsteinInterval); 
+        gameActive = false; clearInterval(gameInterval); clearInterval(rasmusInterval); 
         jumpscareScreen.style.display = 'flex'; 
         setTimeout(() => { jumpscareScreen.style.display = 'none'; gameoverScreen.style.display = 'flex'; }, 800); 
     }
@@ -198,7 +223,7 @@
         cameraMap.innerHTML = '';
         ROOMS.forEach(room => {
             let btn = document.createElement('div'); 
-            btn.className = 'camera-room' + (BLIND_ROOMS.includes(room) ? ' blind' : '');
+            btn.className = 'camera-room';
             btn.textContent = ROOM_NAMES[room];
             btn.addEventListener('click', () => { cameraImage.src = IMAGES[room] || IMAGES.scene; });
             cameraMap.appendChild(btn);
@@ -209,20 +234,29 @@
     document.getElementById('restartBtn').addEventListener('click', () => { gameoverScreen.style.display = 'none'; startNight(); });
     
     function startNight() {
-        gameActive = true; timeHour = 0; power = 100; epsteinRoom = 'scene'; 
-        doorClosed = lightOn = cameraOpen = false; epsteinDoor.style.display = 'none'; cameraPanel.classList.add('hidden');
+        gameActive = true; timeHour = 0; power = 100; rasmusRoom = 'scene'; 
+        doorClosed = lightOn = computerOpen = false; rasmusDoor.style.display = 'none'; computerScreen.classList.add('hidden');
         menuScreen.classList.add('hidden'); gameContainer.classList.remove('hidden'); gameoverScreen.style.display = 'none';
         nightDisplay.textContent = night; updateUI(); renderCameraMap();
-        if (gameInterval) clearInterval(gameInterval); if (epsteinInterval) clearInterval(epsteinInterval);
-        gameInterval = setInterval(() => { if (!gameActive) return; timeHour += 0.005; drainPower(); if (soundCooldown > 0) soundCooldown--; if (timeHour >= 6) { gameActive = false; alert('🎉 DU OVERLEVEDE NATTEN! 🎉'); menuScreen.classList.remove('hidden'); gameContainer.classList.add('hidden'); } updateUI(); }, 100);
-        epsteinInterval = setInterval(() => moveEpstein(), 4000);
+        if (gameInterval) clearInterval(gameInterval); if (rasmusInterval) clearInterval(rasmusInterval);
+        gameInterval = setInterval(() => { if (!gameActive) return; timeHour += 0.005; drainPower(); if (soundCooldown > 0) soundCooldown--; if (timeHour >= 6) { gameActive = false; alert('🎉 DU OVERLEVEDE! 🎉'); menuScreen.classList.remove('hidden'); gameContainer.classList.add('hidden'); } updateUI(); }, 100);
+        rasmusInterval = setInterval(() => moveRasmus(), 4000);
     }
     
-    doorBtn.addEventListener('click', () => { if (power > 0) { doorClosed = !doorClosed; if (doorClosed) epsteinDoor.style.display = 'none'; updateUI(); } });
+    doorBtn.addEventListener('click', () => { if (power > 0) { doorClosed = !doorClosed; if (doorClosed) rasmusDoor.style.display = 'none'; updateUI(); } });
     lightBtn.addEventListener('click', () => { lightOn = !lightOn; updateUI(); });
-    document.addEventListener('keydown', (e) => { if (!gameActive) return; if (e.key === 'c' || e.key === 'C') { cameraOpen = !cameraOpen; cameraPanel.classList.toggle('hidden', !cameraOpen); if (cameraOpen) cameraImage.src = IMAGES[epsteinRoom] || IMAGES.scene; } });
-    document.getElementById('closeCameraBtn').addEventListener('click', () => { cameraOpen = false; cameraPanel.classList.add('hidden'); });
-    document.getElementById('playSoundBtn').addEventListener('click', () => { if (soundCooldown > 0) return; soundCooldown = 15; let rooms = ROOMS.filter(r => r !== epsteinRoom); epsteinRoom = rooms[Math.floor(Math.random() * rooms.length)]; if (cameraOpen) cameraImage.src = IMAGES[epsteinRoom] || IMAGES.scene; });
+    
+    document.addEventListener('keydown', (e) => { 
+        if (!gameActive) return; 
+        if (e.key === 'c' || e.key === 'C') { 
+            computerOpen = !computerOpen; 
+            computerScreen.classList.toggle('hidden', !computerOpen); 
+            if (computerOpen) cameraImage.src = IMAGES[rasmusRoom] || IMAGES.scene; 
+        } 
+    });
+    
+    document.getElementById('closeComputerBtn').addEventListener('click', () => { computerOpen = false; computerScreen.classList.add('hidden'); });
+    document.getElementById('playSoundBtn').addEventListener('click', () => { if (soundCooldown > 0) return; soundCooldown = 15; let connections = CONNECTIONS[rasmusRoom] || []; if (connections.length > 0) { rasmusRoom = connections[Math.floor(Math.random() * connections.length)]; } if (computerOpen) cameraImage.src = IMAGES[rasmusRoom] || IMAGES.scene; });
 </script>
 </body>
 </html>
