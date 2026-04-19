@@ -14,12 +14,12 @@
         .menu-btn { width: 100%; padding: 20px 30px; margin-bottom: 18px; background: linear-gradient(135deg, #1e160e, #140f0a); border: 2px solid #a07818; border-radius: 50px; color: #ffd700; font-weight: bold; font-size: 1.5rem; cursor: pointer; transition: all 0.25s; box-shadow: 0 6px 0 #5a4310, 0 8px 20px rgba(0,0,0,0.4); text-align: left; display: flex; align-items: center; gap: 20px; }
         .menu-icon { font-size: 2.5rem; min-width: 50px; text-align: center; }
         .game-container { width: 100%; max-width: 1200px; }
-        .classroom-view { background: linear-gradient(135deg, #2d1b0e, #1a0f07); border-radius: 40px; padding: 30px; border: 3px solid #8B6914; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-        .students-row { display: flex; justify-content: space-around; margin-bottom: 40px; flex-wrap: wrap; }
+        .classroom-view { background: linear-gradient(135deg, #2d1b0e, #1a0f07); border-radius: 40px; padding: 20px; border: 3px solid #8B6914; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .students-row { display: flex; justify-content: space-around; margin: 10px 0; flex-wrap: wrap; }
         .student { text-align: center; color: #ffd700; }
-        .student-emoji { font-size: 3rem; }
-        .clock-display { background: rgba(0,0,0,0.6); border: 2px solid #ffd700; border-radius: 20px; padding: 15px 25px; display: inline-block; margin: 20px 0; }
-        .clock-time { font-size: 2rem; font-weight: bold; color: #ffd700; }
+        .student-emoji { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; }
+        .clock-display { background: rgba(0,0,0,0.6); border: 2px solid #ffd700; border-radius: 20px; padding: 10px 20px; display: inline-block; margin: 10px 0; }
+        .clock-time { font-size: 1.8rem; font-weight: bold; color: #ffd700; }
         .laptop-screen { background: #1a1a2e; border-radius: 20px; padding: 30px; border: 4px solid #16213e; margin-top: 30px; min-height: 400px; }
         .choice-container { max-width: 700px; width: 100%; background: linear-gradient(135deg, rgba(20,15,25,0.98), rgba(10,8,15,0.98)); backdrop-filter: blur(15px); border-radius: 60px; padding: 40px 35px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); border: 1px solid rgba(255,180,70,0.5); }
         .choice-title { font-size: 2.2rem; font-weight: bold; color: #ffd700; text-align: center; margin-bottom: 30px; }
@@ -44,24 +44,19 @@
         .camera-room.blind { border-color: #ffd700; }
         .camera-view { background: #0f3460; border-radius: 20px; padding: 40px; text-align: center; min-height: 300px; }
         .back-btn { margin-top: 20px; padding: 15px 30px; background: #e48f2b; border: none; border-radius: 40px; font-weight: bold; cursor: pointer; }
-        .rasmus-warning { color: #ff4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; animation: pulse 1s infinite; }
-        .afk-warning { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ff4444; color: white; padding: 30px; border-radius: 30px; font-size: 2rem; font-weight: bold; z-index: 9999; display: none; }
-        @keyframes pulse { 0%,100%{ opacity:1; } 50%{ opacity:0.5; } }
         .gameover-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
         .gameover-text { color: #ff4444; font-size: 5rem; font-weight: bold; text-shadow: 0 0 30px red; margin-bottom: 30px; }
         .jumpscare-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ff0000; z-index: 9998; display: none; justify-content: center; align-items: center; animation: flash 0.5s; }
-        .jumpscare-face { font-size: 20rem; animation: zoom 0.5s; }
+        .jumpscare-face { width: 300px; height: 300px; object-fit: cover; border: 5px solid #ff0000; animation: zoom 0.5s; }
         @keyframes flash { 0%,100%{ background:#ff0000; } 50%{ background:#8b0000; } }
         @keyframes zoom { 0%{ transform:scale(0); } 100%{ transform:scale(1); } }
-        .classroom-bg { position: relative; width: 100%; border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
-        .classroom-img { width: 100%; height: auto; border-radius: 20px; }
-        .computer-bottom { display: flex; justify-content: center; margin-top: 20px; }
-        .computer-screen { background: #1a1a2e; border: 4px solid #16213e; border-radius: 15px; padding: 15px 30px; color: #4CAF50; font-family: monospace; font-size: 1.2rem; }
+        .computer-bottom { display: flex; justify-content: center; margin: 15px 0; }
+        .computer-screen { background: #1a1a2e; border: 4px solid #16213e; border-radius: 15px; padding: 15px 30px; color: #4CAF50; font-family: monospace; font-size: 1.2rem; display: flex; align-items: center; gap: 15px; }
+        .pc-emoji { font-size: 2.5rem; }
         .dark-image { filter: brightness(0.3) grayscale(0.5); }
-        .rasmus-on-image { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; filter: drop-shadow(0 0 20px red); z-index: 10; }
-        .camera-static { position: relative; }
-        .camera-static::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, rgba(255,255,255,0.05) 2px, rgba(0,0,0,0.1) 4px); pointer-events: none; z-index: 5; animation: static 0.1s infinite; }
-        @keyframes static { 0%{ opacity:0.3; } 50%{ opacity:0.5; } 100%{ opacity:0.3; } }
+        .classroom-bg { position: relative; width: 100%; border-radius: 20px; overflow: hidden; }
+        .classroom-img { width: 100%; height: auto; border-radius: 20px; }
+        .computer-off-warning { color: #ff4444; font-weight: bold; margin: 10px 0; }
     </style>
 </head>
 <body>
@@ -77,52 +72,58 @@
 <div id="bonusChoice" class="choice-container hidden">
     <div class="choice-title">🎁 VÆLG BONUS TYPE</div>
     <div class="option-card" data-bonus="faster"><div class="option-title">⏰ HURTIGERE TID</div><div class="option-desc">Tiden går 1.5% hurtigere mens du spiller.</div></div>
-    <div class="option-card" data-bonus="reduce"><div class="option-title">⏳ TRÆK TID FRA</div><div class="option-desc">Når du når 100%, trækkes 5 minutter fra!</div></div>
+    <div class="option-card" data-bonus="reduce"><div class="option-title">⏳ TRÆK TID FRA</div><div class="option-desc">Når du når 100%, trækkes 30 sekunder fra!</div></div>
     <div class="action-buttons"><button class="action-btn" id="bonusBack">◀ TILBAGE</button><button class="action-btn disabled" id="bonusConfirm" disabled>🔒 VÆLG BONUS</button></div>
 </div>
 
 <!-- VÆLG SVÆRHEDSGRAD -->
 <div id="difficultyChoice" class="choice-container hidden">
     <div class="choice-title">🎚️ VÆLG SVÆRHEDSGRAD</div>
-    <div class="option-card" data-difficulty="easy"><div class="option-title">😊 LET</div><div class="option-desc">Rasmus er langsom.</div></div>
-    <div class="option-card" data-difficulty="normal"><div class="option-title">😐 NORMAL</div><div class="option-desc">Standard oplevelse.</div></div>
-    <div class="option-card" data-difficulty="hard"><div class="option-title">😬 LIDT SVÆR</div><div class="option-desc">Rasmus er hurtigere.</div></div>
-    <div class="option-card" data-difficulty="expert"><div class="option-title">😰 SVÆR</div><div class="option-desc">Rasmus er MEGET hurtig.</div></div>
+    <div class="option-card" data-difficulty="easy"><div class="option-title">😊 LET</div><div class="option-desc">Rasmus i klasse: 5 sekunder</div></div>
+    <div class="option-card" data-difficulty="normal"><div class="option-title">😐 NORMAL</div><div class="option-desc">Rasmus i klasse: 3 sekunder</div></div>
+    <div class="option-card" data-difficulty="hard"><div class="option-title">😬 LIDT SVÆR</div><div class="option-desc">Rasmus i klasse: 2 sekunder</div></div>
+    <div class="option-card" data-difficulty="expert"><div class="option-title">😰 SVÆR</div><div class="option-desc">Rasmus i klasse: 1 sekund</div></div>
     <div class="action-buttons"><button class="action-btn" id="difficultyBack">◀ TILBAGE</button><button class="action-btn disabled" id="difficultyConfirm" disabled>🔒 VÆLG SVÆRHEDSGRAD</button></div>
 </div>
 
 <!-- SPIL CONTAINER -->
 <div id="gameContainer" class="game-container hidden">
     <div class="classroom-view">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <button class="back-btn" id="exitToMenu">🚪 TILBAGE</button>
-            <div class="clock-display"><span class="clock-time" id="gameClock">13:00</span><span style="color:#c8a86e; margin-left:15px;">📅 Dag <span id="currentDay">1</span></span><span style="color:#ffd700; margin-left:15px;">⏳ <span id="timeRemaining">2t 0m</span></span></div>
+            <div class="clock-display"><span class="clock-time" id="gameClock">13:00</span><span style="color:#c8a86e; margin-left:15px;">📅 Dag <span id="currentDay">1</span></span><span style="color:#ffd700; margin-left:15px;">⏳ <span id="timeRemaining">10m 0s</span></span></div>
         </div>
         
         <!-- KLASSEVÆRELSE BILLEDE -->
         <div class="classroom-bg">
             <img class="classroom-img" id="classroomImage" src="https://imgur.com/nVo7Mr1.jpg" alt="Klasseværelse">
-            <div class="students-row" style="position: absolute; top: 10px; left: 0; right: 0; background: rgba(0,0,0,0.5); padding: 10px; margin: 0;">
-                <div class="student"><div class="student-emoji">🐐</div>Aksel</div>
-                <div class="student"><div class="student-emoji">🐄</div>Carl</div>
-                <div class="student"><div class="student-emoji">🍕</div>Saleh</div>
-                <div class="student"><div class="student-emoji">👨‍🌾</div>Johannes</div>
-                <div class="student"><div class="student-emoji">💼</div>Marcus</div>
-                <div class="student"><div class="student-emoji">🏃</div>William</div>
-            </div>
         </div>
         
-        <!-- COMPUTER I BUNDEN -->
+        <!-- KARAKTERER PÅ STOLE -->
+        <div class="students-row">
+            <div class="student"><img class="student-emoji" src="https://imgur.com/jNpqKEf.jpg" alt="Aksel">Aksel</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/6tAxCWv.jpg" alt="Carl">Carl</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/WGPyjJA.jpg" alt="Saleh">Saleh</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/obr2pCz.jpg" alt="Johannes">Johannes</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/GKk14ZF.jpg" alt="Marcus">Marcus</div>
+            <div class="student"><img class="student-emoji" src="https://imgur.com/9qSO565.jpg" alt="William">William</div>
+        </div>
+        
+        <!-- COMPUTER I BUNDEN MED PC EMOJI -->
         <div class="computer-bottom">
             <div class="computer-screen">
-                <span id="laptopStatus">💻 LEKTIE</span>
+                <span class="pc-emoji">💻</span>
+                <span id="laptopStatus">LEKTIE</span>
             </div>
         </div>
+        <div style="text-align: center; color: #8B6914; margin: 10px 0; font-size: 1rem;">
+            Tryk H for at spille 🎮 | Tryk D for kamera 📷
+        </div>
         
-        <div id="rasmusWarning" class="rasmus-warning hidden"></div>
+        <div id="computerOffWarning" class="computer-off-warning hidden">⚠️ COMPUTER SLUKKET! Tryk T for at tænde!</div>
         
         <div id="laptopScreen" class="laptop-screen hidden">
-            <div id="homeworkView"><div style="text-align:center; color:#c8a86e; font-size:1.5rem;">📚 DU LAVER LEKTIER 📚</div><div style="text-align:center; color:#8B6914; margin-top:20px;">Tryk H for at spille 🎮 | Tryk D for kamera 📷</div></div>
+            <div id="homeworkView"><div style="text-align:center; color:#c8a86e; font-size:1.5rem;">📚 DU LAVER LEKTIER 📚</div></div>
             <div id="miniGameView" class="pizza-game hidden">
                 <div class="customer-bubble"><div style="font-size:2rem;" id="customerEmoji">🐐</div><div style="font-weight:bold;" id="customerName">Aksel</div><div id="customerOrder">"En pizza med dej og ost tak!"</div></div>
                 <div id="requiredIngredients" style="color:#ffd700; margin:15px 0;"></div>
@@ -143,15 +144,12 @@
             </div>
             <div id="cameraView" class="hidden">
                 <div id="cameraGrid" class="camera-grid"></div>
-                <div id="singleCameraView" class="camera-view camera-static hidden"></div>
+                <div id="singleCameraView" class="camera-view hidden"></div>
                 <div style="display:flex; gap:10px; margin-top:20px;"><button class="action-btn" id="playSoundBtn" disabled>🔊 AFSPIL LYD (20s)</button><button class="action-btn" id="exitCamera">◀ TILBAGE (D)</button></div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- AFK ADVARSEL -->
-<div id="afkWarning" class="afk-warning">⚠️ AFK ADVARSEL! ⚠️</div>
 
 <!-- GAME OVER -->
 <div id="gameover" class="gameover-overlay"><div class="gameover-text">GAME OVER</div></div>
@@ -162,17 +160,10 @@
 <script>
     // ========== BILLEDER ==========
     const ROOM_IMAGES = {
-        'scene': 'https://imgur.com/r0Qx608.jpg',
-        'gang1': 'https://imgur.com/RVy04Qn.jpg',
-        'gang2': 'https://imgur.com/Lx6Qn86.jpg',
-        'kantine': 'https://imgur.com/r0Qx608.jpg',
-        'trappe': 'https://imgur.com/3iPixEm.jpg',
-        'toilet': 'https://imgur.com/Ltatxyg.jpg',
-        'biblio': 'https://imgur.com/YIfzseW.jpg',
-        'udenfor': 'https://imgur.com/vcQPODA.jpg',
-        'kontor': 'https://imgur.com/nllrJB0.jpg'
+        'scene': 'https://imgur.com/r0Qx608.jpg', 'gang1': 'https://imgur.com/RVy04Qn.jpg', 'gang2': 'https://imgur.com/Lx6Qn86.jpg',
+        'kantine': 'https://imgur.com/r0Qx608.jpg', 'trappe': 'https://imgur.com/3iPixEm.jpg', 'toilet': 'https://imgur.com/Ltatxyg.jpg',
+        'biblio': 'https://imgur.com/YIfzseW.jpg', 'udenfor': 'https://imgur.com/vcQPODA.jpg', 'kontor': 'https://imgur.com/nllrJB0.jpg'
     };
-    
     const RASMUS_IMAGE = 'https://imgur.com/G4CZuhM.jpg';
     const CLASSROOM_IMAGE = 'https://imgur.com/nVo7Mr1.jpg';
     
@@ -180,15 +171,13 @@
     document.getElementById('mainMenu').classList.remove('hidden');
     document.getElementById('classroomImage').src = CLASSROOM_IMAGE;
     
-    let gameState = { active: false, bonusType: null, difficulty: null, currentDay: 1, timeRemaining: 120 * 60, rasmusRoom: 'gang1', soundCooldown: 0, pizzaCount: 0, selectedIngredients: [], lastActivity: Date.now() };
-    let selectedBonus = null, selectedDifficulty = null, currentView = 'homework', gameInterval = null, rasmusInterval = null, afkInterval = null, currentCustomer = null;
-
+    let gameState = { active: false, bonusType: null, difficulty: 'normal', currentDay: 1, timeRemaining: 600, rasmusRoom: 'gang1', soundCooldown: 0, pizzaCount: 0, selectedIngredients: [], computerOff: false, rasmusInClass: false, rasmusClassTimer: 0 };
+    let selectedBonus = null, selectedDifficulty = 'normal', currentView = 'homework', gameInterval = null, rasmusInterval = null, classInterval = null, currentCustomer = null;
     const CAMERA_ROOMS = [
         { id: 'scene', name: 'SCENE', blind: true }, { id: 'gang1', name: 'GANG 1', blind: false }, { id: 'gang2', name: 'GANG 2', blind: false },
         { id: 'kantine', name: 'KANTINE', blind: false }, { id: 'trappe', name: 'TRAPPE', blind: false }, { id: 'toilet', name: 'TOILET', blind: true },
         { id: 'biblio', name: 'BIBLIO.', blind: true }, { id: 'udenfor', name: 'UDENFOR', blind: false }, { id: 'kontor', name: 'KONTOR', blind: true }
     ];
-
     const CUSTOMERS = [
         { emoji: '🐐', name: 'Aksel', order: ['dej', 'ost'], orderText: 'Dej + Ost' },
         { emoji: '🐄', name: 'Carl', order: ['dej', 'sauce', 'ost'], orderText: 'Dej + Sauce + Ost' },
@@ -196,26 +185,16 @@
         { emoji: '💼', name: 'Marcus', order: ['dej', 'pepperoni'], orderText: 'Dej + Pepperoni' },
         { emoji: '🏃', name: 'William', order: ['dej', 'sauce', 'ost', 'pepperoni', 'skinke'], orderText: 'Luksus pizza' }
     ];
+    const DIFFICULTY_TIMERS = { easy: 5, normal: 3, hard: 2, expert: 1 };
 
-    function resetAFK() { gameState.lastActivity = Date.now(); document.getElementById('afkWarning').style.display = 'none'; }
-    
     function gameOver() {
         gameState.active = false;
-        clearInterval(gameInterval);
-        clearInterval(rasmusInterval);
-        clearInterval(afkInterval);
-        
-        // Vis Game Over
+        clearInterval(gameInterval); clearInterval(rasmusInterval); clearInterval(classInterval);
         document.getElementById('gameover').style.display = 'flex';
-        
-        // Jump scare efter 0.5 sekunder
         setTimeout(() => {
             document.getElementById('gameover').style.display = 'none';
             document.getElementById('jumpscare').style.display = 'flex';
-            
-            // Lyd (simpel bip som placeholder - kan erstattes med rigtig lyd)
             try { new Audio('data:audio/wav;base64,U3lzdGVtIGZhaWxlZA==').play(); } catch(e) {}
-            
             setTimeout(() => {
                 document.getElementById('jumpscare').style.display = 'none';
                 document.getElementById('gameContainer').classList.add('hidden');
@@ -223,6 +202,9 @@
             }, 1500);
         }, 500);
     }
+
+    // Computer sabotage
+    setInterval(() => { if (gameState.active && !gameState.computerOff && Math.random() < 0.01) { gameState.computerOff = true; document.getElementById('computerOffWarning').classList.remove('hidden'); } }, 1000);
 
     // ========== NYT SPIL ==========
     document.getElementById('newGameBtn').addEventListener('click', () => { document.getElementById('mainMenu').classList.add('hidden'); document.getElementById('bonusChoice').classList.remove('hidden'); });
@@ -234,46 +216,42 @@
     document.getElementById('difficultyConfirm').addEventListener('click', () => { if(!selectedDifficulty) return; gameState.difficulty = selectedDifficulty; startNewGame(); });
 
     function startNewGame() {
-        gameState.active = true; gameState.timeRemaining = 120 * 60; gameState.rasmusRoom = 'gang1'; gameState.pizzaCount = 0;
+        gameState.active = true; gameState.timeRemaining = 600; gameState.rasmusRoom = 'gang1'; gameState.pizzaCount = 0; gameState.computerOff = false; gameState.rasmusInClass = false;
         document.getElementById('difficultyChoice').classList.add('hidden'); document.getElementById('gameContainer').classList.remove('hidden');
-        document.getElementById('laptopScreen').classList.remove('hidden');
-        updateClock(); renderCameraGrid(); generateNewCustomer(); resetAFK();
-        if(gameInterval) clearInterval(gameInterval); if(rasmusInterval) clearInterval(rasmusInterval); if(afkInterval) clearInterval(afkInterval);
-        gameInterval = setInterval(() => { if(gameState.active) { let r = (currentView === 'miniGame' && gameState.bonusType === 'faster') ? 1.015 : 1; gameState.timeRemaining = Math.max(0, gameState.timeRemaining - r); updateClock(); if(gameState.soundCooldown > 0) { gameState.soundCooldown--; let b = document.getElementById('playSoundBtn'); b.disabled = true; b.innerHTML = `🔊 AFSPIL LYD (${gameState.soundCooldown}s)`; } else { let b = document.getElementById('playSoundBtn'); b.disabled = false; b.innerHTML = '🔊 AFSPIL LYD'; } if(gameState.timeRemaining <= 0) { gameState.active = false; clearInterval(gameInterval); clearInterval(rasmusInterval); alert('🎉 DAG KLARET! 🎉'); } } }, 1000);
-        rasmusInterval = setInterval(() => { if(!gameState.active) return; let rooms = CAMERA_ROOMS.filter(r => !r.blind); gameState.rasmusRoom = rooms[Math.floor(Math.random() * rooms.length)].id; if(gameState.rasmusRoom === 'gang1' && Math.random() < 0.3) { document.getElementById('rasmusWarning').classList.remove('hidden'); document.getElementById('rasmusWarning').innerHTML = '👹 RASMUS ER I KLASSEN! 👹'; setTimeout(() => document.getElementById('rasmusWarning').classList.add('hidden'), 5000); } }, 8000);
-        afkInterval = setInterval(() => { if(!gameState.active) return; if(Date.now() - gameState.lastActivity > 30000) { document.getElementById('afkWarning').style.display = 'block'; if(Date.now() - gameState.lastActivity > 40000) { gameOver(); } } }, 1000);
-        ['click', 'keydown'].forEach(e => document.addEventListener(e, resetAFK));
+        document.getElementById('laptopScreen').classList.remove('hidden'); document.getElementById('computerOffWarning').classList.add('hidden');
+        updateClock(); renderCameraGrid(); generateNewCustomer();
+        if(gameInterval) clearInterval(gameInterval); if(rasmusInterval) clearInterval(rasmusInterval); if(classInterval) clearInterval(classInterval);
+        gameInterval = setInterval(() => { if(gameState.active) { let r = (currentView === 'miniGame' && gameState.bonusType === 'faster') ? 1.015 : 1; gameState.timeRemaining = Math.max(0, gameState.timeRemaining - r); updateClock(); if(gameState.soundCooldown > 0) { gameState.soundCooldown--; let b = document.getElementById('playSoundBtn'); b.disabled = true; b.innerHTML = `🔊 AFSPIL LYD (${gameState.soundCooldown}s)`; } else { let b = document.getElementById('playSoundBtn'); b.disabled = false; b.innerHTML = '🔊 AFSPIL LYD'; } if(gameState.timeRemaining <= 0) { gameState.active = false; clearInterval(gameInterval); alert('🎉 DAG KLARET! 🎉'); } } }, 1000);
+        rasmusInterval = setInterval(() => { if(!gameState.active) return; let rooms = CAMERA_ROOMS.filter(r => !r.blind); gameState.rasmusRoom = rooms[Math.floor(Math.random() * rooms.length)].id; }, 8000);
+        classInterval = setInterval(() => { if(!gameState.active) return; if(gameState.rasmusRoom === 'gang1' && !gameState.rasmusInClass) { gameState.rasmusInClass = true; gameState.rasmusClassTimer = DIFFICULTY_TIMERS[gameState.difficulty]; } if(gameState.rasmusInClass) { if(currentView !== 'homework' || gameState.computerOff) { gameState.rasmusClassTimer--; if(gameState.rasmusClassTimer <= 0) { gameOver(); return; } } else { gameState.rasmusInClass = false; } } else { gameState.rasmusInClass = false; } }, 1000);
     }
 
     function updateClock() { let m = Math.floor(gameState.timeRemaining / 60); let s = Math.floor(gameState.timeRemaining % 60); document.getElementById('timeRemaining').innerText = `${m}m ${s}s`; document.getElementById('gameClock').innerText = `13:${m.toString().padStart(2,'0')}`; }
-    
     function generateNewCustomer() { currentCustomer = CUSTOMERS[Math.floor(Math.random() * CUSTOMERS.length)]; document.getElementById('customerEmoji').innerText = currentCustomer.emoji; document.getElementById('customerName').innerText = currentCustomer.name; document.getElementById('customerOrder').innerText = `"En pizza med ${currentCustomer.orderText} tak!"`; let txt = 'Rækkefølge: '; currentCustomer.order.forEach((ing,i) => { let e = ing==='dej'?'🍞':ing==='sauce'?'🍅':ing==='ost'?'🧀':ing==='pepperoni'?'🔴':ing==='skinke'?'🍖':'🍄'; txt += e + (i<currentCustomer.order.length-1?' → ':''); }); document.getElementById('requiredIngredients').innerText = txt; gameState.selectedIngredients = []; document.getElementById('selectedIngredientsDisplay').innerText = ''; }
-    
-    function renderCameraGrid() { let g = document.getElementById('cameraGrid'); g.innerHTML = ''; CAMERA_ROOMS.forEach(r => { let el = document.createElement('div'); el.className = 'camera-room' + (r.blind ? ' blind' : ''); el.innerHTML = `<strong>${r.name}</strong>${r.blind ? '<br>🚫' : ''}`; el.addEventListener('click', () => { 
-        document.getElementById('cameraGrid').classList.add('hidden'); 
-        document.getElementById('singleCameraView').classList.remove('hidden'); 
-        let isRasmus = gameState.rasmusRoom === r.id; 
-        let html = `<div style="position: relative;">`;
-        html += `<img src="${ROOM_IMAGES[r.id]}" style="width: 100%; border-radius: 10px; filter: brightness(0.4);">`;
-        if (isRasmus) { html += `<img src="${RASMUS_IMAGE}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150px; height: 150px; border-radius: 50%; border: 3px solid red; box-shadow: 0 0 30px red;">`; }
-        html += `</div>`;
-        html += `<button class="action-btn" id="backToGrid" style="margin-top:30px;">◀ TILBAGE</button>`;
-        document.getElementById('singleCameraView').innerHTML = html; 
-        document.getElementById('backToGrid').addEventListener('click', () => { document.getElementById('cameraGrid').classList.remove('hidden'); document.getElementById('singleCameraView').classList.add('hidden'); }); 
-        try { new Audio('data:audio/wav;base64,U3lzdGVtIGZhaWxlZA==').play(); } catch(e) {}
-    }); g.appendChild(el); }); }
+    function renderCameraGrid() { let g = document.getElementById('cameraGrid'); g.innerHTML = ''; CAMERA_ROOMS.forEach(r => { let el = document.createElement('div'); el.className = 'camera-room' + (r.blind ? ' blind' : ''); el.innerHTML = `<strong>${r.name}</strong>${r.blind ? '<br>🚫' : ''}`; el.addEventListener('click', () => { document.getElementById('cameraGrid').classList.add('hidden'); document.getElementById('singleCameraView').classList.remove('hidden'); let isRasmus = gameState.rasmusRoom === r.id; let html = `<div style="position: relative;">`; html += `<img src="${ROOM_IMAGES[r.id]}" style="width: 100%; border-radius: 10px; filter: brightness(0.4);">`; if (isRasmus) { html += `<img src="${RASMUS_IMAGE}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150px; height: 150px; border: 3px solid red; box-shadow: 0 0 30px red;">`; } html += `</div><button class="action-btn" id="backToGrid" style="margin-top:30px;">◀ TILBAGE</button>`; document.getElementById('singleCameraView').innerHTML = html; document.getElementById('backToGrid').addEventListener('click', () => { document.getElementById('cameraGrid').classList.remove('hidden'); document.getElementById('singleCameraView').classList.add('hidden'); }); }); g.appendChild(el); }); }
 
     // Mini-spil
     document.querySelectorAll('.ingredient-btn').forEach(b => b.addEventListener('click', () => { gameState.selectedIngredients.push(b.dataset.ingredient); document.getElementById('selectedIngredientsDisplay').innerText = gameState.selectedIngredients.map(i => i==='dej'?'🍞':i==='sauce'?'🍅':i==='ost'?'🧀':i==='pepperoni'?'🔴':i==='skinke'?'🍖':'🍄').join(' '); }));
-    document.getElementById('bakePizzaBtn').addEventListener('click', () => { let correct = gameState.selectedIngredients.length === currentCustomer.order.length && gameState.selectedIngredients.every((ing,i) => ing === currentCustomer.order[i]); if(correct) { gameState.pizzaCount++; let p = (gameState.pizzaCount % 10) * 10; document.getElementById('pizzaProgress').style.width = p + '%'; document.getElementById('pizzaCount').innerText = `${gameState.pizzaCount % 10}/10 pizzaer`; if(gameState.pizzaCount % 10 === 0 && gameState.bonusType === 'reduce') { gameState.timeRemaining = Math.max(0, gameState.timeRemaining - 300); updateClock(); } generateNewCustomer(); } else { alert('❌ Forkert!'); } });
+    document.getElementById('bakePizzaBtn').addEventListener('click', () => { let correct = gameState.selectedIngredients.length === currentCustomer.order.length && gameState.selectedIngredients.every((ing,i) => ing === currentCustomer.order[i]); if(correct) { gameState.pizzaCount++; let p = (gameState.pizzaCount % 10) * 10; document.getElementById('pizzaProgress').style.width = p + '%'; document.getElementById('pizzaCount').innerText = `${gameState.pizzaCount % 10}/10 pizzaer`; if(gameState.pizzaCount % 10 === 0 && gameState.bonusType === 'reduce') { gameState.timeRemaining = Math.max(0, gameState.timeRemaining - 30); updateClock(); } generateNewCustomer(); } else { alert('❌ Forkert!'); } });
     document.getElementById('resetPizzaBtn').addEventListener('click', () => { gameState.selectedIngredients = []; document.getElementById('selectedIngredientsDisplay').innerText = ''; });
     document.getElementById('playSoundBtn').addEventListener('click', () => { if(gameState.soundCooldown > 0) return; gameState.soundCooldown = 20; let rooms = CAMERA_ROOMS.filter(r => !r.blind && r.id !== gameState.rasmusRoom); gameState.rasmusRoom = rooms[Math.floor(Math.random() * rooms.length)].id; });
 
     // Visning
-    document.getElementById('exitCamera').addEventListener('click', () => { document.getElementById('cameraView').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; document.getElementById('laptopStatus').innerHTML = '💻 LEKTIE'; document.getElementById('cameraGrid').classList.remove('hidden'); document.getElementById('singleCameraView').classList.add('hidden'); });
-    document.getElementById('exitMiniGame').addEventListener('click', () => { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; document.getElementById('laptopStatus').innerHTML = '💻 LEKTIE'; });
-    document.addEventListener('keydown', (e) => { if(!gameState.active) return; if(e.key === 'h' || e.key === 'H') { if(currentView === 'homework') { document.getElementById('homeworkView').classList.add('hidden'); document.getElementById('miniGameView').classList.remove('hidden'); currentView = 'miniGame'; document.getElementById('laptopStatus').innerHTML = '🎮 SPILLER'; if(!currentCustomer) generateNewCustomer(); } else { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('cameraView').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; document.getElementById('laptopStatus').innerHTML = '💻 LEKTIE'; } } if(e.key === 'd' || e.key === 'D') { if(currentView === 'homework') { document.getElementById('homeworkView').classList.add('hidden'); document.getElementById('cameraView').classList.remove('hidden'); currentView = 'camera'; document.getElementById('laptopStatus').innerHTML = '📷 KAMERA'; } } });
-    document.getElementById('exitToMenu').addEventListener('click', () => { gameState.active = false; clearInterval(gameInterval); clearInterval(rasmusInterval); clearInterval(afkInterval); document.getElementById('gameContainer').classList.add('hidden'); document.getElementById('mainMenu').classList.remove('hidden'); });
+    document.addEventListener('keydown', (e) => {
+        if(!gameState.active) return;
+        if(e.key === 't' || e.key === 'T') { if(gameState.computerOff) { gameState.computerOff = false; document.getElementById('computerOffWarning').classList.add('hidden'); } }
+        if(gameState.computerOff) return;
+        if(e.key === 'h' || e.key === 'H') {
+            if(currentView === 'homework') { document.getElementById('homeworkView').classList.add('hidden'); document.getElementById('miniGameView').classList.remove('hidden'); currentView = 'miniGame'; document.getElementById('laptopStatus').innerHTML = 'SPILLER'; if(!currentCustomer) generateNewCustomer(); }
+            else { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('cameraView').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; document.getElementById('laptopStatus').innerHTML = 'LEKTIE'; }
+        }
+        if(e.key === 'd' || e.key === 'D') {
+            if(currentView === 'homework') { document.getElementById('homeworkView').classList.add('hidden'); document.getElementById('cameraView').classList.remove('hidden'); currentView = 'camera'; document.getElementById('laptopStatus').innerHTML = 'KAMERA'; }
+        }
+    });
+    document.getElementById('exitCamera').addEventListener('click', () => { document.getElementById('cameraView').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; document.getElementById('laptopStatus').innerHTML = 'LEKTIE'; document.getElementById('cameraGrid').classList.remove('hidden'); document.getElementById('singleCameraView').classList.add('hidden'); });
+    document.getElementById('exitMiniGame').addEventListener('click', () => { document.getElementById('miniGameView').classList.add('hidden'); document.getElementById('homeworkView').classList.remove('hidden'); currentView = 'homework'; document.getElementById('laptopStatus').innerHTML = 'LEKTIE'; });
+    document.getElementById('exitToMenu').addEventListener('click', () => { gameState.active = false; clearInterval(gameInterval); clearInterval(rasmusInterval); clearInterval(classInterval); document.getElementById('gameContainer').classList.add('hidden'); document.getElementById('mainMenu').classList.remove('hidden'); });
 </script>
 </body>
 </html>
