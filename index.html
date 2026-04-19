@@ -11,7 +11,6 @@
         
         .game-container { max-width: 950px; width: 100%; background: #0a0a0a; border-radius: 20px; padding: 15px; border: 3px solid #1a1a1a; box-shadow: 0 0 60px rgba(0,0,0,0.9); }
         
-        /* TOP BAR */
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #888; }
         .night-text { font-size: 1.2rem; background: #111; padding: 5px 15px; border-radius: 8px; border: 1px solid #333; }
         .time-text { font-size: 2rem; color: #00ff88; text-shadow: 0 0 10px #00ff88; }
@@ -20,11 +19,9 @@
         .power-bar { width: 120px; height: 14px; background: #1a1a1a; border-radius: 7px; overflow: hidden; border: 1px solid #ff4444; }
         .power-fill { height: 100%; background: #ff4444; width: 100%; transition: width 0.3s; }
         
-        /* KONTOR */
         .office-container { position: relative; margin-bottom: 10px; }
         .office-bg { width: 100%; height: 320px; object-fit: cover; border-radius: 12px; border: 3px solid #222; filter: brightness(0.25) grayscale(0.4); }
         
-        /* DØR I MIDTEN */
         .door-area { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; background: rgba(10,10,10,0.85); padding: 10px 25px; border-radius: 40px; border: 2px solid #444; backdrop-filter: blur(5px); }
         .door-btn { background: #2a2a2a; border: 2px solid #666; color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: all 0.1s; box-shadow: 0 4px 0 #1a1a1a; }
         .door-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #1a1a1a; }
@@ -36,21 +33,13 @@
         .rasmus-door { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); width: 130px; height: 130px; object-fit: cover; border-radius: 12px; border: 3px solid red; box-shadow: 0 0 30px red; display: none; animation: rasmusAppear 0.3s; }
         @keyframes rasmusAppear { from { opacity: 0; transform: translateX(-50%) scale(0.8); } to { opacity: 1; transform: translateX(-50%) scale(1); } }
         
-        /* COMPUTER SKÆRM (KAMERA) */
         .computer-screen { background: #0a0a0a; border-radius: 15px; padding: 15px; border: 4px solid #1a1a1a; margin-top: 10px; position: relative; }
         .computer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; color: #888; }
         .computer-title { color: #00ff88; text-shadow: 0 0 5px #00ff88; }
         
-        /* KAMERA MAP MED STREGER */
-        .camera-map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; position: relative; }
+        .camera-map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
         .camera-room { background: #111; border: 2px solid #444; border-radius: 8px; padding: 12px 4px; color: #aaa; text-align: center; font-size: 0.7rem; cursor: pointer; position: relative; transition: all 0.1s; }
         .camera-room.active { border-color: #00ff88; box-shadow: 0 0 10px #00ff88; }
-        .camera-room.blind { border-color: #ff8800; }
-        
-        /* STREGER MELLEM RUM */
-        .connection-line { position: absolute; background: #00ff88; opacity: 0.3; z-index: 1; }
-        .line-h { height: 3px; width: 15px; }
-        .line-v { width: 3px; height: 15px; }
         
         .camera-view { display: flex; gap: 15px; }
         .camera-image { flex: 1; height: 170px; object-fit: cover; border-radius: 8px; border: 2px solid #444; filter: brightness(0.3) grayscale(0.4); }
@@ -60,20 +49,20 @@
         
         .hidden { display: none !important; }
         
-        /* GAME OVER & JUMP SCARE */
         .gameover-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 999; display: none; justify-content: center; align-items: center; flex-direction: column; }
         .gameover-text { color: red; font-size: 4rem; margin-bottom: 30px; text-shadow: 0 0 20px red; }
         .jumpscare { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: red; z-index: 998; display: none; justify-content: center; align-items: center; animation: flash 0.3s; }
         .jumpscare img { width: 450px; height: 450px; object-fit: cover; border-radius: 20px; border: 5px solid black; }
         @keyframes flash { 0%,100%{ background: red; } 50%{ background: darkred; } }
         
-        /* MENU */
         .menu-screen { position: relative; width: 100%; max-width: 900px; height: 500px; background: url('https://imgur.com/nVo7Mr1.jpg') center/cover; border-radius: 20px; overflow: hidden; border: 4px solid #222; }
         .menu-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .menu-title { font-size: 3.5rem; color: #ff0000; text-shadow: 0 0 30px red; margin-bottom: 20px; font-weight: bold; }
         .menu-rasmus { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 4px solid red; box-shadow: 0 0 50px red; margin-bottom: 30px; }
         .start-btn { padding: 15px 45px; background: #cc0000; border: none; border-radius: 10px; color: white; font-size: 1.6rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 0 #660000; transition: all 0.1s; }
         .start-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #660000; }
+        
+        .warning-text { color: #ff4444; text-align: center; margin: 5px 0; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -109,14 +98,15 @@
         <img class="rasmus-door" src="https://imgur.com/G4CZuhM.jpg" alt="Rasmus" id="rasmusDoor">
     </div>
     
-    <!-- COMPUTER SKÆRM (KAMERA) -->
+    <div class="warning-text">💻 Tryk C for at åbne computer (kamera)</div>
+    
+    <!-- COMPUTER SKÆRM -->
     <div id="computerScreen" class="computer-screen hidden">
         <div class="computer-header">
             <span class="computer-title">📷 KAMERA SYSTEM</span>
             <button class="camera-btn" id="closeComputerBtn" style="width: auto; padding: 6px 15px;">LUK</button>
         </div>
         
-        <!-- KAMERA MAP MED STREGER -->
         <div id="cameraMap" class="camera-map"></div>
         
         <div class="camera-view">
@@ -141,37 +131,21 @@
 </div>
 
 <script>
-    // DINE BILLEDER
     const IMAGES = {
-        office: 'https://imgur.com/nVo7Mr1.jpg',
-        rasmus: 'https://imgur.com/G4CZuhM.jpg',
-        scene: 'https://imgur.com/r0Qx608.jpg',
-        gang1: 'https://imgur.com/RVy04Qn.jpg',
-        gang2: 'https://imgur.com/Lx6Qn86.jpg',
-        kantine: 'https://imgur.com/r0Qx608.jpg',
-        trappe: 'https://imgur.com/3iPixEm.jpg',
-        toilet: 'https://imgur.com/Ltatxyg.jpg',
-        biblio: 'https://imgur.com/YIfzseW.jpg',
-        udenfor: 'https://imgur.com/vcQPODA.jpg',
-        kontor: 'https://imgur.com/nllrJB0.jpg'
+        office: 'https://imgur.com/nVo7Mr1.jpg', rasmus: 'https://imgur.com/G4CZuhM.jpg',
+        scene: 'https://imgur.com/r0Qx608.jpg', gang1: 'https://imgur.com/RVy04Qn.jpg', gang2: 'https://imgur.com/Lx6Qn86.jpg',
+        kantine: 'https://imgur.com/r0Qx608.jpg', trappe: 'https://imgur.com/3iPixEm.jpg', toilet: 'https://imgur.com/Ltatxyg.jpg',
+        biblio: 'https://imgur.com/YIfzseW.jpg', udenfor: 'https://imgur.com/vcQPODA.jpg', kontor: 'https://imgur.com/nllrJB0.jpg'
     };
     
-    // SPIL STATE
     let gameActive = false, night = 1, timeHour = 0, power = 100, computerOpen = false;
-    let rasmusRoom = 'scene', doorClosed = false, lightOn = false, soundCooldown = 0;
+    let rasmusRoom = 'kontor', doorClosed = false, lightOn = false, soundCooldown = 0;
     let gameInterval, rasmusInterval;
     
-    // FORBINDELSER MELLEM RUM (streger)
     const CONNECTIONS = {
-        'scene': ['gang1'],
-        'gang1': ['scene', 'gang2', 'kantine'],
-        'gang2': ['gang1', 'trappe'],
-        'kantine': ['gang1', 'biblio'],
-        'trappe': ['gang2', 'udenfor'],
-        'toilet': ['gang2'],
-        'biblio': ['kantine'],
-        'udenfor': ['trappe', 'kontor'],
-        'kontor': ['udenfor']
+        'scene': ['gang1'], 'gang1': ['scene', 'gang2', 'kantine'], 'gang2': ['gang1', 'trappe', 'toilet'],
+        'kantine': ['gang1', 'biblio'], 'trappe': ['gang2', 'udenfor'], 'toilet': ['gang2'],
+        'biblio': ['kantine'], 'udenfor': ['trappe', 'kontor'], 'kontor': ['udenfor']
     };
     
     const ROOMS = ['scene', 'gang1', 'gang2', 'kantine', 'trappe', 'toilet', 'biblio', 'udenfor', 'kontor'];
@@ -202,9 +176,7 @@
     function moveRasmus() {
         if (!gameActive) return;
         let connections = CONNECTIONS[rasmusRoom] || [];
-        if (connections.length > 0) {
-            rasmusRoom = connections[Math.floor(Math.random() * connections.length)];
-        }
+        if (connections.length > 0) { rasmusRoom = connections[Math.floor(Math.random() * connections.length)]; }
         
         let atDoor = (rasmusRoom === 'gang1' || rasmusRoom === 'gang2');
         rasmusDoor.style.display = (atDoor && !doorClosed) ? 'block' : 'none';
@@ -234,13 +206,13 @@
     document.getElementById('restartBtn').addEventListener('click', () => { gameoverScreen.style.display = 'none'; startNight(); });
     
     function startNight() {
-        gameActive = true; timeHour = 0; power = 100; rasmusRoom = 'scene'; 
+        gameActive = true; timeHour = 0; power = 100; rasmusRoom = 'kontor'; 
         doorClosed = lightOn = computerOpen = false; rasmusDoor.style.display = 'none'; computerScreen.classList.add('hidden');
         menuScreen.classList.add('hidden'); gameContainer.classList.remove('hidden'); gameoverScreen.style.display = 'none';
         nightDisplay.textContent = night; updateUI(); renderCameraMap();
         if (gameInterval) clearInterval(gameInterval); if (rasmusInterval) clearInterval(rasmusInterval);
         gameInterval = setInterval(() => { if (!gameActive) return; timeHour += 0.005; drainPower(); if (soundCooldown > 0) soundCooldown--; if (timeHour >= 6) { gameActive = false; alert('🎉 DU OVERLEVEDE! 🎉'); menuScreen.classList.remove('hidden'); gameContainer.classList.add('hidden'); } updateUI(); }, 100);
-        rasmusInterval = setInterval(() => moveRasmus(), 4000);
+        rasmusInterval = setInterval(() => moveRasmus(), 5000);
     }
     
     doorBtn.addEventListener('click', () => { if (power > 0) { doorClosed = !doorClosed; if (doorClosed) rasmusDoor.style.display = 'none'; updateUI(); } });
